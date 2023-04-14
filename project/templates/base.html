@@ -9,11 +9,12 @@
         <style>
           body{
               font-family: cursive;
+              background-color: #a4f1f1;
           }
       </style>
     </head>
     <body>
-        <section class="hero is-primary is-fullheight">
+        <section class="hero is-fullheight">
       
           <div class="hero-head">
             <nav class="navbar">
@@ -29,14 +30,14 @@
                       <b>Inicio</b>
                     </a>
                     {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('admin.productos') }}" class="navbar-item">
+                    <a href="{{ url_for('main.index') }}" class="navbar-item">
                       <b>Productos</b>
                     </a>
                     {% endif %}
                     <!-- Revisar rol-->
                     {% if current_user.is_authenticated and current_user.id == 1 %}
-                    <a href="{{ url_for('admin.administracion') }}" class="navbar-item">
-                      <b>Administración</b>
+                    <a href="{{ url_for('proveedor.verproveedores') }}" class="navbar-item">
+                      <b>Proveedores</b>
                     </a>
                     {% endif %}
                     <a href="{{ url_for('main.conocenos') }}" class="navbar-item">

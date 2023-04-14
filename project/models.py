@@ -21,10 +21,11 @@ class User(db.Model, UserMixin):
     domicilio = db.Column(db.String(150), nullable=True)
     fecha_nacimiento = db.Column(db.DateTime, nullable=True)
     telefono = db.Column(db.String(10), nullable=True)
-    correo = db.Column(db.String(50), unique=True, nullable=False)
-    contrasennia = db.Column(db.String(20), nullable=False)
+    email = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
     status = db.Column(db.Boolean(), nullable=False, default = True)
     rfc = db.Column(db.String(13), nullable=True)
+    active = db.Column(db.Boolean())
     create_date = db.Column(db.DateTime, default = datetime.datetime.now)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
@@ -62,6 +63,7 @@ class MateriaPrima(db.Model):
     create_date = db.Column(db.DateTime, default = datetime.datetime.now)
     proveedor = db.relationship("Proveedor", back_populates="materia_prima")
     receta = db.relationship("Receta", back_populates="materia_prima")
+    detalle_pedido = db.relationship("DetallePedido", back_populates="materia_prima")
 
 class Receta(db.Model):
     __tablename__ = 'receta'
@@ -85,7 +87,7 @@ class Producto(db.Model):
     status = db.Column(db.Boolean(), nullable=False, default = True)
     create_date = db.Column(db.DateTime, default = datetime.datetime.now)
     receta = db.relationship("Receta", back_populates="producto")
-    pedido = db.relationship("DetallePedido", back_populates="producto")
+    detalle_pedido = db.relationship("DetallePedido", back_populates="producto")
 
 class Gasto(db.Model):
     __tablename__ = 'gasto'
@@ -135,9 +137,12 @@ class DetallePedido(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
     pedido_id = db.Column(db.Integer(), db.ForeignKey('pedido.id'))
     producto_id = db.Column(db.Integer(), db.ForeignKey('producto.id'))
-    materia_ptima_id = db.Column(db.Integer(), db.ForeignKey('materia_prima.id'))
+    materia_prima_id = db.Column(db.Integer(), db.ForeignKey('materia_prima.id'))
     medida = db.Column(db.String(20), nullable=True)
     cantidad = db.Column(db.Float, nullable=False)
     subtotal = db.Column(db.Float, nullable=False)
+    pedido = db.relationship("Pedido", back_populates="detalle_pedido")
+    producto = db.relationship("Producto", back_populates="detalle_pedido")
+    materia_prima = db.relationship("MateriaPrima", back_populates="detalle_pedido")
 
 

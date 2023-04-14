@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="buttons">
+    <a href="{{ url_for('proveedor.verproveedores') }}" class="button is-success is-right">Agregar un nuevo proveedor</a></td>
+</div>
+<br>
+<div class="columns is-mobile is-centered">
+    <table class="table table is-striped">
+    <thead>
+         <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th>Empresa</th>
+            <th>RFC</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Eliminar</th>
+            <th>Modificar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in proveedores%}
+        <tr>
+            <td class="is-vcentered">{{row.id}}</td>
+            <td class="is-vcentered">{{row.nombre + row.apellido_paterno + row.apellido_materno}}</td>
+            <td class="is-vcentered">{{row.direccion}}</td>
+            <td class="is-vcentered">{{row.empresa}}</td>
+            <td class="is-vcentered">{{row.rfc}}</td>
+            <td class="is-vcentered">{{row.telefono}}</td>
+            <td class="is-vcentered">{{row.correo}}</td>
+            <td class="is-vcentered"><a href="eliminar?id={{row.id}}" class="button is-danger">Eliminar</a></td>
+            <td class="is-vcentered"><a href="modificar?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}

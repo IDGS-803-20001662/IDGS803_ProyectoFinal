@@ -6,7 +6,12 @@ from flask_security.utils import login_user, logout_user, hash_password, encrypt
 from .models import Proveedor
 from . import db
 
-proveedor = Blueprint('proveedor', __name__)
+proveedor = Blueprint('proveedor', __name__, url_prefix='/proveedor')
 
-@proveedor
+@proveedor.route("/proveedores")
+@login_required
+@roles_accepted('ADMINISTRADOR','ALMACENISTA')
+def verproveedores():
+    proveedores = Proveedor.query.all()
+    return render_template('/proveedor/proveedores.html', proveedores = proveedores)
 
