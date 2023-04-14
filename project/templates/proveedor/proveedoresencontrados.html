@@ -3,19 +3,8 @@
 {% block content %}
 <div class="buttons">
     <a href="{{ url_for('proveedor.registroproveedor') }}" class="button is-success is-right">Agregar un nuevo proveedor</a></td>
-    <a href="{{ url_for('proveedor.verproveedoresinactivos') }}" class="button is-info is-right">Ver los proveedores inactivos</a></td>
-    <div class="field has-addons">
-        <div class="control">
-            <input class="input" type="text" name="parametro">
-        </div>
-        <div class="control">
-            <a href="buscarproveedor?parametro=TEST" class="button is-info">
-                Buscar
-            </a>
-        </div>
-    </div>
+    <a href="{{ url_for('proveedor.verproveedores') }}" class="button is-info is-right">Ver todos los proveedores</a></td>
 </div>
-
 <br>
 <div class="columns is-mobile is-centered">
     <table class="table table is-striped">
