@@ -23,25 +23,25 @@ def verproveedoresinactivos():
     proveedores = Proveedor.query.filter_by(status='0').all()
     return render_template('/proveedor/proveedoresinactivos.html', proveedores = proveedores)
 
-@proveedor.route("/buscarproveedor")
+@proveedor.route("/buscarproveedor", methods = ['GET', 'POST'])
 @login_required
 @roles_accepted('ADMINISTRADOR','ALMACENISTA')
 def buscarproveedor():
-    parametro =  request.args.get('parametro')
-    #parametro =  "TEST"
-    print(parametro)
+    if request.method == 'POST':
+        parametro =  request.form['parametro']
+        print(parametro)
 
-    proveedores = Proveedor.query.filter(or_(
-        Proveedor.id.ilike(f'%{parametro}%'),
-        Proveedor.nombre.ilike(f'%{parametro}%'),
-        Proveedor.apellido_paterno.ilike(f'%{parametro}%'),
-        Proveedor.apellido_materno.ilike(f'%{parametro}%'),
-        Proveedor.direccion.ilike(f'%{parametro}%'),
-        Proveedor.empresa.ilike(f'%{parametro}%'),
-        Proveedor.rfc.ilike(f'%{parametro}%'),
-        Proveedor.telefono.ilike(f'%{parametro}%'),
-        Proveedor.correo.ilike(f'%{parametro}%')
-    )).all()
+        proveedores = Proveedor.query.filter(or_(
+            Proveedor.id.ilike(f'%{parametro}%'),
+            Proveedor.nombre.ilike(f'%{parametro}%'),
+            Proveedor.apellido_paterno.ilike(f'%{parametro}%'),
+            Proveedor.apellido_materno.ilike(f'%{parametro}%'),
+            Proveedor.direccion.ilike(f'%{parametro}%'),
+            Proveedor.empresa.ilike(f'%{parametro}%'),
+            Proveedor.rfc.ilike(f'%{parametro}%'),
+            Proveedor.telefono.ilike(f'%{parametro}%'),
+            Proveedor.correo.ilike(f'%{parametro}%')
+        )).all()
 
     return render_template('/proveedor/proveedoresencontrados.html', proveedores = proveedores)
 
