@@ -40,7 +40,7 @@
                     </a>
                     {% endif %}
                     <a href="{{ url_for('main.conocenos') }}" class="navbar-item">
-                      <b>Contacto</b>
+                      <b>Conócenos</b>
                     </a>
                     <a href="{{ url_for('main.contacto') }}" class="navbar-item">
                       <b>Contacto</b>
@@ -51,7 +51,7 @@
                     </a>
                       <div class="navbar-item">
                         <div class="buttons">
-                          <a class="button is-primary" href="{{ url_for('auth.login') }}">
+                          <a class="button is-info" href="{{ url_for('auth.login') }}">
                             <b>Iniciar Sesión</b>
                           </a>
                         </div>
@@ -60,7 +60,7 @@
                     {% if current_user.is_authenticated %}
                     <div class="navbar-item">
                       <div class="buttons">
-                        <a class="button is-primary" href="{{ url_for('auth.logout') }}">
+                        <a class="button is-info" href="{{ url_for('auth.logout') }}">
                           <b>Cerrar Sesión</b>
                         </a>
                       </div>
