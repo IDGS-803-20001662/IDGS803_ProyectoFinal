@@ -3,14 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_security import UserMixin, RoleMixin
 import datetime
 
-class Rol(db.Model, RoleMixin):
-    __tablename__ = 'rol'
+roles_users = db.Table('roles_users',
+        db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+        db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+
+class Role(db.Model, RoleMixin):
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    nombre = db.Column(db.String(20), unique=True)
-    usuario = db.relationship("Usuario", uselist=False, back_populates="rol")
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.String(255))
     
-class Usuario(db.Model, UserMixin):
-    __tablename__ = 'usuario'
+class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nombre = db.Column(db.String(20), nullable=False)
     apellido_paterno = db.Column(db.String(30), nullable=False)
@@ -22,12 +25,12 @@ class Usuario(db.Model, UserMixin):
     contrasennia = db.Column(db.String(20), nullable=False)
     status = db.Column(db.Boolean(), nullable=False, default = True)
     rfc = db.Column(db.String(13), nullable=True)
-    rol_id = db.Column(db.Integer(), db.ForeignKey('rol.id'), default = "3")
     create_date = db.Column(db.DateTime, default = datetime.datetime.now)
-    rol = db.relationship("Rol", back_populates="usuario")
-    pedido = db.relationship("Pedido", back_populates="usuario")
-    venta = db.relationship("Venta", back_populates="usuario")
-    compra = db.relationship("Compra", back_populates="usuario")
+    roles = db.relationship('Role', secondary=roles_users,
+                            backref=db.backref('users', lazy='dynamic'))
+    pedido = db.relationship("Pedido", back_populates="user")
+    venta = db.relationship("Venta", back_populates="user")
+    compra = db.relationship("Compra", back_populates="user")
 
 class Proveedor(db.Model):
     __tablename__ = 'proveedor'
@@ -96,13 +99,13 @@ class Pedido(db.Model):
     __tablename__ = 'pedido'
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
     fecha = db.Column(db.DateTime, nullable=False)
-    usuario_id = db.Column(db.Integer(), db.ForeignKey('usuario.id')) # cliente o alamcenista
+    usuario_id = db.Column(db.Integer(), db.ForeignKey('user.id')) # cliente o almacenista
     domicilio_entrega = db.Column(db.String(250), nullable=True)
     tipo_entrega = db.Column(db.Boolean(), nullable=True)
     forma_pago = db.Column(db.Boolean(), nullable=True)
     total = db.Column(db.Float, nullable=False)
     status = db.Column(db.Boolean(), nullable=False, default = True)
-    usuario = db.relationship("Usuario", back_populates="pedido")
+    user = db.relationship("User", back_populates="pedido")
     venta = db.relationship("Venta", back_populates="pedido")
     compra = db.relationship("Compra", back_populates="pedido")
     detalle_pedido = db.relationship("DetallePedido", back_populates="pedido")
@@ -112,20 +115,20 @@ class Venta(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
     fecha = db.Column(db.DateTime, nullable=False)
     pedido_id = db.Column(db.Integer(), db.ForeignKey('pedido.id'))
-    vendedor_id = db.Column(db.Integer(), db.ForeignKey('usuario.id'))
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     total = db.Column(db.Float, nullable=False)
     pedido = db.relationship("Pedido", back_populates="venta")
-    vendedor = db.relationship("Usuario", back_populates="venta")
+    user = db.relationship("User", back_populates="venta") #vendedor 
 
 class Compra(db.Model):
     __tablename__ = 'compra'
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
     fecha = db.Column(db.DateTime, nullable=False)
     pedido_id = db.Column(db.Integer(), db.ForeignKey('pedido.id'))
-    almacenista_id = db.Column(db.Integer(), db.ForeignKey('usuario.id'))
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     total = db.Column(db.Float, nullable=False)
     pedido = db.relationship("Pedido", back_populates="compra")
-    almacenista = db.relationship("Usuario", back_populates="compra")
+    user = db.relationship("User", back_populates="compra") # almacenista
 
 class DetallePedido(db.Model):
     __tablename__ = 'detalle_pedido'

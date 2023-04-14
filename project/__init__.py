@@ -4,8 +4,8 @@ from flask_security import Security, SQLAlchemyUserDatastore
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-from .models import Usuario, Rol
-userDataStore = SQLAlchemyUserDatastore(db, Usuario, Rol)
+from .models import User, Role
+userDataStore = SQLAlchemyUserDatastore(db, User, Role)
 
 def create_app():
     app=Flask(__name__)
@@ -31,13 +31,16 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    from .producto import producto as producto_blueprint
-    app.register_blueprint(producto_blueprint)
+    #from .proveedor import proveedor  as proveedor_blueprint
+    #app.register_blueprint(proveedor_blueprint)
 
-    from .materia import producto as producto_blueprint
-    app.register_blueprint(producto_blueprint)
+    #from .producto import producto as producto_blueprint
+    #app.register_blueprint(producto_blueprint)
 
-    from .finanzas import finanzas as finanzas_blueprint
-    app.register_blueprint(finanzas_blueprint)
+    #from .materia import materia as materia_blueprint
+    #app.register_blueprint(materia_blueprint)
+
+    #from .finanzas import finanzas as finanzas_blueprint
+    #app.register_blueprint(finanzas_blueprint)
 
     return app
