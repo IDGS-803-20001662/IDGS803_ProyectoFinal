@@ -96,7 +96,7 @@ def modificarproveedor():
 @proveedor.route("/eliminarproveedor", methods = ['GET', 'POST'])
 @login_required
 @roles_required('ADMINISTRADOR')
-def eliminar():
+def eliminarproveedor():
 
     if request.method == 'GET':
         id =  request.args.get('id')

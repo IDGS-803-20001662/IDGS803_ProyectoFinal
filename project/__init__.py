@@ -31,8 +31,8 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
-    #from .usuario import usuario as usuario_blueprint
-    #app.register_blueprint(usuario_blueprint)
+    from .usuario import usuario as usuario_blueprint
+    app.register_blueprint(usuario_blueprint)
 
     from .proveedor import proveedor  as proveedor_blueprint
     app.register_blueprint(proveedor_blueprint)
