@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     apellido_paterno = db.Column(db.String(30), nullable=False)
     apellido_materno = db.Column(db.String(30), nullable=True)
     domicilio = db.Column(db.String(150), nullable=True)
-    fecha_nacimiento = db.Column(db.DateTime, nullable=True)
+    fecha_nacimiento = db.Column(db.Date, nullable=True)
     telefono = db.Column(db.String(10), nullable=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
@@ -93,7 +93,7 @@ class Gasto(db.Model):
     __tablename__ = 'gasto'
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
     descripcion = db.Column(db.String(100), nullable=False)
-    fecha = db.Column(db.DateTime, nullable=True)
+    fecha = db.Column(db.Date, nullable=True)
     costo = db.Column(db.Float, nullable=False)
     status = db.Column(db.Boolean(), nullable=False, default = True)
 

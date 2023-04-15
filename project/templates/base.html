@@ -26,12 +26,14 @@
                     </a>
                   </div>
                   <div class="navbar-end">
+                    {% if not current_user.is_authenticated %}
                     <a href="{{ url_for('main.index') }}" class="navbar-item">
                       <b>Inicio</b>
                     </a>
+                    {% endif %}
                     {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('main.index') }}" class="navbar-item">
-                      <b>Productos</b>
+                    <a href="{{ url_for('usuario.modificarperfil') }}" class="navbar-item">
+                      <b>Perfil</b>
                     </a>
                     {% endif %}
                     <!-- Revisar rol-->
@@ -46,13 +48,13 @@
                       <b>Clientes</b>
                     </a>
                     {% endif %}
+                    {% if not current_user.is_authenticated %}
                     <a href="{{ url_for('main.conocenos') }}" class="navbar-item">
                       <b>Conócenos</b>
                     </a>
                     <a href="{{ url_for('main.contacto') }}" class="navbar-item">
                       <b>Contacto</b>
                     </a>
-                    {% if not current_user.is_authenticated %}
                     <a href="{{ url_for('auth.registro') }}" class="navbar-item">
                       <b>Registro</b>
                     </a>

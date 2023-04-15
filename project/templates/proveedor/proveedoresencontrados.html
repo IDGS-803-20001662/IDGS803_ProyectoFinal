@@ -31,8 +31,10 @@
             <td class="is-vcentered">{{row.rfc}}</td>
             <td class="is-vcentered">{{row.telefono}}</td>
             <td class="is-vcentered">{{row.correo}}</td>
-            <td class="is-vcentered"><a href="eliminarproveedor?id={{row.id}}" class="button is-danger">Eliminar</a></td>
-            <td class="is-vcentered"><a href="modificarproveedor?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
+            {%if row.status == 1%}
+                <td class="is-vcentered"><a href="eliminarproveedor?id={{row.id}}" class="button is-danger">Eliminar</a></td>
+                <td class="is-vcentered"><a href="modificarproveedor?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
+            {%endif%}
         </tr>
         {%endfor%}
     </tbody>

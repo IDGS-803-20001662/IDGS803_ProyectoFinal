@@ -18,7 +18,7 @@ def login_post():
     remember = True if request.form.get('remember') else False
 
     #Consultamos la existencia del usuario
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter(User.email==email, User.status=='1').first()
 
     #Verificamos y tomamos el password, se hashea y se compara con el registrado
     if not user or not check_password_hash(user.password, password):
@@ -30,7 +30,7 @@ def login_post():
     if user.id == 1:
         return redirect(url_for('proveedor.verproveedores'))
     
-    return redirect(url_for('proveedor.verproveedores'))
+    return redirect(url_for('main.index'))
 
 @auth.route('/registro')
 def registro():
@@ -75,6 +75,25 @@ def registro_post():
 
 
     return redirect(url_for('auth.login'))
+
+@auth.route("/recuperarcontrasennia", methods = ['GET', 'POST'])
+def recuperarcontraseña():
+    
+    if request.method == 'POST':
+        email =  request.form.get('correo')
+        password = request.form.get('contrasennia')
+        
+        usuario = db.session.query(User).filter(User.email == email).first()
+        if usuario:
+            usuario.password = generate_password_hash(password, method='sha256')
+        else:
+            flash('El usuario y/o la contraseña son incorrectos')
+
+        db.session.add(usuario)
+        db.session.commit()
+        return redirect(url_for("auth.login"))
+    
+    return render_template("/security/recuperarcontrasennia.html")
 
 @auth.route('/logout')
 @login_required
