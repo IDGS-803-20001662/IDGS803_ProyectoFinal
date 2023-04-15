@@ -29,6 +29,7 @@ def verproveedoresinactivos():
 def buscarproveedor():
     if request.method == 'POST':
         parametro =  request.form['parametro']
+        parametro = parametro.upper()
         print(parametro)
 
         proveedores = Proveedor.query.filter(or_(
@@ -50,13 +51,13 @@ def buscarproveedor():
 @roles_required('ADMINISTRADOR')
 def registroproveedor():
     if request.method == 'POST':
-        prov = Proveedor(nombre = request.form.get('nombre'),
-                       apellido_paterno = request.form.get('apellido_paterno'),
-                       apellido_materno = request.form.get('apellido_materno'),
-                       direccion = request.form.get('direccion'),
-                       empresa = request.form.get('empresa'),
-                       rfc = request.form.get('rfc'),
-                       telefono = request.form.get('telefono'),
+        prov = Proveedor(nombre = request.form.get('nombre').upper(),
+                       apellido_paterno = request.form.get('apellido_paterno').upper(),
+                       apellido_materno = request.form.get('apellido_materno').upper(),
+                       direccion = request.form.get('direccion').upper(),
+                       empresa = request.form.get('empresa').upper(),
+                       rfc = request.form.get('rfc').upper(),
+                       telefono = request.form.get('telefono').upper(),
                        correo = request.form.get('correo'))
         db.session.add(prov)
         db.session.commit()
@@ -76,13 +77,13 @@ def modificarproveedor():
     if request.method == 'POST':
         id = request.form.get('id')
         prov = db.session.query(Proveedor).filter(Proveedor.id == id).first()
-        prov.nombre = request.form.get('nombre')
-        prov.apellido_paterno = request.form.get('apellido_paterno')
-        prov.apellido_materno = request.form.get('apellido_materno')
-        prov.direccion = request.form.get('direccion')
-        prov.empresa = request.form.get('empresa')
-        prov.rfc = request.form.get('rfc')
-        prov.telefono = request.form.get('telefono')
+        prov.nombre = request.form.get('nombre').upper()
+        prov.apellido_paterno = request.form.get('apellido_paterno').upper()
+        prov.apellido_materno = request.form.get('apellido_materno').upper()
+        prov.direccion = request.form.get('direccion').upper()
+        prov.empresa = request.form.get('empresa').upper()
+        prov.rfc = request.form.get('rfc').upper()
+        prov.telefono = request.form.get('telefono').upper()
         prov.correo = request.form.get('correo')
         db.session.add(prov)
         db.session.commit()
@@ -104,13 +105,13 @@ def eliminar():
     if request.method == 'POST':
         id = request.form.get('id')
         prov = db.session.query(Proveedor).filter(Proveedor.id == id).first()
-        prov.nombre = request.form.get('nombre')
-        prov.apellido_paterno = request.form.get('apellido_paterno')
-        prov.apellido_materno = request.form.get('apellido_materno')
-        prov.direccion = request.form.get('direccion')
-        prov.empresa = request.form.get('empresa')
-        prov.rfc = request.form.get('rfc')
-        prov.telefono = request.form.get('telefono')
+        prov.nombre = request.form.get('nombre').upper()
+        prov.apellido_paterno = request.form.get('apellido_paterno').upper()
+        prov.apellido_materno = request.form.get('apellido_materno').upper()
+        prov.direccion = request.form.get('direccion').upper()
+        prov.empresa = request.form.get('empresa').upper()
+        prov.rfc = request.form.get('rfc').upper()
+        prov.telefono = request.form.get('telefono').upper()
         prov.correo = request.form.get('correo')
         prov.status = False
         db.session.add(prov)

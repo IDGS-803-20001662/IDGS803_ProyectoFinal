@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_security import login_required
 from flask_security.utils import login_user, logout_user, hash_password, encrypt_password
-from .models import User
+from .models import User, Role
 from . import db, userDataStore
 
 auth = Blueprint('auth', __name__, url_prefix='/security')
@@ -40,15 +40,15 @@ def registro():
 def registro_post():
     email = request.form.get('correo')
     password = request.form.get('contrasennia')
-    nombre = request.form.get('nombre')
-    apellido_paterno = request.form.get('apellido_paterno')
-    apellido_materno = request.form.get('apellido_materno')
-    domicilio = request.form.get('domicilio')
+    nombre = request.form.get('nombre').upper()
+    apellido_paterno = request.form.get('apellido_paterno').upper()
+    apellido_materno = request.form.get('apellido_materno').upper()
+    domicilio = request.form.get('domicilio').upper()
     dia = request.form.get('dia')
     mes = request.form.get('mes')
     annio = request.form.get('annio')
     telefono = request.form.get('telefono')
-    rfc = request.form.get('rfc')
+    rfc = ""
     fecha_nacimiento = annio+"-"+mes+"-"+dia
 
     #Consultamos si ya está registrado
@@ -66,6 +66,13 @@ def registro_post():
     
     #Añadimos el usuario a la bd
     db.session.commit()
+    #Añadimos el rol
+    ultimo_usuario = User.query.order_by(User.id.desc()).first()
+    roles = "4"
+    rol = Role.query.filter_by(id=roles).first()
+    ultimo_usuario.roles.append(rol)
+    db.session.commit()
+
 
     return redirect(url_for('auth.login'))
 
