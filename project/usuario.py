@@ -159,7 +159,6 @@ def eliminarusuario():
 
 @usuario.route("/modificarperfil", methods = ['GET', 'POST'])
 @login_required
-@roles_required('CLIENTE')
 def modificarperfil():
 
     if request.method == 'GET':
@@ -167,8 +166,6 @@ def modificarperfil():
         usuario = db.session.query(User).filter(User.id == id).first()
     
     if request.method == 'POST':
-        # password = request.form.get('password')
-
         
         id = current_user.id
         usuario = db.session.query(User).filter(User.id == id).first()
