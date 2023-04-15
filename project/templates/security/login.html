@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+  <div class="is-centered">
+    <img src="../static/img/logo.jpg " style="height: 150px;"/>
+  </div>
+  <br>
+  <h3 class="title">Iniciar Sesión</h3>
+  <div class="box">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+      {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/security/login">
+      <div class="field">
+        <div class="control">
+          <input class="input is-large is-info" type="email" name="correo" placeholder="Correo electrónico" autofocus="" maxlength="50">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-large is-info" type="password" name="contrasennia" placeholder="Contraseña" maxlength="100">
+        </div>
+      </div>
+      <div class="field">
+        <label class="checkbox">
+          <input type="checkbox" name="remember">
+          Recuerdame
+        </label>
+      </div>
+      <button class="button is-block is-info is-large is-fullwidth">Iniciar Sesión</button>
+    </form>
+    <br>
+    <div class="field">
+      <a href="{{ url_for('auth.recuperarcontraseña') }}">
+        <b>Recuperar mi contraseña</b>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

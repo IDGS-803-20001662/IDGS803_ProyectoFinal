@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="buttons">
+    <a href="{{ url_for('usuario.usuarios') }}" class="button is-info is-right">Ver los empleados</a></td>
+</div>
+
+<br>
+<div class="columns is-mobile is-centered">
+    <table class="table table is-striped">
+    <thead>
+         <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Domicilio</th>
+            <th>Nacimiento</th>
+            <th>RFC</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in usuarios%}
+        <tr>
+            <td class="is-vcentered">{{row.id}}</td>
+            <td class="is-vcentered">{{row.nombre + " " + row.apellido_paterno + " " + row.apellido_materno}}</td>
+            <td class="is-vcentered">{{row.domicilio}}</td>
+            <td class="is-vcentered">{{row.fecha_nacimiento}}</td>
+            <td class="is-vcentered">{{row.rfc}}</td>
+            <td class="is-vcentered">{{row.telefono}}</td>
+            <td class="is-vcentered">{{row.email}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}

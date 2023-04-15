@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="buttons">
+    <a href="{{ url_for('usuario.registrousuario') }}" class="button is-success is-right">Agregar nuevo usuario</a></td>
+    <a href="{{ url_for('usuario.usuarios') }}" class="button is-info is-right">Ver todos</a></td>
+</div>
+
+<br>
+<div class="columns is-mobile is-centered">
+    <table class="table table is-striped">
+    <thead>
+         <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Domicilio</th>
+            <th>Nacimiento</th>
+            <th>RFC</th>
+            <th>Telefono</th>
+            <th>Correo</th>
+            <th>Eliminar</th>
+            <th>Modificar</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in usuarios%}
+
+        <tr>
+            <td class="is-vcentered">{{row.id}}</td>
+            <td class="is-vcentered">{{row.nombre + " " + row.apellido_paterno + " " + row.apellido_materno}}</td>
+            <td class="is-vcentered">{{row.domicilio}}</td>
+            <td class="is-vcentered">{{row.fecha_nacimiento}}</td>
+            <td class="is-vcentered">{{row.rfc}}</td>
+            <td class="is-vcentered">{{row.telefono}}</td>
+            <td class="is-vcentered">{{row.email}}</td>
+            {%if row.status == 1%}
+                <td class="is-vcentered"><a href="eliminarusuario?id={{row.id}}" class="button is-danger">Eliminar</a></td>
+                <td class="is-vcentered"><a href="modificarusuario?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
+                <td class="is-vcentered"><a href="cambiarcontrasennia?id={{row.id}}" class="button is-info"></i>Cambiar</a></td>
+            {%endif%}
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}

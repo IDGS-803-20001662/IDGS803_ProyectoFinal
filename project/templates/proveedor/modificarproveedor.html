@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-6 is-offset-3">
+  <br>
+  <h3 class="title">Modificar Proveedor</h3>
+  <div class="box">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+      {{ messages[0] }}.
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/proveedor/modificarproveedor">
+
+      <div class="field">
+        <div class="control">
+            <input class="input is-medium is-info" type="text" name="id" placeholder="ID" value="{{id}}" autofocus="" readonly>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="nombre" placeholder="Nombre" value="{{nombre}}" style="text-transform: uppercase;" maxlength="20">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="apellido_paterno" placeholder="Apellido Paterno" value="{{apellido_paterno}}" style="text-transform: uppercase;" maxlength="30">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="apellido_materno" placeholder="Apellido Materno" value="{{apellido_materno}}" style="text-transform: uppercase;" maxlength="30">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="empresa" placeholder="Empresa" value="{{empresa}}" style="text-transform: uppercase;" maxlength="20">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="rfc" placeholder="RFC" value="{{rfc}}" style="text-transform: uppercase;" maxlength="13">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="direccion" placeholder="Direccion" value="{{direccion}}" style="text-transform: uppercase;" maxlength="150">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="number" name="telefono" placeholder="Teléfono" value="{{telefono}}" autofocus="" maxlength="10">
+        </div>
+      </div> 
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="email" name="correo" placeholder="Correo Electronico" value="{{correo}}" autofocus="" maxlength="50">
+        </div>
+      </div>
+
+      <button class="button is-block is-warning is-medium is-fullwidth">Modificar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

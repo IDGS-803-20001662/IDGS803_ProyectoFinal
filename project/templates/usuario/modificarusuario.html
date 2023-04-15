@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-6 is-offset-3">
+  <h3 class="title">Modificar Usuario</h3>
+  <div class="box">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+      {{ messages[0] }}.
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/usuario/modificarusuario">
+
+        <div class="field">
+            <div class="control">
+                <input class="input is-medium is-info" type="text" name="id" value="{{id}}" style="text-transform: uppercase;" maxlength="20" readonly>
+            </div>
+        </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="nombre" value="{{nombre}}" style="text-transform: uppercase;" maxlength="20">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="apellido_paterno" value="{{apellido_paterno}}" style="text-transform: uppercase;" maxlength="30">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="apellido_materno" value="{{apellido_materno}}" style="text-transform: uppercase;" maxlength="30">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="domicilio" value="{{domicilio}}" style="text-transform: uppercase;" maxlength="150">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="fecha_nacimiento" value="{{fecha_nacimiento}}" style="text-transform: uppercase;" maxlength="150">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="rfc" value="{{rfc}}" autofocus="" maxlength="13">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="telefono" value="{{telefono}}" autofocus="" maxlength="10">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="email" name="correo" value="{{correo}}" autofocus="" maxlength="50">
+        </div>
+      </div>
+
+      <button class="button is-block is-warning is-medium is-fullwidth">Modificar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
