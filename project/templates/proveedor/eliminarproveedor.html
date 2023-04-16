@@ -15,60 +15,72 @@
     <form method="POST" action="/proveedor/eliminarproveedor">
 
       <div class="field">
+        <label>ID:</label>
         <div class="control">
-            <input class="input is-medium is-info" type="text" name="id" placeholder="ID" value="{{id}}" autofocus="" readonly>
+            <input class="input is-medium is-info" type="text" name="id" value="{{id}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Nombre:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="nombre" placeholder="Nombre" value="{{nombre}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="text" name="nombre" value="{{nombre}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Paterno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_paterno" placeholder="Apellido Paterno" value="{{apellido_paterno}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="text" name="apellido_paterno" value="{{apellido_paterno}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Materno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_materno" placeholder="Apellido Materno" value="{{apellido_materno}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="text" name="apellido_materno" value="{{apellido_materno}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Empresa:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="empresa" placeholder="Empresa" value="{{empresa}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="text" name="empresa" value="{{empresa}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>RFC:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="rfc" placeholder="RFC" value="{{rfc}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="text" name="rfc" value="{{rfc}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Dirección:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="direccion" placeholder="Direccion" value="{{direccion}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="text" name="direccion" value="{{direccion}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Teléfono:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="telefono" placeholder="Teléfono" value="{{telefono}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="text" name="telefono" value="{{telefono}}" autofocus="" readonly>
         </div>
       </div> 
 
       <div class="field">
+        <label>Correo Electrónico:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="email" name="correo" placeholder="Correo Electronico" value="{{correo}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="email" name="correo" value="{{correo}}" autofocus="" readonly>
         </div>
       </div>
 
       <button class="button is-block is-danger is-medium is-fullwidth">Eliminar</button>
+      <br>
+      <a class="button is-block is-info is-medium is-fullwidth" href="{{ url_for('proveedor.verproveedores') }}">Cancelar</a>
+
     </form>
   </div>
 </div>

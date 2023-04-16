@@ -14,48 +14,58 @@
     <form method="POST" action="/usuario/modificarperfil">
 
       <div class="field">
+        <label>Nombre:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="nombre" value="{{nombre}}" style="text-transform: uppercase;" maxlength="20">
+          <input class="input is-medium is-info" type="text" name="nombre" value="{{nombre}}" style="text-transform: uppercase;" maxlength="20" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Paterno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_paterno" value="{{apellido_paterno}}" style="text-transform: uppercase;" maxlength="30">
+          <input class="input is-medium is-info" type="text" name="apellido_paterno" value="{{apellido_paterno}}" style="text-transform: uppercase;" maxlength="30" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Materno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_materno" value="{{apellido_materno}}" style="text-transform: uppercase;" maxlength="30">
+          <input class="input is-medium is-info" type="text" name="apellido_materno" value="{{apellido_materno}}" style="text-transform: uppercase;" maxlength="30" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Domicilio:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="domicilio" value="{{domicilio}}" style="text-transform: uppercase;" maxlength="150">
+          <input class="input is-medium is-info" type="text" name="domicilio" value="{{domicilio}}" style="text-transform: uppercase;" maxlength="150" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Fecha de Nacimiento:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="fecha_nacimiento" value="{{fecha_nacimiento}}" style="text-transform: uppercase;" maxlength="150">
+          <input class="input is-medium is-info" type="text" name="fecha_nacimiento" value="{{fecha_nacimiento}}" style="text-transform: uppercase;" maxlength="10" minlength="10">
         </div>
       </div>
 
       <div class="field">
+        <label>Teléfono:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="telefono" value="{{telefono}}" autofocus="" maxlength="10">
+          <input class="input is-medium is-info" type="text" name="telefono" value="{{telefono}}" autofocus="" maxlength="10" minlength="10">
         </div>
       </div>
 
       <div class="field">
+        <label>Correo Electrónico:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="email" name="correo" value="{{correo}}" autofocus="" maxlength="50">
+          <input class="input is-medium is-info" type="email" name="correo" value="{{correo}}" autofocus="" maxlength="50" minlength="5">
         </div>
       </div>
 
       <button class="button is-block is-success is-medium is-fullwidth">Guardar Datos</button>
+      <br>
+      <a class="button is-block is-danger is-medium is-fullwidth" href="{{ url_for('main.index') }}">Cancelar</a>
+      
     </form>
   </div>
 </div>

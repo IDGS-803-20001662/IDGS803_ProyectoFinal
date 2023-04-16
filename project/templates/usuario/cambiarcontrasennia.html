@@ -17,23 +17,29 @@
     {% endwith %}
     <form method="POST" action="/usuario/cambiarcontrasennia">
       <div class="field">
+        <label>ID:</label>
         <div class="control">
             <input class="input is-large is-info" type="text" name="id" value="{{id}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Correo Electrónico:</label>
         <div class="control">
           <input class="input is-large is-info" type="email" name="correo" value="{{correo}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Nueva contrasennia:</label>
         <div class="control">
-          <input class="input is-large is-info" type="password" name="contrasennia" placeholder="Nueva contraseña">
+          <input class="input is-large is-info" type="password" name="contrasennia">
         </div>
       </div>
-      <button class="button is-block is-danger is-large is-fullwidth">Cambiar</button>
+      <button class="button is-block is-danger is-medium is-fullwidth">Cambiar</button>
+      <br>
+      <a class="button is-block is-info is-medium is-fullwidth" href="{{ url_for('usuario.usuarios') }}">Cancelar</a>
+
     </form>
   </div>
 </div>
