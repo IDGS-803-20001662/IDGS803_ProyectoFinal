@@ -76,6 +76,26 @@
         </div>
       </div>
 
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="rol_p" value="{{rol_id}}" autofocus="" readonly hidden>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Tipo de Usuario:</label>
+        <div class="control">
+            <div class="select is-rounded">
+                <select name="rol" id="rol">
+                  <option value="{{rol_id}}" selected>{{rol}}</option>
+                  <option value="1">ADMINISTRADOR</option>
+                  <option value="2">ALMACENISTA</option>
+                  <option value="3">VENDEDOR</option>
+                </select>
+            </div>
+        </div>
+      </div>
+
       <button class="button is-block is-warning is-medium is-fullwidth">Modificar</button>
       <br>
       <a class="button is-block is-danger is-medium is-fullwidth" href="{{ url_for('usuario.usuarios') }}">Cancelar</a>

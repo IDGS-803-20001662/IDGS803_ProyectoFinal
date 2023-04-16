@@ -76,6 +76,13 @@
         </div>
       </div>
 
+      <div class="field">
+        <label>Tipo de Usuario:</label>
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="rol" value="{{rol}}" autofocus="" maxlength="50" readonly>
+        </div>
+      </div>
+
       <button class="button is-block is-danger is-medium is-fullwidth">Eliminar</button>
       <br>
       <a class="button is-block is-info is-medium is-fullwidth" href="{{ url_for('usuario.usuarios') }}">Cancelar</a>
