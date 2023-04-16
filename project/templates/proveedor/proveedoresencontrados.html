@@ -3,7 +3,9 @@
 {% block content %}
 <h3 class="title">Proveedores Encontrados</h3><br>
 <div class="buttons">
+    {% if current_user.has_role("ADMINISTRADOR") %}
     <a href="{{ url_for('proveedor.registroproveedor') }}" class="button is-success is-right">Agregar un nuevo proveedor</a></td>
+    {%endif%}
     <a href="{{ url_for('proveedor.verproveedores') }}" class="button is-info is-right">Ver todos los proveedores</a></td>
 </div>
 <br>
@@ -18,8 +20,10 @@
             <th>RFC</th>
             <th>Telefono</th>
             <th>Correo</th>
+            {% if current_user.has_role("ADMINISTRADOR") %}
             <th>Eliminar</th>
             <th>Modificar</th>
+            {%endif%}
         </tr>
     </thead>
     <tbody>
@@ -32,7 +36,7 @@
             <td class="is-vcentered">{{row.rfc}}</td>
             <td class="is-vcentered">{{row.telefono}}</td>
             <td class="is-vcentered">{{row.correo}}</td>
-            {%if row.status == 1%}
+            {%if row.status == 1 and current_user.has_role("ADMINISTRADOR")%}
                 <td class="is-vcentered"><a href="eliminarproveedor?id={{row.id}}" class="button is-danger">Eliminar</a></td>
                 <td class="is-vcentered"><a href="modificarproveedor?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
             {%endif%}

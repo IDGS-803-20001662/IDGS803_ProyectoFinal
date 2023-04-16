@@ -34,13 +34,19 @@
                       <b>Inicio</b>
                     </a>
                     {% endif %}
-                    {% if current_user.is_authenticated %}
+                    {% if current_user.is_authenticated and current_user.has_role("CLIENTE") %}
                     <a href="{{ url_for('usuario.modificarperfil') }}" class="navbar-item">
                       <b>Perfil</b>
                     </a>
                     {% endif %}
                     <!-- Revisar rol-->
-                    {% if current_user.is_authenticated and current_user.id == 1 %}
+                    {% if current_user.is_authenticated and current_user.has_role("ADMINISTRADOR") %}
+                    <a href="{{ url_for('usuario.usuarios') }}" class="navbar-item">
+                      <b>Usuarios</b>
+                    </a>
+                    <a href="{{ url_for('usuario.clientes') }}" class="navbar-item">
+                      <b>Clientes</b>
+                    </a>
                     <a href="{{ url_for('producto.productos') }}" class="navbar-item">
                       <b>Productos</b>
                     </a>
@@ -50,11 +56,18 @@
                     <a href="{{ url_for('proveedor.verproveedores') }}" class="navbar-item">
                       <b>Proveedores</b>
                     </a>
-                    <a href="{{ url_for('usuario.usuarios') }}" class="navbar-item">
-                      <b>Usuarios</b>
+                    {% endif %}
+                    {% if current_user.has_role("ALMACENISTA") and current_user.is_authenticated %}
+                    <a href="{{ url_for('materia.materias') }}" class="navbar-item">
+                      <b>Insumos</b>
                     </a>
-                    <a href="{{ url_for('usuario.clientes') }}" class="navbar-item">
-                      <b>Clientes</b>
+                    <a href="{{ url_for('proveedor.verproveedores') }}" class="navbar-item">
+                      <b>Proveedores</b>
+                    </a>
+                    {% endif %}
+                    {% if current_user.has_role("VENDEDOR") and current_user.is_authenticated %}
+                    <a href="{{ url_for('producto.productos') }}" class="navbar-item">
+                      <b>Productos</b>
                     </a>
                     {% endif %}
                     {% if not current_user.is_authenticated %}
