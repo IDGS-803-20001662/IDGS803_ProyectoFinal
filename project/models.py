@@ -103,8 +103,8 @@ class Pedido(db.Model):
     fecha = db.Column(db.DateTime, nullable=False)
     usuario_id = db.Column(db.Integer(), db.ForeignKey('user.id')) # cliente o almacenista
     domicilio_entrega = db.Column(db.String(250), nullable=True)
-    tipo_entrega = db.Column(db.Boolean(), nullable=True)
-    forma_pago = db.Column(db.Boolean(), nullable=True)
+    tipo_entrega = db.Column(db.Boolean(), nullable=True) # 40 pesos por envio
+    forma_pago = db.Column(db.Boolean(), nullable=True) # por el momento puro efectivo
     total = db.Column(db.Float, nullable=False)
     status = db.Column(db.Boolean(), nullable=False, default = True)
     user = db.relationship("User", back_populates="pedido")

@@ -105,6 +105,9 @@ def modificarusuario():
     if request.method == 'GET':
         id =  request.args.get('id')
         usuario = db.session.query(User).filter(User.id == id).first()
+        for role in usuario.roles:
+            rol = role.name
+            rol_pasado = role.id
     
     if request.method == 'POST':
         id = request.form.get('id')
@@ -117,15 +120,25 @@ def modificarusuario():
         usuario.telefono = request.form.get('telefono')
         usuario.email = request.form.get('correo')
         usuario.fecha_nacimiento = request.form.get('fecha_nacimiento')
+        rol_n = request.form.get('rol')
+        rol_pasado = request.form.get('rol_p')
 
         db.session.add(usuario)
+        db.session.commit()
+
+        roles_ = rol_n
+        rol_n = Role.query.filter_by(id=roles_).first()
+        rol_p = Role.query.filter_by(id=rol_pasado).first()
+        usuario.roles.append(rol_n)
+        db.session.commit()
+        usuario.roles.remove(rol_p)
         db.session.commit()
 
         return redirect(url_for("usuario.usuarios"))
     
     return render_template("/usuario/modificarusuario.html", id=usuario.id, nombre=usuario.nombre, apellido_paterno=usuario.apellido_paterno,
         apellido_materno=usuario.apellido_materno, domicilio=usuario.domicilio, rfc=usuario.rfc, fecha_nacimiento=usuario.fecha_nacimiento,
-        telefono=usuario.telefono, correo=usuario.email)
+        telefono=usuario.telefono, correo=usuario.email, rol=rol, rol_id=rol_pasado)
 
 @usuario.route("/eliminarusuario", methods = ['GET', 'POST'])
 @login_required
@@ -135,6 +148,8 @@ def eliminarusuario():
     if request.method == 'GET':
         id =  request.args.get('id')
         usuario = db.session.query(User).filter(User.id == id).first()
+        for role in usuario.roles:
+            rol = role.name
     
     if request.method == 'POST':
         id =  request.form.get('id')
@@ -155,7 +170,7 @@ def eliminarusuario():
     
     return render_template("/usuario/eliminarusuario.html", id=usuario.id, nombre=usuario.nombre, apellido_paterno=usuario.apellido_paterno,
         apellido_materno=usuario.apellido_materno, domicilio=usuario.domicilio, rfc=usuario.rfc, fecha_nacimiento=usuario.fecha_nacimiento,
-        telefono=usuario.telefono, correo=usuario.email)
+        telefono=usuario.telefono, correo=usuario.email, rol=rol)
 
 @usuario.route("/modificarperfil", methods = ['GET', 'POST'])
 @login_required

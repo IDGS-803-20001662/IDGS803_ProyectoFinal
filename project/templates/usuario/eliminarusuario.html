@@ -14,60 +14,79 @@
     <form method="POST" action="/usuario/eliminarusuario">
 
       <div class="field">
+        <label>ID:</label>
         <div class="control">
             <input class="input is-medium is-info" type="text" name="id" value="{{id}}" style="text-transform: uppercase;" maxlength="20" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Nombre:</label>
         <div class="control">
           <input class="input is-medium is-info" type="text" name="nombre" value="{{nombre}}" style="text-transform: uppercase;" maxlength="20" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Paterno:</label>
         <div class="control">
           <input class="input is-medium is-info" type="text" name="apellido_paterno" value="{{apellido_paterno}}" style="text-transform: uppercase;" maxlength="30" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Materno:</label>
         <div class="control">
           <input class="input is-medium is-info" type="text" name="apellido_materno" value="{{apellido_materno}}" style="text-transform: uppercase;" maxlength="30" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Domicilio:</label>
         <div class="control">
           <input class="input is-medium is-info" type="text" name="domicilio" value="{{domicilio}}" style="text-transform: uppercase;" maxlength="150" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Fecha de Nacimiento:</label>
         <div class="control">
           <input class="input is-medium is-info" type="text" name="fecha_nacimiento" value="{{fecha_nacimiento}}" style="text-transform: uppercase;" maxlength="150" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>RFC:</label>
         <div class="control">
           <input class="input is-medium is-info" type="text" name="rfc" value="{{rfc}}" autofocus="" maxlength="13" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Teléfono:</label>
         <div class="control">
           <input class="input is-medium is-info" type="text" name="telefono" value="{{telefono}}" autofocus="" maxlength="10" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Correo:</label>
         <div class="control">
           <input class="input is-medium is-info" type="email" name="correo" value="{{correo}}" autofocus="" maxlength="50" readonly>
         </div>
       </div>
 
+      <div class="field">
+        <label>Tipo de Usuario:</label>
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="rol" value="{{rol}}" autofocus="" maxlength="50" readonly>
+        </div>
+      </div>
+
       <button class="button is-block is-danger is-medium is-fullwidth">Eliminar</button>
+      <br>
+      <a class="button is-block is-info is-medium is-fullwidth" href="{{ url_for('usuario.usuarios') }}">Cancelar</a>
+      
     </form>
   </div>
 </div>

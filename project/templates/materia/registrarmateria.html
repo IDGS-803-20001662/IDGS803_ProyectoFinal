@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-6 is-offset-3">
+  <br>
+  <h3 class="title">Registro de Insumos</h3>
+  <div class="box">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+      {{ messages[0] }}.
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/materia/registrarmateria">
+
+      <div class="field">
+        <label>Nombre:</label>
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="nombre" style="text-transform: uppercase;" maxlength="20">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Descripción:</label>
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="descripcion" style="text-transform: uppercase;" maxlength="100">
+        </div>
+      </div>
+
+      <label>Precio por Proveedor:</label>
+      <div class="field has-addons">
+        <p class="control">
+          <span class="button is-static is-medium">
+            $
+          </span>
+        </p>
+        <p class="control is-expanded">
+          <input class="input is-medium is-info" type="number" min="1" max="1000"  name="precio" step="any">
+        </p>
+      </div>
+
+      <div class="field">
+        <label>Perecidad esperada:</label>
+        <div class="control">
+            <div class="select is-rounded">
+                <select name="perecidad" id="perecidad">
+                  <option value="DIARIA">Diaria</option>
+                  <option value="TERCER DIA">Cada tercer día</option>
+                  <option value="SEMANAL">Semanal</option>
+                  <option value="MENSUAL">Mensual</option>
+                  <option value="BIMESTRAL">Bimestral</option>
+                  <option value="CUATRIMESTRAL">Cuatrimestral</option>
+                  <option value="SEMESTRAL">Semestral</option>
+                  <option value="OCTOMESTRAL">Octomestral</option>
+                  <option value="ANUAL">Anual</option>
+                  <option value="SIN PERECIDAD">Sin perecidad</option>
+                </select>
+            </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Cantidad Mínima:</label>
+        <div class="control">
+          <input class="input is-medium is-info" type="number" name="cant_min" min="1" max="1000" step="1">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Cantidad Máxima:</label>
+        <div class="control">
+          <input class="input is-medium is-info" type="number" name="cant_max" min="1" max="1000" step="1">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Unidad de medida:</label>
+        <div class="control">
+            <div class="select is-rounded">
+                <select name="medida" id="medida">
+                  <option value="KG">Kilogramos</option>
+                  <option value="GR">Gramos</option>
+                  <option value="L">Litros</option>
+                  <option value="ML">Mililitros</option>
+                  <option value="OZ">Onzas</option>
+                  <option value="VASOS">Vasos</option>
+                  <option value="UNIDAD">Unidades</option>
+                  <option value="HOJA">Hojas</option>
+                </select>
+            </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Proveedor:</label>
+        <div class="control">
+            <div class="select is-rounded">
+                <select name="proveedor" id="proveedor">
+                    {%for row in proveedores%}
+                    <option value="{{row.id}}">{{row.empresa}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+        </div>
+      </div>
+
+      <button class="button is-block is-info is-medium is-fullwidth">Registrar Insumo</button>
+      <br>
+      <a class="button is-block is-danger is-medium is-fullwidth" href="{{ url_for('materia.materias') }}">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -40,8 +40,8 @@ def create_app():
     #from .producto import producto as producto_blueprint
     #app.register_blueprint(producto_blueprint)
 
-    #from .materia import materia as materia_blueprint
-    #app.register_blueprint(materia_blueprint)
+    from .materia import materia as materia_blueprint
+    app.register_blueprint(materia_blueprint)
 
     #from .finanzas import finanzas as finanzas_blueprint
     #app.register_blueprint(finanzas_blueprint)

@@ -11,6 +11,9 @@
               font-family: cursive;
               background-color: #a4f1f1;
           }
+          button{
+            font-family: cursive;
+          }
       </style>
     </head>
     <body>
@@ -38,6 +41,9 @@
                     {% endif %}
                     <!-- Revisar rol-->
                     {% if current_user.is_authenticated and current_user.id == 1 %}
+                    <a href="{{ url_for('materia.materias') }}" class="navbar-item">
+                      <b>Insumos</b>
+                    </a>
                     <a href="{{ url_for('proveedor.verproveedores') }}" class="navbar-item">
                       <b>Proveedores</b>
                     </a>

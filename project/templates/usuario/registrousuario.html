@@ -14,26 +14,30 @@
     <form method="POST" action="/usuario/registrousuario">
 
       <div class="field">
+        <label>Nombre:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="nombre" placeholder="Nombre" style="text-transform: uppercase;" maxlength="20">
+          <input class="input is-medium is-info" type="text" name="nombre" style="text-transform: uppercase;" maxlength="20" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Paterno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_paterno" placeholder="Apellido Paterno" style="text-transform: uppercase;" maxlength="30">
+          <input class="input is-medium is-info" type="text" name="apellido_paterno" style="text-transform: uppercase;" maxlength="30" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Materno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_materno" placeholder="Apellido Materno" style="text-transform: uppercase;" maxlength="30">
+          <input class="input is-medium is-info" type="text" name="apellido_materno" style="text-transform: uppercase;" maxlength="30" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Domicilio:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="domicilio" placeholder="Domicilio" style="text-transform: uppercase;" maxlength="150">
+          <input class="input is-medium is-info" type="text" name="domicilio" style="text-transform: uppercase;" maxlength="150">
         </div>
       </div>
 
@@ -41,7 +45,7 @@
         <div class="control">
           <label>Fecha de nacimiento (DD/MM/AAAA):</label>
           <br>
-          <div class="select is-rounded" name="dia" placeholder="Dia">
+          <div class="select is-rounded" name="dia">
             <select name="dia" id="dia">
               <option value="01">01</option>
               <option value="02">02</option>
@@ -76,7 +80,7 @@
               <option value="31">31</option>
             </select>
           </div>
-          <div class="select is-rounded" name="mes" placeholder="Mes">
+          <div class="select is-rounded" name="mes">
             <select name="mes" id="mes">
               <option value="01">01</option>
               <option value="02">02</option>
@@ -92,7 +96,7 @@
               <option value="12">12</option>
             </select>
           </div>
-          <div class="select is-rounded" name="annio" placeholder="Año">
+          <div class="select is-rounded" name="annio">
             <select name="annio" id="annio">
               <option value="2005">2005</option>
               <option value="2004">2004</option>
@@ -143,32 +147,37 @@
       </div>
 
       <div class="field">
+        <label>RFC:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="rfc" placeholder="RFC" autofocus="" maxlength="13">
+          <input class="input is-medium is-info" type="text" name="rfc" autofocus="" maxlength="13" minlength="13">
         </div>
       </div>
 
       <div class="field">
+        <label>Teléfono:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="telefono" placeholder="Teléfono" autofocus="" maxlength="10">
+          <input class="input is-medium is-info" type="text" name="telefono" autofocus="" maxlength="10" minlength="10">
         </div>
       </div>
 
       <div class="field">
+        <label>Correo Electrónico:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="email" name="correo" placeholder="Correo Electronico" autofocus="" maxlength="50">
+          <input class="input is-medium is-info" type="email" name="correo" autofocus="" maxlength="50" minlength="5">
         </div>
       </div>
 
       <div class="field">
+        <label>Contraseña:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="password" name="contrasennia" placeholder="Contraseña" maxlength="100">
+          <input class="input is-medium is-info" type="password" name="contrasennia" maxlength="10" minlength="3">
         </div>
       </div>
 
       <div class="field">
+        <label>Tipo de Usuario:</label>
         <div class="control">
-            <div class="select is-rounded" placeholder="Mes">
+            <div class="select is-rounded">
                 <select name="rol" id="rol">
                   <option value="1">ADMINISTRADOR</option>
                   <option value="2">ALMACENISTA</option>
@@ -179,6 +188,9 @@
       </div>
 
       <button class="button is-block is-info is-medium is-fullwidth">Registrar</button>
+      <br>
+      <a class="button is-block is-danger is-medium is-fullwidth" href="{{ url_for('usuario.usuarios') }}">Cancelar</a>
+
     </form>
   </div>
 </div>

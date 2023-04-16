@@ -15,60 +15,71 @@
     <form method="POST" action="/proveedor/modificarproveedor">
 
       <div class="field">
+        <label>ID:</label>
         <div class="control">
-            <input class="input is-medium is-info" type="text" name="id" placeholder="ID" value="{{id}}" autofocus="" readonly>
+            <input class="input is-medium is-info" type="text" name="id" value="{{id}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label>Nombre:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="nombre" placeholder="Nombre" value="{{nombre}}" style="text-transform: uppercase;" maxlength="20">
+          <input class="input is-medium is-info" type="text" name="nombre" value="{{nombre}}" style="text-transform: uppercase;" maxlength="20" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Paterno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_paterno" placeholder="Apellido Paterno" value="{{apellido_paterno}}" style="text-transform: uppercase;" maxlength="30">
+          <input class="input is-medium is-info" type="text" name="apellido_paterno" value="{{apellido_paterno}}" style="text-transform: uppercase;" maxlength="30" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Apellido Materno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_materno" placeholder="Apellido Materno" value="{{apellido_materno}}" style="text-transform: uppercase;" maxlength="30">
+          <input class="input is-medium is-info" type="text" name="apellido_materno" value="{{apellido_materno}}" style="text-transform: uppercase;" maxlength="30" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>Empresa:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="empresa" placeholder="Empresa" value="{{empresa}}" style="text-transform: uppercase;" maxlength="20">
+          <input class="input is-medium is-info" type="text" name="empresa" value="{{empresa}}" style="text-transform: uppercase;" maxlength="20" minlength="2">
         </div>
       </div>
 
       <div class="field">
+        <label>RFC:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="rfc" placeholder="RFC" value="{{rfc}}" style="text-transform: uppercase;" maxlength="13">
+          <input class="input is-medium is-info" type="text" name="rfc" value="{{rfc}}" style="text-transform: uppercase;" maxlength="13">
         </div>
       </div>
 
       <div class="field">
+        <label>Dirección:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="direccion" placeholder="Direccion" value="{{direccion}}" style="text-transform: uppercase;" maxlength="150">
+          <input class="input is-medium is-info" type="text" name="direccion" value="{{direccion}}" style="text-transform: uppercase;" maxlength="150">
         </div>
       </div>
 
       <div class="field">
+        <label>Teléfono:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="number" name="telefono" placeholder="Teléfono" value="{{telefono}}" autofocus="" maxlength="10">
+          <input class="input is-medium is-info" type="number" name="telefono" value="{{telefono}}" autofocus="" maxlength="10" minlength="10">
         </div>
       </div> 
 
       <div class="field">
         <div class="control">
-          <input class="input is-medium is-info" type="email" name="correo" placeholder="Correo Electronico" value="{{correo}}" autofocus="" maxlength="50">
+          <input class="input is-medium is-info" type="email" name="correo" value="{{correo}}" autofocus="" maxlength="50">
         </div>
       </div>
 
       <button class="button is-block is-warning is-medium is-fullwidth">Modificar</button>
+      <br>
+      <a class="button is-block is-danger is-medium is-fullwidth" href="{{ url_for('proveedor.verproveedores') }}">Cancelar</a>
+
     </form>
   </div>
 </div>

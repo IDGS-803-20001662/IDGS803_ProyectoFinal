@@ -18,6 +18,7 @@
             <th>RFC</th>
             <th>Telefono</th>
             <th>Correo</th>
+            <th>Rol</th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +31,9 @@
             <td class="is-vcentered">{{row.rfc}}</td>
             <td class="is-vcentered">{{row.telefono}}</td>
             <td class="is-vcentered">{{row.email}}</td>
+            {%for role in row.roles%}
+            <td class="is-vcentered">{{role.name}}</td>
+            {%endfor%}
         </tr>
         {%endfor%}
     </tbody>

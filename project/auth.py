@@ -76,25 +76,6 @@ def registro_post():
 
     return redirect(url_for('auth.login'))
 
-@auth.route("/recuperarcontrasennia", methods = ['GET', 'POST'])
-def recuperarcontraseña():
-    
-    if request.method == 'POST':
-        email =  request.form.get('correo')
-        password = request.form.get('contrasennia')
-        
-        usuario = db.session.query(User).filter(User.email == email).first()
-        if usuario:
-            usuario.password = generate_password_hash(password, method='sha256')
-        else:
-            flash('El usuario y/o la contraseña son incorrectos')
-
-        db.session.add(usuario)
-        db.session.commit()
-        return redirect(url_for("auth.login"))
-    
-    return render_template("/security/recuperarcontrasennia.html")
-
 @auth.route('/logout')
 @login_required
 def logout():
