@@ -1,44 +1,74 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="buttons">
-    <a href="{{ url_for('producto.registraringrediente') }}" class="button is-success is-right">Agregar nuevo ingrediente</a></td>
-</div>
-
-<br>
+<h3 class="title">Receta de {{nombre_producto}}</h3><br>
 <div class="columns is-mobile is-centered">
     <table class="table table is-striped">
     <thead>
          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Preparación</th>
-            <th>Imagen</th>
-            <th>Merma</th>
-            <th>Precio</th>
-            <th>Receta</th>
+            <th>Insumo</th>
+            <th>Cantidad</th>
+            <th>Unidad</th>
             <th>Eliminar</th>
-            <th>Modificar</th>
         </tr>
     </thead>
     <tbody>
-        {%for row in productos%}
+        {%for row in recetas%}
         <tr>
-            <td class="is-vcentered">{{row.id}}</td>
-            <td class="is-vcentered">{{row.nombre}}</td>
-            <td class="is-vcentered">{{row.descripcion}}</td>
-            <td class="is-vcentered">{{row.preparacion}}</td>
-            <td class="is-vcentered">{{row.url}}</td>
-            <td class="is-vcentered">${{row.merma_esperada}}</td>
-            <td class="is-vcentered">${{precio}}</td>
-            <td class="is-vcentered"><a href="guardarreceta?id={{row.id}}" class="button is-success">Receta</a></td>
-            <td class="is-vcentered"><a href="eliminarproducto?id={{row.id}}" class="button is-danger">Eliminar</a></td>
-            <td class="is-vcentered"><a href="modificarproducto?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
+            <td class="is-vcentered">{{row.materia_prima.nombre}}</td>
+            <td class="is-vcentered">{{row.cantidad}}</td>
+            <td class="is-vcentered">{{row.medida}}</td>
+            <td class="is-vcentered"><a href="eliminaringrediente?id={{row.id}}" class="button is-danger">Eliminar</a></td>
         </tr>
         {%endfor%}
     </tbody>
     </table>
+</div>
+
+<div class="column is-6 is-offset-3">
+    <h3 class="subtitle">Nuevo ingrediente</h3>
+    <form method="POST" action="/producto/registraringrediente">
+        <input class="input is-info" type="hidden" name="producto_id_nuevo" value="{{id_producto}}" hidden readonly>
+        <div class="field">
+            <label class="label">Ingrediente:</label>
+            <div class="control">
+                <div class="select is-rounded">
+                    <select name="materia_nueva" id="materia_nueva">
+                        {%for row in materias%}
+                        <option value="{{row.id}}">{{row.nombre}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Cantidad:</label>
+            <div class="control">
+                <input class="input is-info" type="number" name="cant_nueva" min="1" max="1000" step="1">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Unidad de medida:</label>
+            <div class="control">
+                <div class="select is-rounded">
+                    <select name="medida_nueva" id="medida_nueva">
+                      <option value="KG">Kilogramos</option>
+                      <option value="GR">Gramos</option>
+                      <option value="L">Litros</option>
+                      <option value="ML">Mililitros</option>
+                      <option value="OZ">Onzas</option>
+                      <option value="VASOS">Vasos</option>
+                      <option value="UNIDAD">Unidades</option>
+                      <option value="HOJA">Hojas</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <button class="button is-block is-info is-fullwidth">Guardar ingrediente</button>
+        <br>
+        <a class="button is-block is-danger is-fullwidth" href="{{ url_for('producto.productos') }}">Cancelar</a>
+    </form>
+
 </div>
 
 {% endblock %}

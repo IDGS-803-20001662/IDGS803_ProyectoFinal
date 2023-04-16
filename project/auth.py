@@ -28,7 +28,7 @@ def login_post():
     login_user(user, remember = remember)
 
     if user.id == 1:
-        return redirect(url_for('proveedor.verproveedores'))
+        return redirect(url_for('producto.productos'))
     
     return redirect(url_for('main.index'))
 

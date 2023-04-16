@@ -67,21 +67,59 @@ def registrarproducto():
 
 @producto.route("/guardarreceta", methods = ['GET', 'POST'])
 @login_required
-@roles_required('ADMINISTRADOR')
+@roles_accepted('ADMINISTRADOR','VENDEDOR')
 def guardarreceta():
 
     if request.method == "GET":
         id =  request.args.get('id')
         producto = db.session.query(Producto).filter(Producto.id == id).first()
         materias = MateriaPrima.query.filter_by(status='1').all()
+        recetas = Receta.query.filter_by(producto_id=id).all()
 
     if request.method == 'POST':
         return redirect(url_for("producto.productos"))
     
     return render_template("/producto/guardarreceta.html", id_producto=producto.id, nombre_producto=producto.nombre, 
                            descripcion_producto=producto.descripcion,preparacion_producto=producto.preparacion, imagen_producto=producto.url,
-                           materias=materias)
+                           materias=materias, recetas=recetas)
 
+@producto.route("/registraringrediente", methods = ['GET', 'POST'])
+@login_required
+@roles_required('ADMINISTRADOR')
+def registraringrediente():
+    if request.method == "POST":
+        id=request.form.get('producto_id_nuevo')
+        receta = Receta(producto_id=request.form.get('producto_id_nuevo'),
+                        materia_prima_id=request.form.get('materia_nueva'),
+                        cantidad=request.form.get('cant_nueva'),
+                        medida=request.form.get('medida_nueva').upper())
+        db.session.add(receta)
+        db.session.commit()
+
+        producto = db.session.query(Producto).filter(Producto.id == id).first()
+        materias = MateriaPrima.query.filter_by(status='1').all()
+        recetas = Receta.query.filter_by(producto_id=id).all()
+
+        return render_template('/producto/guardarreceta.html', id_producto=producto.id, nombre_producto=producto.nombre, 
+                           descripcion_producto=producto.descripcion,preparacion_producto=producto.preparacion, 
+                           imagen_producto=producto.url, materias=materias,recetas=recetas)
+    
+@producto.route("/eliminaringrediente", methods = ["GET"])
+@login_required
+@roles_required('ADMINISTRADOR')
+def eliminaringrediente():
+    if request.method == "GET":
+        id=request.args.get("id")
+        receta = db.session.query(Receta).filter(Receta.id == id).first()
+        id_prod = receta.producto_id
+        db.session.delete(receta)
+        db.session.commit()
+        producto = db.session.query(Producto).filter(Producto.id == id_prod).first()
+        materias = MateriaPrima.query.filter_by(status='1').all()
+        recetas = Receta.query.filter_by(producto_id=id_prod).all()
+    return render_template('/producto/guardarreceta.html', id_producto=producto.id, nombre_producto=producto.nombre, 
+                           descripcion_producto=producto.descripcion,preparacion_producto=producto.preparacion, 
+                           imagen_producto=producto.url, materias=materias,recetas=recetas)
 
 @producto.route("/modificarproducto", methods = ['GET', 'POST'])
 @login_required
@@ -129,7 +167,11 @@ def eliminarproducto():
         prod.status = False
         db.session.add(prod)
         db.session.commit()
-        # ELIMINAR RECETAS
+        
+        recetas = Receta.query.filter_by(producto_id=id).all()
+        for receta in recetas:
+            db.session.delete(receta)
+            db.session.commit()
         return redirect(url_for("producto.productos"))
     
     return render_template("/producto/eliminarproducto.html", id=prod.id, nombre=prod.nombre, descripcion=prod.descripcion,
