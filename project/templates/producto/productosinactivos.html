@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="title">Productos Inactivos</h3><br>
+<div class="buttons">
+    <a href="{{ url_for('producto.registrarproducto') }}" class="button is-success is-right">Agregar nuevo producto</a></td>
+    <a href="{{ url_for('producto.productos') }}" class="button is-info is-right">Ver productos activos </a></td>
+</div>
+
+<br>
+<div class="columns is-mobile is-centered">
+    <table class="table table is-striped">
+    <thead>
+         <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Preparación</th>
+            <th>Imagen</th>
+            <th>Merma</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in productos%}
+        <tr>
+            <td class="is-vcentered">{{row.id}}</td>
+            <td class="is-vcentered">{{row.nombre}}</td>
+            <td class="is-vcentered">{{row.descripcion}}</td>
+            <td class="is-vcentered">{{row.preparacion}}</td>
+            <td class="is-vcentered">{{row.url}}</td>
+            <td class="is-vcentered">${{row.merma_esperada}}</td>
+            <td class="is-vcentered">${{precio}}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}

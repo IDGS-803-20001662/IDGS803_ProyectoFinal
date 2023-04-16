@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="buttons">
+    <a href="{{ url_for('producto.registraringrediente') }}" class="button is-success is-right">Agregar nuevo ingrediente</a></td>
+</div>
+
+<br>
+<div class="columns is-mobile is-centered">
+    <table class="table table is-striped">
+    <thead>
+         <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Preparación</th>
+            <th>Imagen</th>
+            <th>Merma</th>
+            <th>Precio</th>
+            <th>Receta</th>
+            <th>Eliminar</th>
+            <th>Modificar</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in productos%}
+        <tr>
+            <td class="is-vcentered">{{row.id}}</td>
+            <td class="is-vcentered">{{row.nombre}}</td>
+            <td class="is-vcentered">{{row.descripcion}}</td>
+            <td class="is-vcentered">{{row.preparacion}}</td>
+            <td class="is-vcentered">{{row.url}}</td>
+            <td class="is-vcentered">${{row.merma_esperada}}</td>
+            <td class="is-vcentered">${{precio}}</td>
+            <td class="is-vcentered"><a href="guardarreceta?id={{row.id}}" class="button is-success">Receta</a></td>
+            <td class="is-vcentered"><a href="eliminarproducto?id={{row.id}}" class="button is-danger">Eliminar</a></td>
+            <td class="is-vcentered"><a href="modificarproducto?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}

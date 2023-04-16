@@ -41,6 +41,9 @@
                     {% endif %}
                     <!-- Revisar rol-->
                     {% if current_user.is_authenticated and current_user.id == 1 %}
+                    <a href="{{ url_for('producto.productos') }}" class="navbar-item">
+                      <b>Productos</b>
+                    </a>
                     <a href="{{ url_for('materia.materias') }}" class="navbar-item">
                       <b>Insumos</b>
                     </a>
