@@ -17,21 +17,21 @@
     {% endwith %}
     <form method="POST" action="/usuario/cambiarcontrasennia">
       <div class="field">
-        <label>ID:</label>
+        <label class="label">ID:</label>
         <div class="control">
             <input class="input is-large is-info" type="text" name="id" value="{{id}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
-        <label>Correo Electrónico:</label>
+        <label class="label">Correo Electrónico:</label>
         <div class="control">
           <input class="input is-large is-info" type="email" name="correo" value="{{correo}}" autofocus="" readonly>
         </div>
       </div>
 
       <div class="field">
-        <label>Nueva contrasennia:</label>
+        <label class="label">Nueva contrasennia:</label>
         <div class="control">
           <input class="input is-large is-info" type="password" name="contrasennia">
         </div>

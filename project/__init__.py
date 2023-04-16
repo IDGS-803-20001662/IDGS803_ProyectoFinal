@@ -37,8 +37,8 @@ def create_app():
     from .proveedor import proveedor  as proveedor_blueprint
     app.register_blueprint(proveedor_blueprint)
 
-    #from .producto import producto as producto_blueprint
-    #app.register_blueprint(producto_blueprint)
+    from .producto import producto as producto_blueprint
+    app.register_blueprint(producto_blueprint)
 
     from .materia import materia as materia_blueprint
     app.register_blueprint(materia_blueprint)

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-6 is-offset-3">
+  <br>
+  <h3 class="title">Registro de Productos</h3>
+  <div class="box">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-warning">
+      {{ messages[0] }}.
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/producto/registrarproducto">
+
+      <div class="field">
+        <label class="label">Nombre:</label>
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="nombre" style="text-transform: uppercase;" maxlength="20">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Descripción:</label>
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="descripcion" style="text-transform: uppercase;" maxlength="100">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Preparacion:</label>
+        <div class="control">
+          <textarea class="textarea is-info" name="preparacion" style="text-transform: uppercase;"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">URL:</label>
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="url" style="text-transform: uppercase;" maxlength="100">
+        </div>
+      </div>
+
+      <label class="label">Merma esperada:</label>
+      <div class="field has-addons">
+        <p class="control">
+          <span class="button is-static is-medium">
+            $
+          </span>
+        </p>
+        <p class="control is-expanded">
+          <input class="input is-medium is-info" type="number" min="1" max="1000"  name="merma_esperada" step="any">
+        </p>
+      </div>
+
+      <label class="label">Precio:</label>
+      <div class="field has-addons">
+        <p class="control">
+          <span class="button is-static is-medium">
+            $
+          </span>
+        </p>
+        <p class="control is-expanded">
+          <input class="input is-medium is-info" type="number" min="1" max="1000"  name="precio" step="any">
+        </p>
+      </div>
+
+      <button class="button is-block is-info is-medium is-fullwidth">Registrar producto</button>
+      <br>
+      <a class="button is-block is-danger is-medium is-fullwidth" href="{{ url_for('producto.productos') }}">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

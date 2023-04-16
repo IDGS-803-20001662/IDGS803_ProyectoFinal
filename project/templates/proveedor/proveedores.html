@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h3 class="title">Proveedores</h3><br>
 <div class="buttons">
+    {% if current_user.has_role("ADMINISTRADOR") %}
     <a href="{{ url_for('proveedor.registroproveedor') }}" class="button is-success is-right">Agregar un nuevo proveedor</a></td>
+    {% endif %}
     <a href="{{ url_for('proveedor.verproveedoresinactivos') }}" class="button is-info is-right">Ver los proveedores inactivos</a></td>
     <form method="POST" action="/proveedor/buscarproveedor">
         <div class="field has-addons">
@@ -30,8 +33,10 @@
             <th>RFC</th>
             <th>Telefono</th>
             <th>Correo</th>
+            {% if current_user.has_role("ADMINISTRADOR") %}
             <th>Eliminar</th>
             <th>Modificar</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -44,8 +49,10 @@
             <td class="is-vcentered">{{row.rfc}}</td>
             <td class="is-vcentered">{{row.telefono}}</td>
             <td class="is-vcentered">{{row.correo}}</td>
+            {% if current_user.has_role("ADMINISTRADOR") %}
             <td class="is-vcentered"><a href="eliminarproveedor?id={{row.id}}" class="button is-danger">Eliminar</a></td>
             <td class="is-vcentered"><a href="modificarproveedor?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
+            {% endif %}
         </tr>
         {%endfor%}
     </tbody>

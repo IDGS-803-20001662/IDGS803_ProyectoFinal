@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3 class="title">Insumos</h3><br>
+<h3 class="title">Platillos</h3><br>
 <div class="buttons">
     {% if current_user.has_role("ADMINISTRADOR") %}
-    <a href="{{ url_for('materia.registrarmateria') }}" class="button is-success is-right">Agregar nuevo insumo</a></td>
+    <a href="{{ url_for('producto.registrarproducto') }}" class="button is-success is-right">Agregar nuevo platilo</a></td>
     {% endif %}
-    <a href="{{ url_for('materia.materiasinactivas') }}" class="button is-info is-right">Ver insumos inactivos </a></td>
-    <form method="POST" action="/materia/buscarmateria">
+    <a href="{{ url_for('producto.productosinactivos') }}" class="button is-info is-right">Ver platillos inactivos </a></td>
+    <form method="POST" action="/producto/buscarproducto">
         <div class="field has-addons">
             <div class="control">
                 <input class="input" type="text" name="parametro">
@@ -29,10 +29,11 @@
             <th>ID</th>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Perecidad</th>
-            <th>Medida</th>
+            <th>Preparación</th>
+            <th>Imagen</th>
+            <th>Merma</th>
             <th>Precio</th>
-            <th>Proveedor</th>
+            <th>Receta</th>
             {% if current_user.has_role("ADMINISTRADOR") %}
             <th>Eliminar</th>
             <th>Modificar</th>
@@ -40,18 +41,19 @@
         </tr>
     </thead>
     <tbody>
-        {%for row in materias%}
+        {%for row in productos%}
         <tr>
             <td class="is-vcentered">{{row.id}}</td>
             <td class="is-vcentered">{{row.nombre}}</td>
             <td class="is-vcentered">{{row.descripcion}}</td>
-            <td class="is-vcentered">{{row.perecidad}}</td>
-            <td class="is-vcentered">{{row.medida}}</td>
-            <td class="is-vcentered">{{row.precio}}</td>
-            <td class="is-vcentered">{{row.proveedor.empresa}}</td>
+            <td class="is-vcentered">{{row.preparacion}}</td>
+            <td class="is-vcentered">{{row.url}}</td>
+            <td class="is-vcentered">${{row.merma_esperada}}</td>
+            <td class="is-vcentered">${{row.precio}}</td>
             {% if current_user.has_role("ADMINISTRADOR") %}
-            <td class="is-vcentered"><a href="eliminarmateria?id={{row.id}}" class="button is-danger">Eliminar</a></td>
-            <td class="is-vcentered"><a href="modificarmateria?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
+            <td class="is-vcentered"><a href="guardarreceta?id={{row.id}}" class="button is-success">Receta</a></td>
+            <td class="is-vcentered"><a href="eliminarproducto?id={{row.id}}" class="button is-danger">Eliminar</a></td>
+            <td class="is-vcentered"><a href="modificarproducto?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
             {% endif %}
         </tr>
         {%endfor%}

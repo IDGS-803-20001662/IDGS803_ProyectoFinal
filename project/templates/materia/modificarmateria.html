@@ -15,27 +15,27 @@
     <form method="POST" action="/materia/modificarmateria">
 
         <div class="field">
-            <label>ID:</label>
+            <label class="label">ID:</label>
             <div class="control">
               <input class="input is-medium is-info" type="text" name="id" style="text-transform: uppercase;" value="{{id}}" readonly>
             </div>
         </div>
 
       <div class="field">
-        <label>Nombre:</label>
+        <label class="label">Nombre:</label>
         <div class="control">
           <input class="input is-medium is-info" type="text" name="nombre" style="text-transform: uppercase;" maxlength="20" value="{{nombre}}">
         </div>
       </div>
 
       <div class="field">
-        <label>Descripción:</label>
+        <label class="label">Descripción:</label>
         <div class="control">
           <input class="input is-medium is-info" type="text" name="descripcion" style="text-transform: uppercase;" maxlength="100" value="{{descripcion}}">
         </div>
       </div>
 
-      <label>Precio por Proveedor:</label>
+      <label class="label">Precio por Proveedor:</label>
       <div class="field has-addons">
         <p class="control">
           <span class="button is-static is-medium">
@@ -48,7 +48,7 @@
       </div>
 
       <div class="field">
-        <label>Perecidad esperada:</label>
+        <label class="label">Perecidad esperada:</label>
         <div class="control">
             <div class="select is-rounded">
                 <select name="perecidad" id="perecidad">
@@ -69,21 +69,21 @@
       </div>
 
       <div class="field">
-        <label>Cantidad Mínima:</label>
+        <label class="label">Cantidad Mínima:</label>
         <div class="control">
           <input class="input is-medium is-info" type="number" name="cant_min" min="1" max="1000" step="1" value="{{cant_min}}">
         </div>
       </div>
 
       <div class="field">
-        <label>Cantidad Máxima:</label>
+        <label class="label">Cantidad Máxima:</label>
         <div class="control">
           <input class="input is-medium is-info" type="number" name="cant_max" min="1" max="1000" step="1" value="{{cant_max}}">
         </div>
       </div>
 
       <div class="field">
-        <label>Unidad de medida:</label>
+        <label class="label">Unidad de medida:</label>
         <div class="control">
             <div class="select is-rounded">
                 <select name="medida" id="medida">
@@ -102,7 +102,7 @@
       </div>
 
       <div class="field">
-        <label>Proveedor:</label>
+        <label class="label">Proveedor:</label>
         <div class="control">
             <div class="select is-rounded">
                 <select name="proveedor" id="proveedor">

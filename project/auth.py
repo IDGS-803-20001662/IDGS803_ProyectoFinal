@@ -27,8 +27,14 @@ def login_post():
     #Si los datos son correctos le creamos un usuario y accesa
     login_user(user, remember = remember)
 
-    if user.id == 1:
-        return redirect(url_for('proveedor.verproveedores'))
+    if "ADMINISTRADOR" in [role.name for role in user.roles]:
+        return redirect(url_for('usuario.usuarios'))
+    
+    if "ALMACENISTA" in [role.name for role in user.roles]:
+        return redirect(url_for('materia.materias'))
+    
+    if "VENDEDOR" in [role.name for role in user.roles]:
+        return redirect(url_for('producto.productos'))
     
     return redirect(url_for('main.index'))
 

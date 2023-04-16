@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h3 class="title">Insumos Encontrados</h3><br>
 <div class="buttons">
+    {% if current_user.has_role("ADMINISTRADOR") %}
     <a href="{{ url_for('materia.registrarmateria') }}" class="button is-success is-right">Agregar nuevo insumo</a></td>
+    {% endif %}
     <a href="{{ url_for('materia.materias') }}" class="button is-info is-right">Ver todos los insumos </a></td>
 </div>
 
@@ -18,8 +21,10 @@
             <th>Medida</th>
             <th>Precio</th>
             <th>Proveedor</th>
+            {% if current_user.has_role("ADMINISTRADOR") %}
             <th>Eliminar</th>
             <th>Modificar</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -32,7 +37,7 @@
             <td class="is-vcentered">{{row.medida}}</td>
             <td class="is-vcentered">{{row.precio}}</td>
             <td class="is-vcentered">{{row.proveedor.empresa}}</td>
-            {%if row.status == 1%}
+            {%if row.status == 1 and current_user.has_role("ADMINISTRADOR")%}
             <td class="is-vcentered"><a href="eliminarmateria?id={{row.id}}" class="button is-danger">Eliminar</a></td>
             <td class="is-vcentered"><a href="modificarmateria?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
             {%endif%}
