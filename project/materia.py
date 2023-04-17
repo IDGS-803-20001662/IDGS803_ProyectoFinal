@@ -53,17 +53,24 @@ def registrarmateria():
     proveedores = Proveedor.query.filter_by(status='1').all()
 
     if request.method == 'POST':
-        #ingresar proveedor por id
-        mat = MateriaPrima(nombre = request.form.get('nombre').upper(),
-                           descripcion = request.form.get('descripcion').upper(),
-                           perecidad = request.form.get('perecidad').upper(),
-                           cant_min = request.form.get('cant_min'),
-                           cant_max = request.form.get('cant_max'),
-                           medida = request.form.get('medida').upper(),
-                           precio = request.form.get('precio'),
-                           proveedor_id = request.form.get('proveedor'))
-        db.session.add(mat)
-        db.session.commit()
+        stock = request.form.get('stock')
+        cant_min = request.form.get('cant_min')
+        cant_max = request.form.get('cant_max')
+        if int(stock) > int(cant_max) or int(stock) < int(cant_min) or int(cant_max) < int(cant_min):
+            flash("Stock invalido")
+            return render_template('/materia/registrarmateria.html', proveedores=proveedores)
+        else:
+            mat = MateriaPrima(nombre = request.form.get('nombre').upper(),
+                            descripcion = request.form.get('descripcion').upper(),
+                            perecidad = request.form.get('perecidad').upper(),
+                            stock = stock,
+                            cant_min = cant_min,
+                            cant_max = cant_max,
+                            medida = request.form.get('medida').upper(),
+                            precio = request.form.get('precio'),
+                            proveedor_id = request.form.get('proveedor'))
+            db.session.add(mat)
+            db.session.commit()
         return redirect(url_for("materia.materias"))
     
     return render_template('/materia/registrarmateria.html', proveedores=proveedores)
@@ -80,18 +87,29 @@ def modificarmateria():
     
     if request.method == 'POST':
         id = request.form.get('id')
-        mat = db.session.query(MateriaPrima).filter(MateriaPrima.id == id).first()
-        mat.nombre = request.form.get('nombre').upper()
-        mat.descripcion = request.form.get('descripcion').upper()
-        mat.perecidad = request.form.get('perecidad').upper()
-        mat.cant_min = request.form.get('cant_min')
-        mat.cant_max = request.form.get('cant_max')
-        mat.medida = request.form.get('medida').upper()
-        mat.precio = request.form.get('precio')
-        mat.proveedor_id = request.form.get('proveedor')
-        db.session.add(mat)
-        db.session.commit()
-        return redirect(url_for("materia.materias"))
+
+        stock = request.form.get('stock')
+        cant_min = request.form.get('cant_min')
+        cant_max = request.form.get('cant_max')
+
+        if int(stock) > int(cant_max) or int(stock) < int(cant_min) or int(cant_max) < int(cant_min):
+            flash("Stock invalido")
+            return redirect(url_for("materia.materias"))
+
+        else:
+            mat = db.session.query(MateriaPrima).filter(MateriaPrima.id == id).first()
+            mat.nombre = request.form.get('nombre').upper()
+            mat.descripcion = request.form.get('descripcion').upper()
+            mat.perecidad = request.form.get('perecidad').upper()
+            mat.stock = stock
+            mat.cant_min = cant_min
+            mat.cant_max = cant_max
+            mat.medida = request.form.get('medida').upper()
+            mat.precio = request.form.get('precio')
+            mat.proveedor_id = request.form.get('proveedor')
+            db.session.add(mat)
+            db.session.commit()
+            return redirect(url_for("materia.materias"))
     
     return render_template("/materia/modificarmateria.html", id=mat.id, nombre=mat.nombre, descripcion=mat.descripcion,
         perecidad=mat.perecidad, cant_min=mat.cant_min, cant_max=mat.cant_max, medida=mat.medida, precio=mat.precio,
@@ -113,6 +131,7 @@ def eliminarmateria():
         mat.nombre = request.form.get('nombre').upper()
         mat.descripcion = request.form.get('descripcion').upper()
         mat.perecidad = request.form.get('perecidad').upper()
+        mat.stock = request.form.get('stock')
         mat.cant_min = request.form.get('cant_min')
         mat.cant_max = request.form.get('cant_max')
         mat.medida = request.form.get('medida').upper()

@@ -54,6 +54,7 @@ class MateriaPrima(db.Model):
     nombre = db.Column(db.String(20), nullable=False)
     descripcion = db.Column(db.String(100), nullable=False)
     perecidad =  db.Column(db.String(30), nullable=False)
+    stock = db.Column(db.Integer, nullable=False)
     cant_min = db.Column(db.Integer, nullable=False)
     cant_max = db.Column(db.Integer, nullable=False)
     medida =  db.Column(db.String(20), nullable=False)
