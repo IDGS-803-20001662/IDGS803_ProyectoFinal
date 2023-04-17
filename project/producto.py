@@ -53,12 +53,12 @@ def registrarproducto():
     if request.method == 'POST':
         imagen = request.files['imagen']
         if imagen:
-            image_data = base64.b64encode(imagen.read()).decode('utf-8')
+            imagen_data = base64.b64encode(imagen.read()).decode('utf-8')
 
         prod = Producto(nombre = request.form.get('nombre').upper(),
                         descripcion = request.form.get('descripcion').upper(),
                         preparacion = request.form.get('preparacion').upper(),
-                        url = image_data,
+                        url = imagen_data,
                         merma_esperada = request.form.get('merma_esperada'),
                         precio = request.form.get('precio'))
         db.session.add(prod)
@@ -136,10 +136,14 @@ def modificarproducto():
     if request.method == 'POST':
         id = request.form.get('id')
         prod = db.session.query(Producto).filter(Producto.id == id).first()
+        imagen = request.files['imagen']
+        if imagen:
+            imagen_data = base64.b64encode(imagen.read()).decode('utf-8')
+            prod.url = imagen_data
+        
         prod.nombre = request.form.get('nombre').upper()
         prod.descripcion = request.form.get('descripcion').upper()
         prod.preparacion = request.form.get('preparacion').upper()
-        prod.url = request.form.get('url'),
         prod.merma_esperada = request.form.get('merma_esperada')
         prod.precio = request.form.get('precio')
         db.session.add(prod)
