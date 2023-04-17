@@ -12,7 +12,7 @@
     </div>
     {% endif %}
     {% endwith %}
-    <form method="POST" action="/producto/modificarproducto">
+    <form method="POST" action="/producto/modificarproducto" enctype="multipart/form-data">
 
         <div class="field">
             <label class="label">ID:</label>
@@ -43,9 +43,15 @@
       </div>
 
       <div class="field">
-        <label class="label">URL:</label>
+        <label class="label">Imagen actual:</label>
+        <img src="data:image/png;base64,{{ url }}" alt="{{nombre}}" style="height: 150px;">
+      </div>
+
+      <div class="field">
+        <label class="label">Nueva imagen:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="url" style="text-transform: uppercase;" maxlength="100" value="{{url}}">
+          <input type="file" name="imagen" id="imagen" accept="image/*" class="control is info">
+          <input type="hidden" id="imagen_b64" name="imagen_b64">
         </div>
       </div>
 
