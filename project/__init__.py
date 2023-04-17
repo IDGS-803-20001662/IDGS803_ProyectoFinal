@@ -15,6 +15,8 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://gestor_sushicat:sushicatadmin@localhost/bd_sushicat'
     app.config['SECURITY_PASSWORD_HASH'] = 'pbkdf2_sha512' # SALT
     app.config['SECURITY_PASSWORD_SALT'] = 'thisissecretsalt'
+    app.config['UPLOAD_FOLDER'] = 'static/img/' #FOLDER PARA GUARDAR IMAGENES
+    app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 
     db.init_app(app)
     @app.before_first_request

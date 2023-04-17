@@ -81,7 +81,7 @@ class Producto(db.Model):
     nombre = db.Column(db.String(20), nullable=False)
     descripcion = db.Column(db.String(100), nullable=False)
     preparacion =  db.Column(db.String(255), nullable=True)
-    url = db.Column(db.String(255), nullable=True)
+    url = db.Column(db.String(10000), nullable=True)
     merma_esperada = db.Column(db.Float, nullable=False)
     precio = db.Column(db.Float, nullable=False)
     status = db.Column(db.Boolean(), nullable=False, default = True)

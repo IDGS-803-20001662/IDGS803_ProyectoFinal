@@ -47,7 +47,7 @@
             <td class="is-vcentered">{{row.nombre}}</td>
             <td class="is-vcentered">{{row.descripcion}}</td>
             <td class="is-vcentered">{{row.preparacion}}</td>
-            <td class="is-vcentered">{{row.url}}</td>
+            <td class="is-vcentered"><img src="data:image/png;base64,{{ row.url }}" alt="{{row.nombre}}" style="height: 90px;"></td>
             <td class="is-vcentered">${{row.merma_esperada}}</td>
             <td class="is-vcentered">${{row.precio}}</td>
             {% if current_user.has_role("ADMINISTRADOR") %}

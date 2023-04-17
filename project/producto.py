@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
 from flask_security import login_required, current_user
 from flask_security.decorators import roles_required, roles_accepted
 from flask_security import login_required
@@ -6,6 +6,9 @@ from flask_security.utils import login_user, logout_user, hash_password, encrypt
 from .models import MateriaPrima, Producto, Receta
 from sqlalchemy import or_
 from . import db
+from werkzeug.utils import secure_filename
+import os
+import base64
 
 producto = Blueprint('producto', __name__, url_prefix='/producto')
 
@@ -47,19 +50,19 @@ def buscarproducto():
 @roles_required('ADMINISTRADOR')
 def registrarproducto():
 
-    materias = MateriaPrima.query.filter_by(status='1').all()
-
-    # confirmar que se registró la receta
     if request.method == 'POST':
-        flash('No olvide registrar la receta del producto')
+        imagen = request.files['imagen']
+        if imagen:
+            image_data = base64.b64encode(imagen.read()).decode('utf-8')
+
         prod = Producto(nombre = request.form.get('nombre').upper(),
                         descripcion = request.form.get('descripcion').upper(),
                         preparacion = request.form.get('preparacion').upper(),
-                        url = request.form.get('url'),
+                        url = image_data,
                         merma_esperada = request.form.get('merma_esperada'),
                         precio = request.form.get('precio'))
         db.session.add(prod)
-        db.session.commit() 
+        db.session.commit()
 
         return redirect(url_for("producto.productos"))
     
