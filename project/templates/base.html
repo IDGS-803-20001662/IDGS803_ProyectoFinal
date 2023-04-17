@@ -38,6 +38,9 @@
                     <a href="{{ url_for('usuario.modificarperfil') }}" class="navbar-item">
                       <b>Perfil</b>
                     </a>
+                    <a href="{{ url_for('producto.catalogo') }}" class="navbar-item">
+                      <b>Platillos</b>
+                    </a>
                     {% endif %}
                     <!-- Revisar rol-->
                     {% if current_user.is_authenticated and current_user.has_role("ADMINISTRADOR") %}

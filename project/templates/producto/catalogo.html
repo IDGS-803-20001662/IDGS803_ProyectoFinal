@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  ¡Bienvenid@, {{ nombre }}!
+</h1>
+<h1 class="subtitle">
+  <i>Échale un vistaso a nuestros nuevos productos</i>
+</h1>
+<br><br>
+<div class="columns is-multiline is-mobile">
+{%for row in productos%}
+  <div class="column is-one-quarter">
+      <div class="card m-3">
+        <div class="card-image">
+          <figure class="image is-4by4">
+            <img src="data:image/png;base64,{{ row.url }}" alt={{row.nombre}}>
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img src="data:image/png;base64,{{ row.url }}" alt={{row.nombre}}>
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="subtitle is-4">{{row.nombre}}</p>
+              <p><b>${{row.precio}}</b></p>
+            </div>
+          </div>
+          <div class="content pb-0">
+            {{row.descripcion}}<br>
+          </div>
+          <a href="" class="button is-success">Agregar al carrito</a></td>
+        </div>
+      </div>
+
+  </div>
+  {%endfor%}
+</div>
+{% endblock %}
