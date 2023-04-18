@@ -45,6 +45,9 @@ def create_app():
     from .materia import materia as materia_blueprint
     app.register_blueprint(materia_blueprint)
 
+    from .pedido import pedido as pedido_blueprint
+    app.register_blueprint(pedido_blueprint)
+
     #from .finanzas import finanzas as finanzas_blueprint
     #app.register_blueprint(finanzas_blueprint)
 

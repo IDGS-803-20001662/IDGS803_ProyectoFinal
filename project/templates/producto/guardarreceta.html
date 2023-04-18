@@ -2,6 +2,10 @@
 
 {% block content %}
 <h3 class="title">Receta de {{nombre_producto}}</h3><br>
+<div class="column is-centered">
+    <img src="data:image/png;base64,{{ imagen_producto }}" alt="{{nombre_producto}}" style="height: 150px;">
+</div>
+<br>
 <div class="columns is-mobile is-centered">
     <table class="table table is-striped">
     <thead>
@@ -24,9 +28,16 @@
     </tbody>
     </table>
 </div>
+<br>
+<div class="column is-6 is-centered is-offset-3">
+    <label class="label">Preparacion:</label>
+        <div class="control">
+            <textarea class="textarea is-info prod-textarea" name="preparacion" style="text-transform: uppercase;" readonly>{{preparacion_producto}}</textarea>
+        </div>
+</div>
 
 <div class="column is-6 is-offset-3">
-    <h3 class="subtitle">Nuevo ingrediente</h3>
+    <h3 class="title">Nuevo ingrediente</h3>
     <form method="POST" action="/producto/registraringrediente">
         <input class="input is-info" type="hidden" name="producto_id_nuevo" value="{{id_producto}}" hidden readonly>
         <div class="field">
