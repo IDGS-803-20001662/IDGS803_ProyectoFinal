@@ -101,7 +101,7 @@ class Gasto(db.Model):
 class Pedido(db.Model):
     __tablename__ = 'pedido'
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
-    fecha = db.Column(db.DateTime, nullable=False)
+    fecha = db.Column(db.DateTime, nullable=False, default = datetime.datetime.now)
     usuario_id = db.Column(db.Integer(), db.ForeignKey('user.id')) # cliente o almacenista
     domicilio_entrega = db.Column(db.String(250), nullable=True)
     tipo_entrega = db.Column(db.Boolean(), nullable=True) # 40 pesos por envio #DOMICILIO O EN RESTAURANTE
@@ -117,7 +117,7 @@ class Pedido(db.Model):
 class Venta(db.Model):
     __tablename__ = 'venta'
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
-    fecha = db.Column(db.DateTime, nullable=False)
+    fecha = db.Column(db.DateTime, nullable=False, default = datetime.datetime.now)
     pedido_id = db.Column(db.Integer(), db.ForeignKey('pedido.id'))
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     total = db.Column(db.Float, nullable=False)
@@ -127,7 +127,7 @@ class Venta(db.Model):
 class Compra(db.Model):
     __tablename__ = 'compra'
     id = db.Column(db.Integer, primary_key = True, autoincrement=True)
-    fecha = db.Column(db.DateTime, nullable=False)
+    fecha = db.Column(db.DateTime, nullable=False, default = datetime.datetime.now)
     pedido_id = db.Column(db.Integer(), db.ForeignKey('pedido.id'))
     user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
     total = db.Column(db.Float, nullable=False)

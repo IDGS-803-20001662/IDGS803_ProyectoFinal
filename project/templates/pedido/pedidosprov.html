@@ -3,6 +3,10 @@
 {% block content %}
 <h3 class="title">Pedidos a Proveedores</h3><br>
 <div class="buttons">
+    {% if current_user.has_role("ALMACENISTA")%}
+    <a href="{{ url_for('pedido.registrarpedidoprov') }}" class="button is-success">Nuevo Pedido</a>
+    {%endif%}
+    &nbsp;&nbsp;&nbsp;
     <form method="POST" action="/pedido/pedidosestatusprov">
         <div class="field has-addons">
             <div class="control">
@@ -27,7 +31,7 @@
 
 <br>
 <div class="columns is-mobile is-centered">
-    <table class="table table is-striped is-fullwidth is-narrow is-hoverable">
+    <table class="table is-striped is-fullwidth is-narrow is-hoverable">
     <thead>
          <tr>
             <th>ID</th>
