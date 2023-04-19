@@ -5,6 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-8NtWZpzhAD3j3Scn/35RW8r/IRyPumFyMn+XhtFmCIQxhT1lQRkJmTfIHsHs8Jwaf18yN0zYXTJ+9Ib/QCH/gw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
         <title>Sushicat | Un toque felino en cada bocado de sushi</title>
         <style>
           body{
@@ -13,6 +15,7 @@
           }
           button{
             font-family: tahoma;
+
           }
       </style>
     </head>
@@ -38,6 +41,9 @@
                     <a href="{{ url_for('usuario.modificarperfil') }}" class="navbar-item">
                       <b>Perfil</b>
                     </a>
+                    <a href="{{ url_for('producto.catalogo') }}" class="navbar-item">
+                      <b>Platillos</b>
+                    </a>
                     {% endif %}
                     <!-- Revisar rol-->
                     {% if current_user.is_authenticated and current_user.has_role("ADMINISTRADOR") %}
@@ -56,6 +62,9 @@
                     <a href="{{ url_for('proveedor.verproveedores') }}" class="navbar-item">
                       <b>Proveedores</b>
                     </a>
+                    <a href="{{ url_for('pedido.pedidosprov') }}" class="navbar-item">
+                      <b>Pedidos a Proveedor</b>
+                    </a>
                     {% endif %}
                     {% if current_user.has_role("ALMACENISTA") and current_user.is_authenticated %}
                     <a href="{{ url_for('materia.materias') }}" class="navbar-item">
@@ -64,10 +73,16 @@
                     <a href="{{ url_for('proveedor.verproveedores') }}" class="navbar-item">
                       <b>Proveedores</b>
                     </a>
+                    <a href="{{ url_for('pedido.pedidosprov') }}" class="navbar-item">
+                      <b>Pedidos a Proveedor</b>
+                    </a>
                     {% endif %}
                     {% if current_user.has_role("VENDEDOR") and current_user.is_authenticated %}
+                    <a href="{{ url_for('pedido.pedidoscliente') }}" class="navbar-item">
+                      <b>Pedidos de Clientes</b>
+                    </a>
                     <a href="{{ url_for('producto.productos') }}" class="navbar-item">
-                      <b>Productos</b>
+                      <b>Platillos</b>
                     </a>
                     {% endif %}
                     {% if not current_user.is_authenticated %}
@@ -83,7 +98,7 @@
                       <div class="navbar-item">
                         <div class="buttons">
                           <a class="button is-info" href="{{ url_for('auth.login') }}">
-                            <b>Iniciar Sesión</b>
+                            <i class="fas fa-power-off"></i>&nbsp; Iniciar Sesión
                           </a>
                         </div>
                       </div>
@@ -92,7 +107,7 @@
                     <div class="navbar-item">
                       <div class="buttons">
                         <a class="button is-info" href="{{ url_for('auth.logout') }}">
-                          <b>Cerrar Sesión</b>
+                          <i class="fas fa-user-times"></i> &nbsp; Cerrar Sesión
                         </a>
                       </div>
                     </div>

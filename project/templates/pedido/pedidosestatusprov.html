@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="title">Pedidos a Proveedor por Estatus</h3><br>
+<div class="buttons">
+    <a href="{{ url_for('pedido.pedidosprov') }}" class="button is-info is-right">Ver todos los pedidos</a></td>
+</div>
+
+<br>
+<div class="columns is-mobile is-centered">
+    <table class="table table is-striped is-fullwidth is-narrow is-hoverable">
+    <thead>
+         <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Almacenista</th>
+            <th>Total</th>
+            <th>Estatus</th>
+            <th>Detalles</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in pedidos%}
+        <tr>
+            <td class="is-vcentered">{{row.id}}</td>
+            <td class="is-vcentered">{{row.fecha}}</td>
+            <td class="is-vcentered">{{row.user.nombre + " " + row.user.apellido_paterno + " " + row.user.apellido_materno}}</td>
+            <td class="is-vcentered">${{row.total}}</td>
+            {%if row.status == 1%}
+            <td class="is-vcentered has-text-primary-dark">Registrado</td>
+            {%endif%}
+            {%if row.status == 2%}
+            <td class="is-vcentered has-text-warning-dark">En proceso</td>
+            {%endif%}
+            {%if row.status == 3%}
+            <td class="is-vcentered has-text-info-dark">Entregado</td>
+            {%endif%}
+            {%if row.status == 0%}
+            <td class="is-vcentered has-text-danger-dark">Cancelado</td>
+            {%endif%}
+            <td class="is-vcentered"><a href="detallesprov?id={{row.id}}" class="button is-primary">Detalles</a></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}

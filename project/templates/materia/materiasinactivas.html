@@ -11,13 +11,16 @@
 
 <br>
 <div class="columns is-mobile is-centered">
-    <table class="table table is-striped">
+    <table class="table table is-striped is-fullwidth is-narrow is-hoverable">
     <thead>
          <tr>
             <th>ID</th>
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Perecidad</th>
+            <th>Stock</th>
+            <th>Mínimo</th>
+            <th>Máximo</th>
             <th>Medida</th>
             <th>Precio</th>
             <th>Proveedor</th>
@@ -30,6 +33,9 @@
             <td class="is-vcentered">{{row.nombre}}</td>
             <td class="is-vcentered">{{row.descripcion}}</td>
             <td class="is-vcentered">{{row.perecidad}}</td>
+            <td class="is-vcentered">{{row.stock}}</td>
+            <td class="is-vcentered">{{row.cant_min}}</td>
+            <td class="is-vcentered">{{row.cant_max}}</td>
             <td class="is-vcentered">{{row.medida}}</td>
             <td class="is-vcentered">{{row.precio}}</td>
             <td class="is-vcentered">{{row.proveedor.empresa}}</td>

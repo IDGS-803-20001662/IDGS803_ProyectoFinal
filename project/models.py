@@ -54,6 +54,7 @@ class MateriaPrima(db.Model):
     nombre = db.Column(db.String(20), nullable=False)
     descripcion = db.Column(db.String(100), nullable=False)
     perecidad =  db.Column(db.String(30), nullable=False)
+    stock = db.Column(db.Integer, nullable=False)
     cant_min = db.Column(db.Integer, nullable=False)
     cant_max = db.Column(db.Integer, nullable=False)
     medida =  db.Column(db.String(20), nullable=False)
@@ -103,10 +104,11 @@ class Pedido(db.Model):
     fecha = db.Column(db.DateTime, nullable=False)
     usuario_id = db.Column(db.Integer(), db.ForeignKey('user.id')) # cliente o almacenista
     domicilio_entrega = db.Column(db.String(250), nullable=True)
-    tipo_entrega = db.Column(db.Boolean(), nullable=True) # 40 pesos por envio
+    tipo_entrega = db.Column(db.Boolean(), nullable=True) # 40 pesos por envio #DOMICILIO O EN RESTAURANTE
     forma_pago = db.Column(db.Boolean(), nullable=True) # por el momento puro efectivo
     total = db.Column(db.Float, nullable=False)
-    status = db.Column(db.Boolean(), nullable=False, default = True)
+    status = db.Column(db.Integer(), nullable=False, default = 1) #REGISTRADO, EN PROCESO, ENTREGADO, CANCELADO
+    tipo_pedido = db.Column(db.Boolean(), nullable=False, default = True) #CLIENTE O PROVEEDOR
     user = db.relationship("User", back_populates="pedido")
     venta = db.relationship("Venta", back_populates="pedido")
     compra = db.relationship("Compra", back_populates="pedido")

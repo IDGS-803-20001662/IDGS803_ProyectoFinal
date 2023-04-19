@@ -183,3 +183,10 @@ def eliminarproducto():
     
     return render_template("/producto/eliminarproducto.html", id=prod.id, nombre=prod.nombre, descripcion=prod.descripcion,
         preparacion=prod.preparacion, url=prod.url, merma_esperada=prod.merma_esperada, precio=prod.precio)
+
+@producto.route('/catalogo')
+@login_required
+@roles_required('CLIENTE')
+def catalogo():
+    productos = Producto.query.filter_by(status='1').all()
+    return render_template('/producto/catalogo.html', nombre=current_user.nombre, productos=productos)
