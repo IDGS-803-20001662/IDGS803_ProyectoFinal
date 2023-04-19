@@ -29,31 +29,7 @@
                 </tr>
                 <tr>
                     <td class="is-vcentered"><b>Estatus</b></td>
-                    {%if pedido.status == 1%}
-                        <td class="is-vcentered has-text-primary-dark">Registrado</td>
-                    {%endif%}
-                    {%if pedido.status == 2%}
-                        <td class="is-vcentered has-text-warning-dark">En proceso</td>
-                    {%endif%}
-                    {%if pedido.status == 3%}
-                        <td class="is-vcentered has-text-info-dark">Entregado</td>
-                    {%endif%}
-                    {%if pedido.status == 0%}
-                        <td class="is-vcentered has-text-danger-dark">Cancelado</td>
-                    {%endif%}
-                </tr>
-                <tr>
-                    {% if current_user.has_role("ALMACENISTA") and mostrar == 1 and pedido.status == 1 %}
-                    <td colspan="2" class="is-vcentered"><a href="cancelarpedido?id={{pedido.id}}" class="button is-danger">Cancelar</a> <a href="{{url_for('pedido.modificarpedidoprov', id=pedido.id)}}" class="button is-primary">Modificar</a></td>
-                    {%endif%}
-                </tr>
-                <tr>
-                    {% if current_user.has_role("ALMACENISTA") and pedido.status == 1 %}
-                        <td colspan="2" class="is-vcentered"><a href="hacerpedido?id={{pedido.id}}" class="button is-warning">Realizar</a></td>
-                    {%endif%}
-                    {% if current_user.has_role("ALMACENISTA") and pedido.status == 2 %}
-                        <td colspan="2" class="is-vcentered"><a href="entregarpedido?id={{pedido.id}}" class="button is-primary">Entregar</a></td>
-                    {%endif%}
+                    <td class="is-vcentered has-text-primary-dark">Registrado</td>
                 </tr>
             </tbody>
         </table>
@@ -66,13 +42,14 @@
         <table class="table table is-striped is-fullwidth is-narrow is-hoverable">
             <thead>
                 <tr>
-                    <th colspan="4" class="has-text-info-dark">INSUMOS A PEDIR</th>
+                    <th colspan="5" class="has-text-info-dark">INSUMOS A PEDIR</th>
                 </tr>
                 <tr>
                     <th>Insumo</th>
                     <th>Unidad</th>
                     <th>Cantidad</th>
                     <th>Subtotal</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,6 +59,7 @@
                     <td class="is-vcentered">{{row.medida}}</td>
                     <td class="is-vcentered">{{row.cantidad}}</td>
                     <td class="is-vcentered">{{row.subtotal}}</td>
+                    <td class="is-vcentered"><a href="{{url_for('pedido.eliminardetalleprov', id=row.id)}}" class="button is-danger">Eliminar</a></td>
                 </tr>
                 {%endfor%}
             </tbody>
@@ -114,6 +92,58 @@
                 {%endfor%}
             </tbody>
         </table>
+        <br>
+        <div class="box">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="notification is-danger">
+            {{ messages[0] }}.
+            </div>
+            {% endif %}
+            {% endwith %}
+            <form method="POST" action="/pedido/modificardetalleprov">
+                <input class="input is-info" type="hidden" name="pedido_id" readonly value="{{pedido.id}}">
+                <div class="field">
+                    <label class="label">Insumo:</label>
+                    <div class="control">
+                        <div class="select is-rounded">
+                            <select name="materia_nueva" id="materia_nueva">
+                                {%for row in materias%}
+                                <option value="{{row.id}}">{{row.nombre}}</option>
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Cantidad:</label>
+                    <div class="control">
+                        <input class="input is-info" type="number" name="cant_nueva" min="1" max="1000" step="1">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Unidad de medida:</label>
+                    <div class="control">
+                        <div class="select is-rounded">
+                            <select name="medida_nueva" id="medida_nueva">
+                            <option value="KG">Kilogramos</option>
+                            <option value="GR">Gramos</option>
+                            <option value="L">Litros</option>
+                            <option value="ML">Mililitros</option>
+                            <option value="OZ">Onzas</option>
+                            <option value="VASOS">Vasos</option>
+                            <option value="UNIDAD">Unidades</option>
+                            <option value="HOJA">Hojas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button class="button is-block is-info is-fullwidth">Agregar</button>
+                <br>
+                <a class="button is-block is-danger is-fullwidth" href="{{ url_for('pedido.pedidosprov') }}">Cancelar</a>
+            </form>
+        </div>
         
     </div>
 </div>

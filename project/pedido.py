@@ -9,6 +9,7 @@ from . import db
 from werkzeug.utils import secure_filename
 import os
 import base64
+from datetime import datetime, timedelta
 
 pedido = Blueprint('pedido', __name__, url_prefix='/pedido')
 
@@ -91,9 +92,196 @@ def detallesprov():
         id =  request.args.get('id')
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
         detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+        fecha_val= pedido.fecha + timedelta(minutes=30)
+        print(fecha_val)
+        mostrar = 0
+        if fecha_val > fecha_actual:
+            mostrar = 1
+
 
     if request.method == 'POST':
         return redirect(url_for("pedido.pedidosprov"))
     
-    return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles)
+    return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar = mostrar)
+
+@pedido.route("/registrardetalleprov", methods = ['POST'])
+@login_required
+@roles_accepted('ALMACENISTA')
+def registrardetalleprov():
+    materias = MateriaPrima.query.filter_by(status='1').all()
+
+    if request.method == "POST":
+        # COMPROBACIÓN DEL STOCK
+        materia = MateriaPrima.query.filter_by(id=request.form.get('materia_nueva')).first()
+        cantidad = request.form.get('cant_nueva')
+        if (int(materia.stock) + int(cantidad)) < int(materia.cant_max):
+
+            # REGISTRO DE PEDIDO
+            ped = Pedido(usuario_id=current_user.id,
+                        total=0,
+                        tipo_pedido=False)
+            db.session.add(ped)
+            db.session.commit()
+
+            # REGISTRO DE PRIMER DETALLE DE PEDIDO
+            ultimo_pedido = Pedido.query.order_by(Pedido.id.desc()).first()
+
+            det = DetallePedido(pedido_id = ultimo_pedido.id,
+                                materia_prima_id = materia.id,
+                                medida = request.form.get('medida_nueva'),
+                                cantidad = cantidad,
+                                subtotal = materia.precio)
+            db.session.add(det)
+            db.session.commit()
+
+            # MODIFICACIÓN DEL TOTAL
+            ultimo_pedido.total = materia.precio
+            db.session.add(ultimo_pedido)
+            db.session.commit()
+
+            pedido = db.session.query(Pedido).filter(Pedido.id == ultimo_pedido.id).first()
+            
+            return redirect(url_for("pedido.modificarpedidoprov", id=pedido.id))
+
+        else:
+            flash("La cantidad solicitada sobrepasará el stock máximo del insumo")
+            return redirect(url_for("/pedido/registrarpedidoprov"), materias=materias)
+        
+@pedido.route("/modificardetalleprov", methods = ['GET', 'POST'])
+@login_required
+@roles_accepted('ALMACENISTA')
+def modificardetalleprov():
+    materias = MateriaPrima.query.filter_by(status='1').all()
+
+    if request.method == "POST":
+        # COMPROBACIÓN DEL STOCK
+        materia = MateriaPrima.query.filter_by(id=request.form.get('materia_nueva')).first()
+        cantidad = request.form.get('cant_nueva')
+        if (int(materia.stock) + int(cantidad)) < int(materia.cant_max):
+
+            # REGISTRO DE DETALLE DE PEDIDO
+            id_pedido = request.form.get('pedido_id')
+            pedido = db.session.query(Pedido).filter(Pedido.id == id_pedido).first()
+
+            det = DetallePedido(pedido_id = id_pedido,
+                                materia_prima_id = materia.id,
+                                medida = request.form.get('medida_nueva'),
+                                cantidad = cantidad,
+                                subtotal = materia.precio)
+            db.session.add(det)
+            db.session.commit()
+
+            # MODIFICACIÓN DEL TOTAL
+            pedido.total = materia.precio
+            db.session.add(pedido)
+            db.session.commit()
+            
+            
+            return redirect(url_for('pedido.modificarpedidoprov', id=id_pedido))
+
+        else:
+            flash("La cantidad solicitada sobrepasará el stock máximo del insumo")
+            return redirect(url_for('pedido.modificarpedidoprov', id=id_pedido))
+        
+@pedido.route("/eliminardetalleprov/<int:id>", methods = ["GET"])
+@login_required
+@roles_accepted('ALMACENISTA')
+def eliminardetalleprov(id):
+    if request.method == "GET":
+        detalle = db.session.query(DetallePedido).filter(DetallePedido.id == id).first()
+        id_pedido = detalle.pedido_id
+        db.session.delete(detalle)
+        db.session.commit()
+    return redirect(url_for('pedido.modificarpedidoprov', id=id_pedido))
+
+
+@pedido.route("/modificarpedidoprov/<int:id>", methods = ['GET', 'POST'])
+@login_required
+@roles_accepted('ALMACENISTA')
+def modificarpedidoprov(id):
+    if request.method == "GET":
+        #id = request.args.get('id')
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        materias = MateriaPrima.query.filter_by(status='1').all()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+
+    return render_template("/pedido/modificarpedidoprov.html", materias=materias, pedido=pedido, detalles=detalles, fecha_actual=fecha_actual)
+   
+
+@pedido.route("/registrarpedidoprov", methods = ['GET'])
+@login_required
+@roles_accepted('ALMACENISTA')
+def registrarpedidoprov():
+    if request.method == "GET":
+        materias = MateriaPrima.query.filter_by(status='1').all()
+    
+    return render_template("/pedido/registrarpedidoprov.html", materias=materias)
+
+@pedido.route("/hacerpedido", methods = ['GET', 'POST'])
+@login_required
+@roles_required("ALMACENISTA")
+def hacerpedido():
+    if request.method == "GET":
+        id=request.args.get("id")
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+        fecha_val= pedido.fecha + timedelta(minutes=30)
+        print(fecha_val)
+        mostrar = 0
+        if fecha_val > fecha_actual:
+            mostrar = 1
+        pedido.status = "2"
+        db.session.add(pedido)
+        db.session.commit()
+        return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
+    
+@pedido.route("/entregarpedido", methods = ['GET', 'POST'])
+@login_required
+@roles_required("ALMACENISTA")
+def entregarpedido():
+    if request.method == "GET":
+        id=request.args.get("id")
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+        fecha_val= pedido.fecha + timedelta(minutes=30)
+        print(fecha_val)
+        mostrar = 0
+        if fecha_val > fecha_actual:
+            mostrar = 1
+
+        pedido.status = "3"
+        db.session.add(pedido)
+        db.session.commit()
+
+        # MODIFICAR STOCK
+        for detalle in detalles:
+            mat = db.session.query(MateriaPrima).filter(MateriaPrima.id == detalle.materia_prima.id).first()
+            mat.stock = detalle.cantidad + mat.stock
+            db.session.add(mat)
+            db.session.commit()
+
+        return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
+    
+@pedido.route("/cancelarpedido", methods = ['GET', 'POST'])
+@login_required
+@roles_required("ALMACENISTA")
+def cancelarpedido():
+    if request.method == "GET":
+        id=request.args.get("id")
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+        fecha_val= pedido.fecha + timedelta(minutes=30)
+        print(fecha_val)
+        mostrar = 0
+        if fecha_val > fecha_actual:
+            mostrar = 1
+        pedido.status = "0"
+        db.session.add(pedido)
+        db.session.commit()
+        return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 
