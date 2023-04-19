@@ -3,7 +3,7 @@ from flask_security import login_required, current_user
 from flask_security.decorators import roles_required, roles_accepted
 from flask_security import login_required
 from flask_security.utils import login_user, logout_user, hash_password, encrypt_password
-from .models import MateriaPrima, Producto, Receta, Pedido, User, DetallePedido
+from .models import MateriaPrima, Producto, Receta, Pedido, User, DetallePedido, Compra
 from sqlalchemy import or_
 from . import db
 from werkzeug.utils import secure_filename
@@ -44,8 +44,26 @@ def pedidosentregacliente():
         pedidos = Pedido.query.filter_by(tipo_pedido = "1",tipo_entrega=parametro).all()
 
         return render_template("/pedido/pedidosentregacliente.html", pedidos=pedidos)
+
+@pedido.route("/detallescliente", methods = ['GET', 'POST'])
+@login_required
+@roles_accepted('ADMINISTRADOR','VENDEDOR')
+def detallescliente():
+    if request.method == "GET":
+        id =  request.args.get('id')
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+
+    if request.method == 'POST':
+        return redirect(url_for("pedido.pedidoscliente"))
     
-# ADMINISTRACION GENERAL DE PEDIDOS A PROVEEDOR
+    return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles)
+
+
+
+
+
+# ADMINISTRACION GENERAL DE DETALLES DE PEDIDOS A PROVEEDORES
 @pedido.route("/pedidosprov")
 @login_required
 @roles_accepted('ADMINISTRADOR','ALMACENISTA')
@@ -65,31 +83,12 @@ def pedidosestatusprov():
 
         return render_template("/pedido/pedidosestatusprov.html", pedidos=pedidos)
 
-
-# ADMINISTRACION GENERAL DE DETALLES DE PEDIDOS DE CLIENTES
-
-@pedido.route("/detallescliente", methods = ['GET', 'POST'])
-@login_required
-@roles_accepted('ADMINISTRADOR','VENDEDOR')
-def detallescliente():
-    if request.method == "GET":
-        id =  request.args.get('id')
-        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
-        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
-
-    if request.method == 'POST':
-        return redirect(url_for("pedido.pedidoscliente"))
-    
-    return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles)
-
-# ADMINISTRACION GENERAL DE DETALLES DE PEDIDOS A PROVEEDORES
-
 @pedido.route("/detallesprov", methods = ['GET', 'POST'])
 @login_required
 @roles_accepted('ADMINISTRADOR','ALMACENISTA')
 def detallesprov():
     if request.method == "GET":
-        id =  request.args.get('id')
+        id=request.args.get("id")
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
         detalles = DetallePedido.query.filter_by(pedido_id=id).all()
         fecha_actual = datetime.now()
@@ -263,6 +262,13 @@ def entregarpedido():
             mat.stock = detalle.cantidad + mat.stock
             db.session.add(mat)
             db.session.commit()
+        
+        # AGREGAR COMPRA EFECTUADA
+        compra = Compra(pedido_id=pedido.id,
+                        user_id= current_user.id,
+                        total=pedido.total)
+        db.session.add(compra)
+        db.session.commit()
 
         return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
     

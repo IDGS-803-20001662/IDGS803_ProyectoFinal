@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="title">Detalles de Pedido</h3><br>
+<div class="columns">
+    <div class="column is-centered is-offset-2">
+        <table class="table table is-striped is-fullwidth is-narrow is-hoverable">
+            <thead>
+                <tr>
+                    <th colspan="2"  class="has-text-info-dark">PEDIDO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="is-vcentered"><b>ID</b></td>
+                    <td class="is-vcentered">{{pedido.id}}</td>
+                </tr>
+                <tr>
+                    <td class="is-vcentered"><b>Fecha</b></td>
+                    <td class="is-vcentered">{{pedido.fecha}}</td>
+                </tr>
+                <tr>
+                    <td class="is-vcentered"><b>Almacenista</b></td>
+                    <td class="is-vcentered">{{pedido.user.nombre + " " + pedido.user.apellido_paterno + " " + pedido.user.apellido_materno}}</td>
+                </tr>
+                <tr>
+                    <td class="is-vcentered"><b>Total</b></td>
+                    <td class="is-vcentered">{{pedido.total}}</td>
+                </tr>
+                <tr>
+                    <td class="is-vcentered"><b>Estatus</b></td>
+                    <td class="is-vcentered has-text-info-dark">Entregado</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <div class="buttons is-centered">
+            <a href="{{ url_for('compra.compras') }}" class="button is-info is-medium">Volver</a>
+        </div>
+    </div>
+    <div class="column is-centered">
+        <table class="table table is-striped is-fullwidth is-narrow is-hoverable">
+            <thead>
+                <tr>
+                    <th colspan="4" class="has-text-info-dark">INSUMOS PEDIDOS</th>
+                </tr>
+                <tr>
+                    <th>Insumo</th>
+                    <th>Unidad</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for row in detalles%}
+                <tr>
+                    <td class="is-vcentered">{{row.materia_prima.nombre}}</td>
+                    <td class="is-vcentered">{{row.medida}}</td>
+                    <td class="is-vcentered">{{row.cantidad}}</td>
+                    <td class="is-vcentered">{{row.subtotal}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        <br>
+        <table class="table table is-striped is-fullwidth is-narrow is-hoverable">
+            <thead>
+                <tr>
+                    <th colspan="6" class="has-text-info-dark">PROVEEDORES ENCARGADOS</th>
+                </tr>
+                <tr>
+                    <th>Insumo</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Empresa</th>
+                    <th>Télefono</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for row in detalles%}
+                <tr>
+                    <td class="is-vcentered">{{row.materia_prima.nombre}}</td>
+                    <td class="is-vcentered">{{row.materia_prima.proveedor.nombre + " " + row.materia_prima.proveedor.apellido_paterno + " " + row.materia_prima.proveedor.apellido_materno}}</td>
+                    <td class="is-vcentered">{{row.materia_prima.proveedor.direccion}}</td>
+                    <td class="is-vcentered">{{row.materia_prima.proveedor.empresa}}</td>
+                    <td class="is-vcentered">{{row.materia_prima.proveedor.telefono}}</td>
+                    <td class="is-vcentered">{{row.materia_prima.proveedor.correo}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+
+{% endblock %}

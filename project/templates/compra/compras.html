@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="title">Compras</h3><br>
+<div class="buttons">
+    <form method="POST" action="/compra/buscarcompra">
+        <div class="field has-addons">
+            <div class="control">
+                <input class="input" type="text" name="parametro">
+            </div>
+            <div class="control">
+                <button class="button is-info">
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br>
+<div class="columns is-mobile is-centered">
+    <table class="table table is-striped is-fullwidth is-narrow is-hoverable">
+    <thead>
+         <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>ID Pedido</th>
+            <th>Almacenista</th>
+            <th>Total</th>
+            <th>Detalles</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in compras%}
+        <tr>
+            <td class="is-vcentered">{{row.id}}</td>
+            <td class="is-vcentered">{{row.fecha}}</td>
+            <td class="is-vcentered">{{row.pedido_id}}</td>
+            <td class="is-vcentered">{{row.user.nombre + " " + row.user.apellido_paterno + " " + row.user.apellido_materno}}</td>
+            <td class="is-vcentered">${{row.total}}</td>
+            <td><a href="verdetalles?id={{row.pedido_id}}" class="button is-primary">Ver pedido</a></td></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}
