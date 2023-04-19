@@ -45,36 +45,24 @@ def pedidosentregacliente():
         return render_template("/pedido/pedidosentregacliente.html", pedidos=pedidos)
     
 # ADMINISTRACION GENERAL DE PEDIDOS A PROVEEDOR
-@pedido.route("/pedidoscliente")
+@pedido.route("/pedidosprov")
 @login_required
-@roles_accepted('ADMINISTRADOR','VENDEDOR')
-def pedidoscliente():
-    pedidos = Pedido.query.filter_by(tipo_pedido = "1").all()
-    return render_template("/pedido/pedidoscliente.html", pedidos=pedidos)
+@roles_accepted('ADMINISTRADOR','ALMACENISTA')
+def pedidosprov():
+    pedidos = Pedido.query.filter_by(tipo_pedido = "0").all()
+    return render_template("/pedido/pedidosprov.html", pedidos=pedidos)
 
 #Buscar por estatus
-@pedido.route("/pedidosestatuscliente", methods = ['GET', 'POST'])
+@pedido.route("/pedidosestatusprov", methods = ['GET', 'POST'])
 @login_required
-@roles_accepted('ADMINISTRADOR','VENDEDOR')
-def pedidosestatuscliente():
+@roles_accepted('ADMINISTRADOR','ALMACENISTA')
+def pedidosestatusprov():
    if request.method == 'POST':
         parametro =  request.form['parametro']
         print(parametro)
-        pedidos = Pedido.query.filter_by(tipo_pedido = "1", status=parametro).all()
+        pedidos = Pedido.query.filter_by(tipo_pedido = "0", status=parametro).all()
 
-        return render_template("/pedido/pedidosestatuscliente.html", pedidos=pedidos)
-
-#Buscar por tipo de entrega
-@pedido.route("/pedidosentregacliente", methods = ['GET', 'POST'])
-@login_required
-@roles_accepted('ADMINISTRADOR','VENDEDOR')
-def pedidosentregacliente():
-    if request.method == 'POST':
-        parametro =  request.form['parametro']
-        print(parametro)
-        pedidos = Pedido.query.filter_by(tipo_pedido = "1",tipo_entrega=parametro).all()
-
-        return render_template("/pedido/pedidosentregacliente.html", pedidos=pedidos)
+        return render_template("/pedido/pedidosestatusprov.html", pedidos=pedidos)
 
 
 # ADMINISTRACION GENERAL DE DETALLES DE PEDIDOS DE CLIENTES
@@ -92,4 +80,20 @@ def detallescliente():
         return redirect(url_for("pedido.pedidoscliente"))
     
     return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles)
+
+# ADMINISTRACION GENERAL DE DETALLES DE PEDIDOS A PROVEEDORES
+
+@pedido.route("/detallesprov", methods = ['GET', 'POST'])
+@login_required
+@roles_accepted('ADMINISTRADOR','ALMACENISTA')
+def detallesprov():
+    if request.method == "GET":
+        id =  request.args.get('id')
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+
+    if request.method == 'POST':
+        return redirect(url_for("pedido.pedidosprov"))
+    
+    return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles)
 

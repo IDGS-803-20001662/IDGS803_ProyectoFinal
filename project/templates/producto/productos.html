@@ -35,8 +35,8 @@
             <th>Precio</th>
             <th>Receta</th>
             {% if current_user.has_role("ADMINISTRADOR") %}
-            <th>Eliminar</th>
-            <th>Modificar</th>
+                <th>Eliminar</th>
+                <th>Modificar</th>
             {% endif %}
         </tr>
     </thead>
@@ -50,8 +50,8 @@
             <td class="is-vcentered"><img src="data:image/png;base64,{{ row.url }}" alt="{{row.nombre}}" style="height: 90px;"></td>
             <td class="is-vcentered">${{row.merma_esperada}}</td>
             <td class="is-vcentered">${{row.precio}}</td>
-            {% if current_user.has_role("ADMINISTRADOR") %}
             <td class="is-vcentered"><a href="guardarreceta?id={{row.id}}" class="button is-success">Receta</a></td>
+            {% if current_user.has_role("ADMINISTRADOR") %}
             <td class="is-vcentered"><a href="eliminarproducto?id={{row.id}}" class="button is-danger">Eliminar</a></td>
             <td class="is-vcentered"><a href="modificarproducto?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
             {% endif %}

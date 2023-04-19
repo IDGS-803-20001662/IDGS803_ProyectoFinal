@@ -13,7 +13,9 @@
             <th>Insumo</th>
             <th>Cantidad</th>
             <th>Unidad</th>
+            {% if current_user.has_role("ADMINISTRADOR") %}
             <th>Eliminar</th>
+            {%endif%}
         </tr>
     </thead>
     <tbody>
@@ -22,7 +24,9 @@
             <td class="is-vcentered">{{row.materia_prima.nombre}}</td>
             <td class="is-vcentered">{{row.cantidad}}</td>
             <td class="is-vcentered">{{row.medida}}</td>
+            {% if current_user.has_role("ADMINISTRADOR") %}
             <td class="is-vcentered"><a href="eliminaringrediente?id={{row.id}}" class="button is-danger">Eliminar</a></td>
+            {%endif%}
         </tr>
         {%endfor%}
     </tbody>
@@ -36,6 +40,7 @@
         </div>
 </div>
 
+{% if current_user.has_role("ADMINISTRADOR") %}
 <div class="column is-6 is-offset-3">
     <h3 class="title">Nuevo ingrediente</h3>
     <form method="POST" action="/producto/registraringrediente">
@@ -81,5 +86,6 @@
     </form>
 
 </div>
+{%endif%}
 
 {% endblock %}

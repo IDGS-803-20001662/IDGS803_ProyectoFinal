@@ -20,30 +20,8 @@
                     <td class="is-vcentered">{{pedido.fecha}}</td>
                 </tr>
                 <tr>
-                    <td class="is-vcentered">CLIENTE</td>
+                    <td class="is-vcentered">ALMACENISTA</td>
                     <td class="is-vcentered">{{pedido.user.nombre + " " + pedido.user.apellido_paterno + " " + pedido.user.apellido_materno}}</td>
-                </tr>
-                <tr>
-                    <td class="is-vcentered">Domicilio</td>
-                    <td class="is-vcentered">{{pedido.domicilio_entrega}}</td>
-                </tr>
-                <tr>
-                    <td class="is-vcentered">Entrega</td>
-                    {%if pedido.tipo_entrega == True%}
-                        <td class="is-vcentered">A Domicilio</td>
-                    {%endif%}
-                    {%if pedido.tipo_entrega == False%}
-                        <td class="is-vcentered">En Restaurante</td>
-                    {%endif%}
-                </tr>
-                <tr>
-                    <td class="is-vcentered">Pago</td>
-                    {%if pedido.forma_pago == True%}
-                        <td class="is-vcentered">Efectivo</td>
-                    {%endif%}
-                    {%if pedido.forma_pago == False%}
-                        <td class="is-vcentered">Transferencia</td>
-                    {%endif%}
                 </tr>
                 <tr>
                     <td class="is-vcentered">TOTAL</td>
@@ -66,8 +44,8 @@
                 </tr>
                 <tr>
                     {% if current_user.has_role("VENDEDOR") and pedido.status == 1 %}
-                        <td colspan="2" class="is-vcentered"><a href="prepararpedido?id={{pedido.id}}" class="button is-warning">Preparar</a> <a href="cancelarpedido?id={{pedido.id}}" class="button is-danger">Cancelar</a></td>
-                    {% endif %}
+                        <td colspan="2" class="is-vcentered"><a href="hacerpedido?id={{pedido.id}}" class="button is-warning">Realizar</a> <a href="cancelarpedido?id={{pedido.id}}" class="button is-danger">Cancelar</a></td>
+                    {%endif%}
                     {% if current_user.has_role("VENDEDOR") and pedido.status == 2 %}
                         <td colspan="2" class="is-vcentered"><a href="entregarpedido?id={{pedido.id}}" class="button is-primary">Entregar</a></td>
                     {%endif%}
@@ -76,14 +54,15 @@
         </table>
         <br>
         <div class="buttons is-centered">
-            <a href="{{ url_for('pedido.pedidoscliente') }}" class="button is-info is-medium">Volver</a>
+            <a href="{{ url_for('pedido.pedidosprov') }}" class="button is-info is-medium">Volver</a>
         </div>
     </div>
     <div class="column is-centered">
         <table class="table table is-striped">
             <thead>
                 <tr>
-                    <th>Producto</th>
+                    <th>Insumo</th>
+                    <th>Unidad</th>
                     <th>Cantidad</th>
                     <th>Subtotal</th>
                 </tr>
@@ -91,7 +70,8 @@
             <tbody>
                 {%for row in detalles%}
                 <tr>
-                    <td class="is-vcentered">{{row.producto.nombre}}</td>
+                    <td class="is-vcentered">{{row.materia_prima.nombre}}</td>
+                    <td class="is-vcentered">{{row.medida}}</td>
                     <td class="is-vcentered">{{row.cantidad}}</td>
                     <td class="is-vcentered">{{row.subtotal}}</td>
                 </tr>

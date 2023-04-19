@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h3 class="title">Pedidos de Clientes</h3><br>
+<h3 class="title">Pedidos a Proveedores</h3><br>
 <div class="buttons">
-    <form method="POST" action="/pedido/pedidosestatuscliente">
+    <form method="POST" action="/pedido/pedidosestatusprov">
         <div class="field has-addons">
             <div class="control">
                 <div class="select">
@@ -23,27 +23,6 @@
             </div>
         </div>
     </form>
-    &nbsp;&nbsp;&nbsp;
-    <form method="POST" action="/pedido/pedidosentregacliente">
-        <div class="field has-addons">
-            <div class="control">
-                <div class="select">
-                    <select name="parametro" id="parametro">
-                      <option value=1>Domicilio</option>
-                      <option value=0>Restaurante</option>
-                    </select>
-                </div>
-            </div>
-            <div class="control">
-                <button class="button is-success">
-                    <span><i class="fas fa-search"></i></span>
-                    <span>&nbsp;&nbsp;Entrega</span>
-                </button>
-            </div>
-        </div>
-    </form>
-    &nbsp;&nbsp;&nbsp;
-    <a href="{{ url_for('usuario.clientes') }}" class="button is-info">Clientes</a>
 </div>
 
 <br>
@@ -53,10 +32,7 @@
          <tr>
             <th>ID</th>
             <th>Fecha</th>
-            <th>Cliente</th>
-            <th>Domicilio</th>
-            <th>Entrega</th>
-            <th>Pago</th>
+            <th>Almacenista</th>
             <th>Total</th>
             <th>Estatus</th>
             <th>Detalles</th>
@@ -68,19 +44,6 @@
             <td class="is-vcentered">{{row.id}}</td>
             <td class="is-vcentered">{{row.fecha}}</td>
             <td class="is-vcentered">{{row.user.nombre + " " + row.user.apellido_paterno + " " + row.user.apellido_materno}}</td>
-            <td class="is-vcentered">{{row.domicilio_entrega}}</td>
-            {%if row.tipo_entrega == True%}
-            <td class="is-vcentered">A Domicilio</td>
-            {%endif%}
-            {%if row.tipo_entrega == False%}
-            <td class="is-vcentered">En Restaurante</td>
-            {%endif%}
-            {%if row.forma_pago == True%}
-            <td class="is-vcentered">Efectivo</td>
-            {%endif%}
-            {%if row.forma_pago == False%}
-            <td class="is-vcentered">Transferencia</td>
-            {%endif%}
             <td class="is-vcentered">${{row.total}}</td>
             {%if row.status == 1%}
             <td class="is-vcentered has-text-primary-dark">Registrado</td>
@@ -94,7 +57,7 @@
             {%if row.status == 0%}
             <td class="is-vcentered has-text-danger-dark">Cancelado</td>
             {%endif%}
-            <td class="is-vcentered"><a href="detallescliente?id={{row.id}}" class="button is-primary">Detalles</a></td>
+            <td class="is-vcentered"><a href="detallesprov?id={{row.id}}" class="button is-primary">Detalles</a></td>
         </tr>
         {%endfor%}
     </tbody>
