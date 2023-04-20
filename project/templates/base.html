@@ -32,17 +32,20 @@
                     </a>
                   </div>
                   <div class="navbar-end">
-                    {% if not current_user.is_authenticated %}
+                    {% if not current_user.is_authenticated or current_user.has_role("CLIENTE") %}
                     <a href="{{ url_for('main.index') }}" class="navbar-item">
                       <b>Inicio</b>
                     </a>
                     {% endif %}
                     {% if current_user.is_authenticated and current_user.has_role("CLIENTE") %}
+                    <a href="{{ url_for('producto.catalogo') }}" class="navbar-item">
+                      <b>Platillos</b>
+                    </a>
                     <a href="{{ url_for('usuario.modificarperfil') }}" class="navbar-item">
                       <b>Perfil</b>
                     </a>
-                    <a href="{{ url_for('producto.catalogo') }}" class="navbar-item">
-                      <b>Platillos</b>
+                    <a href="{{ url_for('usuario.modificarperfil') }}" class="navbar-item">
+                      <i class="fas fa-shopping-cart"></i> &nbsp; Carrito
                     </a>
                     {% endif %}
                     <!-- Revisar rol-->

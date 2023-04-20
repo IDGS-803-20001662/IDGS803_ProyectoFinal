@@ -24,6 +24,7 @@
     </div>
   </div>
 
+  {% if not current_user.is_authenticated %}
   <h1 class="subtitle">
     <i>Échale un vistaso a nuestros nuevos productos</i>
   </h1>
@@ -59,7 +60,8 @@
       </div>
       {%endfor%}
     </div>
-
+  </div>
+  {% endif %}
   <div class="columns">
     <div class="column">
       <h2 class="subtitle">
