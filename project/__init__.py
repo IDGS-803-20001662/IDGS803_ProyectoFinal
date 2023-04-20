@@ -48,6 +48,9 @@ def create_app():
     from .pedido import pedido as pedido_blueprint
     app.register_blueprint(pedido_blueprint)
 
+    from .compra import compra as compra_blueprint
+    app.register_blueprint(compra_blueprint)
+
     #from .finanzas import finanzas as finanzas_blueprint
     #app.register_blueprint(finanzas_blueprint)
 
