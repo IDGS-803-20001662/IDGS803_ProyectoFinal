@@ -11,11 +11,29 @@
         <style>
           body{
               font-family: tahoma;
-              background-color: #a4f1f1;
+              background: #D3F0F5;
           }
           button{
             font-family: tahoma;
 
+          }
+          #main-header {
+            background: #ffffff;
+            color: rgb(152, 224, 253);
+            height: 100px;
+          }
+          #logo {
+            height: 300px;
+            width: 400px;
+          }
+          #navbarMenuHeroA {
+            height: 100px;
+            width: 50px;
+            color: #000;
+          }
+          .navbar-menu {
+            height: 100px;
+            width: 50px;
           }
       </style>
     </head>
@@ -28,7 +46,7 @@
                 <div id="navbarMenuHeroA" class="navbar-menu">
                   <div class="navbar-start">
                     <a href="{{ url_for('main.index') }}" class="navbar-item">
-                      <i><b>Sushicat</b></i>
+                      <img id="logo" src="../static/img/NOMBRE1.png " />
                     </a>
                   </div>
                   <div class="navbar-end">
