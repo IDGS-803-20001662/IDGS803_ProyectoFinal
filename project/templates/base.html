@@ -8,6 +8,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-8NtWZpzhAD3j3Scn/35RW8r/IRyPumFyMn+XhtFmCIQxhT1lQRkJmTfIHsHs8Jwaf18yN0zYXTJ+9Ib/QCH/gw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
         <link rel="shortcut icon" type="image/x-icon" href="http://localhost:5000/static/favicon.ico">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Raleway:100,400' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/font-awesome.css">
+        <link rel="stylesheet" href="css/style.css">
         <title>Sushicat | Un toque felino en cada bocado de sushi</title>
         <style>
           body{
@@ -40,6 +44,151 @@
             height: 100px;
             width: 50px;
           }
+          #titulo5 {
+
+          font-family: cursive;
+          font-size: 40px;
+
+          color: rgb(116, 199, 255);
+          font-family: cursive;
+
+          -webkit-text-stroke: 2px rgb(23, 60, 160);
+
+          }
+          .footer {
+            background-color: #ffffff;
+            padding: 0.5rem;
+          }
+          div.social-btn {
+              display: block;
+              width: 665px;
+              margin: 0 auto;
+              text-align: center;
+          }
+          div.social-btn a {
+              text-decoration: none;
+          }
+          div.social-btn div {
+              width: 130px;
+              display: inline-block;
+              float:left;
+              height: 120px;
+              line-height: 120px;
+              color: #fff;
+              margin-right: 3px;
+              -moz-border-radius: 5px;
+              -webkit-border-radius: 5px;
+              border-radius: 5px;
+              font-size: 20px;
+              text-shadow: 0px 0px 5px #000;
+              -moz-transition: all 0.3s ease-out;
+              -o-transition: all 0.3s ease-out;
+              -webkit-transition: all 0.3s ease-out;
+              transition: all 0.3s ease-out;
+              margin-bottom: 50px;
+          }
+
+          div.social-btn a:last-child div {
+              margin-right: 0;
+          }
+
+          div.social-btn div:hover,
+          div.social-btn div:active {
+              height: 135px;
+              padding-top: 15px;
+          }
+
+          i {
+              -moz-transition: all 0.4s ease-out;
+              -webkit-transition: all 0.4s ease-out;
+              -o-transition: all 0.4s ease-out;
+              transition: all 0.4s ease-out;
+          }
+
+          div.face span,
+          div.twi span,
+          div.in span,
+          div.pin span,
+          div.git span {
+              position: absolute;
+              left: 0;
+              font-family: 'Raleway', sans-serif;
+              font-weight: 400;
+              width: 100px;
+              padding: 0px 15px;
+              opacity: 0;
+              -moz-transition: all 0.6s ease-in;
+              -o-transition: all 0.6s ease-in;
+              -webkit-transition: all 0.6s ease-in;
+              transition: all 0.6s ease-in;
+              line-height: 110px;
+              font-size: 20px;
+          }
+
+          div.social-btn div:hover i {
+              opacity: 0;
+          }
+
+          div.social-btn div:hover span {
+              opacity: 1;
+          }
+
+          div.face {
+              background: #3A5795;
+              -moz-box-shadow: 0px 4px 0px #1e469d;
+              -webkit-box-shadow: 0px 4px 0px #1e469d;
+              box-shadow: 0px 4px 0px #3e6d8d;
+              position: relative;
+          }
+
+          div.twi {
+              background: #5EA9DD;
+              -moz-box-shadow: 0px 4px 0px #186ba4;
+              -webkit-box-shadow: 0px 4px 0px #186ba4;
+              box-shadow: 0px 4px 0px #2b95df;
+              position: relative;
+          }
+
+          div.in {
+              background: #0177B5;
+              -moz-box-shadow: 0px 4px 0px #035e8e;
+              -webkit-box-shadow: 0px 4px 0px #035e8e;
+              box-shadow: 0px 4px 0px #035e8e;
+              position: relative;
+          }
+
+          div.pin {
+              background: #cf2095;
+              -webkit-box-shadow: 0px 4px 0px #f521c7;
+              -moz-box-shadow: 0px 4px 0px #df276d;
+              box-shadow: 0px 4px 0px #e2b12b;
+              position: relative;
+          }
+
+          div.git {
+              background: #BBBBBB;
+              -webkit-box-shadow: 0px 4px 0px #b51c19;
+              -moz-box-shadow: 0px 4px 0px #b51c19;
+              box-shadow: 0px 4px 0px #9a9a9a;
+              position: relative;
+          }
+
+          div.git i {
+              text-shadow: none;
+          }
+          #redsocial {
+            height: 300px;
+
+          }
+          .footer-container {
+          display: flex;
+          align-items: center;
+        }
+
+        .footer-container img {
+          margin-right: 1rem;
+        }
+
       </style>
     </head>
     <body>
@@ -169,5 +318,41 @@
             </div>
           </div>
         </section>
+        {% if not current_user.is_authenticated or current_user.has_role("CLIENTE") %}
+          <footer class="footer">
+            <div class="columns">
+              <div class="column is-2 has-text-centered">
+                <img src="../static/img/logo.jpg " style="height: 200px; width: 200px; border-radius: 8px;"/>
+                <br>  
+                <h2><b>SAMARI SOFTWARE</b></h2>
+              </div>
+              <div class="column is-5 has-text-centered">
+                <h6 id="titulo5">  
+                    Hacienda Viñedos
+                    Blvd. Náhuatl 502, Héroes de León, Gto.
+                </h6>
+              </div>
+              <div class="column is-5">
+                <div class="social-btn">
+                  <a href="https://facebook.com/anampartho" target="_blank">
+                      <div class="social face"><i class="fa fa-facebook fa-2x"></i><span>Facebook</span></div>
+                  </a>
+                  <a href="#" target="_blank">
+                      <div class="social twi"><i class="fa fa-twitter fa-2x"></i><span>Twitter</span></div>
+                  </a>
+                  <a href="#" target="_blank">
+                      <div class="social pin"><i class="fa fa-instagram fa-2x"></i><span>Instagram</span></div>
+                  </a>
+              </div>
+              </div>
+            </div>
+          </footer>
+        {% else %}
+          <footer class="footer is-small">
+            <div class="footer-container">
+              <img src="../static/img/logo.jpg " style="height: 50px; width: 50px; border-radius: 8px;"/> &nbsp <h5><b>SAMARI SOFTWARE</b></h5>
+            </div>
+          </footer>
+        {% endif %}
       </body>
 </html>
