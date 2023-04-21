@@ -61,10 +61,7 @@ def buscarusuario():
 @roles_required('ADMINISTRADOR')
 def registrousuario():
     if request.method == 'POST':
-        dia = request.form.get('dia')
-        mes = request.form.get('mes')
-        annio = request.form.get('annio')
-        fecha_nacimiento = annio+"-"+mes+"-"+dia
+        fecha_nacimiento = request.form.get('fecha_nacimiento')
         rol = request.form.get('rol')
         nombre = request.form.get('nombre').upper()
         apellido_paterno = request.form.get('apellido_paterno').upper()

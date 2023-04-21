@@ -55,9 +55,9 @@
       </div>
 
       <div class="field">
-        <label class="label">Fecha de Nacimiento (AAAA/MM/DD):</label>
+        <label class="label">Fecha de Nacimiento:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="fecha_nacimiento" value="{{fecha_nacimiento}}" style="text-transform: uppercase;" maxlength="10" minlength="10">
+          <input class="input is-medium is-info" type="date" name="fecha_nacimiento" placeholder="AAAA/MM/DD" autofocus="" min="1930-01-01" max="{{ fecha_actual }}" required>
         </div>
       </div>
 
