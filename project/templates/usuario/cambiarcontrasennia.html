@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="{{ url_for('usuario.usuarios') }}">Usuarios</a></li>
+    <li class="is-active"><a href="#" aria-current="Cambiar contraseña">Cambiar contraseña</a></li>
+  </ul>
+</nav>
 <div class="column is-4 is-offset-4">
-  <div class="is-centered">
-    <img src="../static/img/logo.jpg " style="height: 150px;"/>
-  </div>
-  <br>
   <h3 class="title">Cambiar Contraseña</h3>
   <div class="box">
     {% with messages = get_flashed_messages() %}

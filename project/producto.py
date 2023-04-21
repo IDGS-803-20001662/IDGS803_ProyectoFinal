@@ -92,10 +92,11 @@ def guardarreceta():
 def registraringrediente():
     if request.method == "POST":
         id=request.form.get('producto_id_nuevo')
+        materia = db.session.query(MateriaPrima).filter(MateriaPrima.id == request.form.get('materia_nueva')).first()
         receta = Receta(producto_id=request.form.get('producto_id_nuevo'),
-                        materia_prima_id=request.form.get('materia_nueva'),
+                        materia_prima_id= materia.id,
                         cantidad=request.form.get('cant_nueva'),
-                        medida=request.form.get('medida_nueva').upper())
+                        medida=materia.medida)
         db.session.add(receta)
         db.session.commit()
 

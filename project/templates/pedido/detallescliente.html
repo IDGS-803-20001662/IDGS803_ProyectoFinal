@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+    <ul>
+        <li><a href="{{ url_for('pedido.pedidoscliente') }}">Pedidos</a></li>
+        <li class="is-active"><a href="#" aria-current="Detalle de pedido">Detalle de pedido</a></li>
+    </ul>
+</nav>
 <h3 class="title">Detalles de Pedido</h3><br>
 <div class="columns">
-    <div class="column is-centered is-offset-2">
+    <div class="column is-centered is-offset-2 is-4">
         <table class="table is-striped is-fullwidth is-narrow is-hoverable">
             <thead>
                 <tr>
@@ -66,10 +72,10 @@
                 </tr>
                 <tr>
                     {% if current_user.has_role("VENDEDOR") and pedido.status == 1 and mostrar == 1%}
-                        <td colspan="2" class="is-vcentered"><a href="prepararpedido?id={{pedido.id}}" class="button is-warning">Preparar</a> <a href="cancelarpedido?id={{pedido.id}}" class="button is-danger">Cancelar</a></td>
+                        <td colspan="2" class="is-vcentered"><a href="prepararpedidocliente?id={{pedido.id}}" class="button is-warning">Preparar</a></td>
                     {% endif %}
                     {% if current_user.has_role("VENDEDOR") and pedido.status == 2 %}
-                        <td colspan="2" class="is-vcentered"><a href="entregarpedido?id={{pedido.id}}" class="button is-primary">Entregar</a></td>
+                        <td colspan="2" class="is-vcentered"><a href="entregarpedidocliente?id={{pedido.id}}" class="button is-primary">Entregar</a></td>
                     {%endif%}
                 </tr>
             </tbody>

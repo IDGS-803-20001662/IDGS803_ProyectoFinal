@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+    <ul>
+        <li><a href="{{ url_for('producto.productos') }}">Platillos</a></li>
+        <li class="is-active"><a href="#" aria-current="Receta">Receta</a></li>
+    </ul>
+</nav>
 <h3 class="title">Receta de {{nombre_producto}}</h3><br>
 <div class="column is-centered">
     <img src="data:image/png;base64,{{ imagen_producto }}" alt="{{nombre_producto}}" style="height: 150px;">
@@ -51,7 +57,7 @@
                 <div class="select is-rounded">
                     <select name="materia_nueva" id="materia_nueva">
                         {%for row in materias%}
-                        <option value="{{row.id}}">{{row.nombre}}</option>
+                        <option value="{{row.id}}">{{row.nombre}} ({{row.medida}})</option>
                         {%endfor%}
                     </select>
                 </div>
@@ -60,23 +66,7 @@
         <div class="field">
             <label class="label">Cantidad:</label>
             <div class="control">
-                <input class="input is-info" type="number" name="cant_nueva" min="1" max="1000" step="1">
-            </div>
-        </div>
-        <div class="field">
-            <label class="label">Unidad de medida:</label>
-            <div class="control">
-                <div class="select is-rounded">
-                    <select name="medida_nueva" id="medida_nueva">
-                      <option value="KG">Kilogramos</option>
-                      <option value="GR">Gramos</option>
-                      <option value="L">Litros</option>
-                      <option value="ML">Mililitros</option>
-                      <option value="OZ">Onzas</option>
-                      <option value="UNIDAD">Unidades</option>
-                      <option value="HOJA">Hojas</option>
-                    </select>
-                </div>
+                <input class="input is-info" type="number" name="cant_nueva" min="1" max="1000" step="any">
             </div>
         </div>
         <button class="button is-block is-info is-fullwidth">Guardar ingrediente</button>
