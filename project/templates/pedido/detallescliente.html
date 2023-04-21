@@ -7,7 +7,7 @@
         <table class="table is-striped is-fullwidth is-narrow is-hoverable">
             <thead>
                 <tr>
-                    <th colspan="2" class="has-text-info-dark">Pedido</th>
+                    <th colspan="2" class="has-text-info-dark">PEDIDO</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +46,7 @@
                     {%endif%}
                 </tr>
                 <tr>
-                    <td class="is-vcentered">TOTAL</td>
+                    <td class="is-vcentered"><b>Total</b></td>
                     <td class="is-vcentered">{{pedido.total}}</td>
                 </tr>
                 <tr>
@@ -65,7 +65,7 @@
                     {%endif%}
                 </tr>
                 <tr>
-                    {% if current_user.has_role("VENDEDOR") and pedido.status == 1 %}
+                    {% if current_user.has_role("VENDEDOR") and pedido.status == 1 and mostrar == 1%}
                         <td colspan="2" class="is-vcentered"><a href="prepararpedido?id={{pedido.id}}" class="button is-warning">Preparar</a> <a href="cancelarpedido?id={{pedido.id}}" class="button is-danger">Cancelar</a></td>
                     {% endif %}
                     {% if current_user.has_role("VENDEDOR") and pedido.status == 2 %}
@@ -99,6 +99,30 @@
                     <td class="is-vcentered">{{row.subtotal}}</td>
                 </tr>
                 {%endfor%}
+            </tbody>
+        </table>
+        <br>
+        <table class="table table is-striped is-fullwidth is-narrow is-hoverable">
+            <thead>
+                <tr>
+                    <th colspan="6" class="has-text-info-dark">DATOS DEL CLIENTE</th>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="is-vcentered">{{pedido.user.id}}</td>
+                    <td class="is-vcentered">{{pedido.user.nombre + " " + pedido.user.apellido_paterno + " " + pedido.user.apellido_materno}}</td>
+                    <td class="is-vcentered">{{pedido.domicilio_entrega}}</td>
+                    <td class="is-vcentered">{{pedido.user.telefono}}</td>
+                    <td class="is-vcentered">{{pedido.user.email}}</td>
+                </tr>
             </tbody>
         </table>
     </div>

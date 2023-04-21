@@ -1,85 +1,174 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+  #informacion {
+    padding: 80px;
+
+  }
+
+  img.derecha {
+    float: right;
+    width: 400px;
+    height: 300px;
+  }
+  img.izquierda {
+    float:left;
+    width: 250px;
+    height: 180px;
+  }
+  #imagen {
+    width: 380px;
+    height: 280px;
+  }
+
+  #titulo2 {
+
+    color: rgb(113, 168, 250);
+    font-family: cursive;
+    font-size: 30px;
+  }
+  #titulo4 {
+
+color: rgb(250, 168, 113);
+font-family: cursive;
+font-size: 30px;
+}
+  #titulo1 {
+    size: 50px;
+    color: rgb(255, 116, 181);
+    font-family: cursive;
+    font-size: 50px;
+    -webkit-text-stroke: 2px rgb(255, 255, 255);
+
+  }
+
+  #texto {
+    font-size: 20px;
+    text-align: center;
+    color: #000;
+    padding-right: 10px;
+    ;
+  }
+
+  #producto {
+    width: 400px;
+    height: 300px;
+    padding: 20px;
+  }
+
+  table {
+    font-size: 20px;
+    text-align: center;
+    color: #000;
+    padding-right: 10px;
+    align-content: center;
+  }
+
+  #tituloproductos {
+    background-color: #fd96e3;
+    border-radius: 20px;
+    color: #0f9fff;
+    height: 30px;
+    width: 200px;
+    text-align: center;
+    -webkit-text-stroke: 2px rgb(0, 0, 0);
+    size: 30px;
+
+  }
+
+  #informacionproducto {
+    background-color: #82e4e7;
+    border-radius: 10px;
+    color: #ffffff;
+    height: 130px;
+    text-align: center;
+
+  }
+  a{
+    color: #ff004c;
+  }
+</style>
 <div class="is-centered">
-  <img src="../static/img/logo.jpg " style="height: 350px;"/>
-
-  <h1 class="title">
-    Un toque felino en cada bocado de sushi
-  </h1>
-  <br><br>
-  
-  <div class="columns">
-    <div class="column is-vcentered">
-      <h1 class="subtitle">
-        <i>Un toque felino en cada bocado de sushi.</i>
-      </h1>
-      <img src="https://www.pngarts.com/files/11/Makeup-Cosmetics-Free-PNG-Image.png" style="height: 300px;"/>
-    </div>
-    <div class="column is-vcentered">
-      <h2 class="subtitle">
-        <i>Registrate en nuestra tienda en línea para disfrutar de toda la comida japonesa que Sushicat tiene para ti. ¡Y de los gatitos!.</i>
-      </h2>
-      <img src="https://www.pngmart.com/files/17/Cosmetics-Brushes-Transparent-Background.png" style="height: 300px;"/>
-    </div>
-  </div>
-
-  <h1 class="subtitle">
-    <i>Échale un vistaso a nuestros nuevos productos</i>
-  </h1>
-  <br>
-  <div class="columns is-multiline is-mobile">
-    {%for row in productos%}
-      <div class="column is-one-quarter">
-          <div class="card m-3">
-            <div class="card-image">
-              <figure class="image is-4by4">
-                <img src="data:image/png;base64,{{ row.url }}" alt={{row.nombre}}>
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-48x48">
-                    <img src="data:image/png;base64,{{ row.url }}" alt={{row.nombre}}>
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="subtitle is-4">{{row.nombre}}</p>
-                  <p><b>${{row.precio}}</b></p>
-                </div>
-              </div>
-              <div class="content pb-0">
-                {{row.descripcion}}<br>
-              </div>
-              <a href="{{ url_for('auth.login') }}" class="button is-success">Comprar</a></td>
-            </div>
-          </div>
-    
-      </div>
-      {%endfor%}
-    </div>
-
-  <div class="columns">
-    <div class="column">
-      <h2 class="subtitle">
-        <i><b>Busca nuestra tienda física en: </b></i>
-      </h2>
-      <h2 class="subtitle">
-        Geiser 112A Campo Palmyra.<br>
-        C.P. 37109 <br>
-        León, Guanajuato. México.
-      </h2>
-    </div>
-    <div class="column">
-      <h2 class="subtitle">
-        <i><b>O comunicate con nosotros: </b></i>
-      </h2>
-      <h2 class="subtitle">
-        4772337489<br>
-        sushicat@gmail.com <br>
-      </h2>
-    </div>
-  </div>
+  <img src="../static/img/INICIOS.jpg " style="height: 600px;" />
 </div>
+<br>
+<br>
+
+<div id="informacion">
+  <div class="container ml-5">
+    <img class="derecha" src="../static/img/sushi1.jpg ">
+  </div>
+  <p>
+  <h5 id="titulo2">BIENVENIDOS A LA TIENDA EN LÍNEA DE SUSHICAT</h5>
+  <br>
+  <h6 id="texto"> Estamos muy contentos de tenerte aquí. Nuestro objetivo es ofrecerte una experiencia
+    gastronómica única e inolvidable con
+    nuestro sushi fresco y de alta calidad.
+    <br>
+    Te invitamos a relajarte, disfrutar y experimentar la cultura culinaria japonesa en nuestro restaurante de sushi.
+    <br>
+    ¡Gracias por visitarnos! ¡Vive la #SushiCatExperiencia!
+  </h6>
+
+  </p>
+</div>
+<br>
+<br>
+<br>
+<h5 id="titulo1">PRODUCTOS MAS VENDIDOS</h5>
+<div id="informacion">
+  <table class="is-centered">
+
+    <tr>
+
+      <td id="producto">
+
+        <br>
+        <img class="imagen" src="../static/img/zarpas.png">
+        <br>
+        <div id="tituloproductos">
+          Zarpas
+        </div>
+
+      </td>
+
+      <td id="producto">
+        <div id="tituloproductos">
+          Rufino
+        </div>
+        <br>
+        <img class="imagen" src="../static/img/Rufino.png ">
+        <br>
+      </td>
+
+      <td id="producto">
+
+        <br>
+        <img class="imagen" src="../static/img/nemo.png ">
+        <br>
+        <div id="tituloproductos">
+          Nemo
+        </div>
+      </td>
+
+    </tr>
+
+
+  </table>
+</div>
+
+<div id="informacion">
+  <p><img class="izquierda" src="../static/img/51772.png">
+  <div id="encuadre">
+    <h5 id="titulo4">Te invitamos a ver nuestro menú de productos en la sección de 
+      <a href="{{ url_for('main.conocenos') }}" >CONOCENOS </a>.
+       en donde encontrar información de la
+      Empresa y todos los productos que ofrecemos</h5>
+    
+  </div>
+  </p>
+</div>
+<br>
+<br>
 {% endblock %}

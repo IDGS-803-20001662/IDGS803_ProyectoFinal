@@ -1,0 +1,589 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    #informacion {
+        padding: 60px;
+
+    }
+    #final2{
+        padding: 60px;
+        background-image: url("/project/static/img/comida1.jpeg");
+        background-repeat: repeat-y;
+        background-position: right top, left top;
+
+    }
+    img.derecha {
+        float: right;
+        width: 400px;
+        height: 300px;
+
+
+    }
+    
+    #producto {
+        width: 400px;
+        height: 300px;
+        padding: 20px;
+        align-content: center;
+
+    }
+
+    #productomenu {
+        align-content: center;
+        border-color: #000;
+        padding-block: 10px;
+
+    }
+
+    #productomenu1 {
+        align-content: center;
+        padding-right: 10px;
+        padding-block: 10px;
+
+
+    }
+
+    #titulo3 {
+
+        font-family: cursive;
+        font-size: 40px;
+
+        color: rgb(116, 255, 225);
+        font-family: cursive;
+
+        -webkit-text-stroke: 2px rgb(23, 155, 160);
+
+    }
+    #titulo5 {
+
+font-family: cursive;
+font-size: 40px;
+
+color: rgb(116, 199, 255);
+font-family: cursive;
+
+-webkit-text-stroke: 2px rgb(23, 60, 160);
+
+}
+    img {
+        width: 400px;
+        height: 300px;
+        border-radius: 8px;
+
+    }
+
+    #tituloproductos {
+        background-color: #fd96e3;
+        border-radius: 20px;
+        color: #0f9fff;
+        height: 30px;
+        width: 200px;
+        text-align: center;
+        -webkit-text-stroke: 2px rgb(0, 0, 0);
+        size: 30px;
+    }
+
+    #tituloproductosf {
+        background-color: #96f1fd;
+        border-radius: 20px;
+        color: #0f9fff;
+        height: 50px;
+        width: 250px;
+        font-size: xx-large;
+        text-align: center;
+        -webkit-text-stroke: 1px rgb(6, 92, 204);
+        size: 50px;
+        align-content: center;
+
+    }
+
+    #precio {
+        background-color: rgb(150, 253, 248);
+        border-radius: 5px;
+        color: #0f9fff;
+        height: 50px;
+        width: 180px;
+        text-align: center;
+        -webkit-text-stroke: 2px rgb(0, 0, 0);
+        size: 30px;
+        align-content: center;
+
+    }
+
+    #titulo1 {
+        size: 50px;
+        color: rgb(116, 239, 255);
+        font-family: cursive;
+        font-size: 50px;
+        -webkit-text-stroke: 2px rgb(4, 133, 255);
+
+    }
+
+    #texto {
+        font-size: 25px;
+        text-align: center;
+        color: #000;
+        padding-right: 20px;
+        ;
+    }
+
+    #informacionproducto {
+        width: 300px;
+        text-align: center;
+        align-content: center;
+
+    }
+    #informacionfilosofia {
+        width: 250px;
+        text-align: center;
+        align-content: center;
+        font-style:oblique;
+        font-size:large;
+        
+
+    }
+
+    #encuadre {
+        width: 700px;
+       
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 30px;
+        letter-spacing: 5px;
+        top: 50%;
+        position: static;
+
+    }
+
+    #titulo2 {
+        size: 50px;
+        color: rgb(245, 179, 228);
+        font-family: cursive;
+        font-size: 50px;
+        -webkit-text-stroke: 2px rgb(255, 15, 195);
+
+    }
+
+    #filosofia {
+        width: 250px;
+        height: 250px;
+        border-radius: 150px;
+
+    }
+
+    #sushi {
+        width: 150px;
+        height: 200px;
+
+
+    }
+
+
+    #menu {
+        width: 200px;
+        height: 250px;
+        background-color: rgb(252, 252, 252);
+
+        align-content: center;
+
+    }
+
+    #menu1 {
+        width: 200px;
+        height: 250px;
+        background-color: rgb(17, 220, 247);
+        padding: 10px;
+        align-content: center;
+        font-weight: 300;
+
+    }
+
+    table {
+        align-content: center;
+        justify-content: center;
+        padding: 20px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #imagenmenu {
+        width: 200px;
+        height: 200px;
+    }
+    #filosofiatab {
+        padding:30px;
+    }
+    #final {
+     height: 250px;
+    }
+</style>
+<div>
+    <h1 id="titulo1">CONOCE MAS SOBRE NOSOTROS</h1>
+</div>
+<div id="informacion">
+    <p><img class="derecha" src="../static/img/restaurante.jpg ">
+    <div id="encuadre">
+        <h5 id="titulo3">¿Quienes somos?</h5>
+        <br>
+
+        <h6 id="texto">
+            SUSHICAT es un emprendimiento juvenil que nace a raíz de traer un poco de
+            la cultura japonesa a México mediante la comida con unos de los platillos japoneses más
+            populares que es el sushi a esto se le hizo una unión con los gatos los cuales en Japón pueden
+            significar buena fortuna o deseo al éxito esta mezcla surgió con la finalidad de vender algo
+            delicioso con una imagen tierna.
+        </h6>
+    </div>
+    </p>
+</div>
+
+<br>
+<br>
+<h1 id="titulo2">NUESTRA FILOSOFIA EMPRESARIAL</h1>
+<br>
+<div >
+    <table >
+
+        <tr>
+
+            <td id="filosofiatab">
+                <div id="tituloproductosf">
+                    <p > Misión</p>
+                </div>
+                <br>
+                <img id="filosofia" class="imagen" src="../static/img/mision.jpg ">
+                <br>
+                <div id="informacionfilosofia">
+                    Nuestra misión es satisfacer las necesidades gastronómicas de nuestros clientes preparando y
+                    ofreciendo alimentos y
+                    servicios de la más alta calidad con una atención personalizada que garantice una satisfacción.
+                </div>
+            </td>
+
+            <td  id="filosofiatab">
+                <p id="tituloproductosf"> Visión</p>
+                <br>
+                <img id="filosofia" src="../static/img/vision.jpg ">
+                <br>
+                <div id="informacionfilosofia">
+                Crecer a nivel estatal, conservando la calidad, excelente atención y servicio. Además de crecer y
+                llegar
+                a más personas cada día mediante un servicio más accesible con una excepcional calidad.
+                </div>
+            </td>
+
+            <td id="filosofiatab">
+                <div id="tituloproductosf">
+                    <p > Valores</p>
+                </div>
+                <br>
+                <img id="filosofia"  src="../static/img/valores.png">
+                <br>
+                <div id="informacionfilosofia" >
+                    
+                    Calidad
+                    <br>
+                    Responsabilidad
+                    <br>
+                    Confianza
+                    <br>
+                    Honestidad
+                    <br>
+                    Respeto
+
+                </div>
+            </td>
+
+        </tr>
+
+
+    </table>
+</div>
+<h1 id="titulo2">NUESTRO MENU</h1>
+
+<table class="is-centered">
+
+    <tr>
+        <td id="productomenu">
+            <div id="menu1">
+                Temaki de atún picante:
+                <br>
+                 Cono de alga relleno se arroz con lomo de atún, cebolleta, rayu picante mayonesa
+                y pepino.
+                <br>
+                <br>
+                <br>
+            
+                <div id="precio">
+                    $85.00
+                    <br>
+                    3 conos 
+                </div>
+            </div>
+        </td>
+        <td id="productomenu1">
+            <div id="menu">
+
+                <img id="imagenmenu" class="imagen" src="../static/img/zarpas.png">
+                <div id="tituloproductos">
+                    Zarpas
+                </div>
+            </div>
+        </td>
+        <td id="productomenu">
+            <div id="menu1">
+                Temaki de pollo :
+                <br>
+                Cono de alga relleno de arroz con pollo en salsa de teriyaki, cebolleta, pepino y
+                tortilla de tamagotaki.
+                <br>
+                <br>
+                
+                <div id="precio">
+                    $80.00
+                    <br>
+                    3 conos 
+                </div>
+            </div>
+        </td>
+        <td id="productomenu1">
+            <div id="menu">
+
+                <img id="imagenmenu" class="imagen" src="../static/img/Rufino.png">
+                <div id="tituloproductos">
+                    Rufino
+                </div>
+            </div>
+        <td id="productomenu">
+            <div id="menu1">
+                uramaki vegetariano:
+                <br>
+                Arroz por fuera cubierto de aguacate y sésamo negro relleno de pepino, mango y nabo.
+                <br>
+                <br>
+                <br>
+                <div id="precio">
+                    $75.00
+                    <br>
+                    1 rollo 8 partes 
+                </div>
+            </div>
+        </td>
+        <td id="productomenu1">
+            <div id="menu">
+
+                <img id="imagenmenu" class="imagen" src="../static/img/verdi.png">
+                <div id="tituloproductos">
+                    Verdi
+                </div>
+            </div>
+        </td>
+
+    </tr>
+    <tr>
+        <td id="productomenu">
+            <div id="menu1">
+                uramaki de atún:
+                <br>
+                 arroz por fuera con ajonjolí y semillas de sésamo relleno de atún con salsa Sriracha ,
+                cebolleta con aceite de sésamo
+                <div id="precio">
+                    $90.00
+                    <br>
+                    1 rollo 8 partes 
+                </div>
+            </div>
+        </td>
+        <td id="productomenu1">
+            <div id="menu">
+
+                <img id="imagenmenu" class="imagen" src="../static/img/chili.png">
+                <div id="tituloproductos">
+                    Chili
+                </div>
+            </div>
+        </td>
+        <td id="productomenu">
+            <div id="menu1">
+                California roll
+                <br>
+                Arroz por fuera con sésamo blanco y negro , relleno de lechuga, surimi, aguacate, pepino
+                <br>
+                <br>
+                <br>
+                <div id="precio">
+                    $90.00
+                    <br>
+                    1 rollo 8 partes 
+                </div>
+            </div>
+        </td>
+        <td id="productomenu1">
+            <div id="menu">
+
+                <img id="imagenmenu" class="imagen" src="../static/img/manchas.png">
+                <div id="tituloproductos">
+                    Manchas
+                </div>
+            </div>
+        <td id="productomenu">
+            <div id="menu1">
+
+                Nigiris de salmon:
+                <br>
+                Ovalo de arroz cubierto de salmo crudo
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div id="precio">
+                    $120.00
+                    <br>
+                    4 Nigiris 
+                </div>
+            </div>
+        </td>
+        <td id="productomenu1">
+            <div id="menu">
+
+                <img id="imagenmenu" class="imagen" src="../static/img/nemo.png">
+                <div id="tituloproductos">
+                    Nemo
+                </div>
+            </div>
+        </td>
+
+    </tr>
+    <tr class="center">
+        <td id="productomenu">
+            <div id="menu1">
+                Maki empanizado:
+                <br>
+                con relleno de arroz , camarón, pepino, aguacate y queso crema.
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <div id="precio">
+                    $100.00
+                    <br>
+                    1 rollo 8 partes 
+                </div>
+            </div>
+        </td>
+        <td id="productomenu1">
+            <div id="menu">
+
+                <img id="imagenmenu" class="imagen" src="../static/img/coki.png">
+                <div id="tituloproductos">
+                    Cuki
+                </div>
+            </div>
+        </td>
+        <td id="productomenu">
+            <div id="menu1">
+                Poke salmón:
+                <br>
+
+                Tazón de arroz con aguacate, pasta wasabi, cebolleta troceada, cubos de salmón, alga tostada.
+                <br>
+                <br>
+  
+                <div id="precio">
+                    $150.00
+                    <br>
+                    tazon chico
+                </div>
+            </div>
+        </td>
+        <td id="productomenu1">
+            <div id="menu">
+
+                <img id="imagenmenu" class="imagen" src="../static/img/rio.png">
+                <div id="tituloproductos">
+                    Rio
+                </div>
+            </div>
+        </td>
+        <td id="productomenu">
+            <div id="menu1">
+                Nigiris de anguila:
+                <br>
+Ovalo de arroz cubierto de angula sobre alga 
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div id="precio">
+                    $135.00
+                    <br>
+                    4 Nigiris
+                </div>
+            </div>
+            <td id="productomenu1">
+                <div id="menu">
+    
+                    <img id="imagenmenu" class="imagen" src="../static/img/mushu.png">
+                    <div id="tituloproductos">
+                        Mushu
+                    </div>
+                </div>
+            </td>
+        </td>
+    </tr>
+    <tr>
+        <td id="productomenu">
+            <div id="menu1">
+               Maki de arrachera 
+                <br>
+Alga cubierta de queso manchego rellena de arroz con arrachera, jitomate , cebolla y aguacate
+
+                <br>
+                <br>
+
+                <div id="precio">
+                    $15.00
+                    <br>
+                    1 rollo 8 partes
+                </div>
+            </div>
+            <td id="productomenu1">
+                <div id="menu">
+    
+                    <img id="imagenmenu" class="imagen" src="../static/img/pelusa.png">
+                    <div id="tituloproductos">
+                        Peluso
+                    </div>
+                </div>
+            </td>
+        </td>
+        
+    </tr>
+</table>
+
+
+
+<div id="final2">
+    <p><img id="final" class="derecha" src="../static/img/menu1.png " >
+    <div id="encuadre">
+   
+
+        <h6 id="titulo5">
+            Recuerda que para poder realizar un compra es necesario que te registres en la seccion de 
+            <a href="{{ url_for('auth.registro') }}" >REGISTRO </a>.
+            <br>
+             Te deseamos un linda estacia en nuestro sitio web 
+        </h6>
+    </div>
+    </p>
+</div>
+
+
+{% endblock %}

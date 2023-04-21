@@ -1,0 +1,443 @@
+{% extends "base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+<style>
+    h1 {
+        text-align: center;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 100;
+        color: #fff;
+        font-size: 50px;
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+
+    div.social-btn {
+        display: block;
+        width: 665px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    div.social-btn a {
+        text-decoration: none;
+    }
+
+    div.social-btn div {
+        width: 130px;
+        display: inline-block;
+        float:left;
+        height: 120px;
+        line-height: 120px;
+        color: #fff;
+        margin-right: 3px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        font-size: 20px;
+        text-shadow: 0px 0px 5px #000;
+        -moz-transition: all 0.3s ease-out;
+        -o-transition: all 0.3s ease-out;
+        -webkit-transition: all 0.3s ease-out;
+        transition: all 0.3s ease-out;
+        margin-bottom: 50px;
+    }
+
+    div.social-btn a:last-child div {
+        margin-right: 0;
+    }
+
+    div.social-btn div:hover,
+    div.social-btn div:active {
+        height: 135px;
+        padding-top: 15px;
+    }
+
+    i {
+        -moz-transition: all 0.4s ease-out;
+        -webkit-transition: all 0.4s ease-out;
+        -o-transition: all 0.4s ease-out;
+        transition: all 0.4s ease-out;
+    }
+
+    div.face span,
+    div.twi span,
+    div.in span,
+    div.pin span,
+    div.git span {
+        position: absolute;
+        left: 0;
+        font-family: 'Raleway', sans-serif;
+        font-weight: 400;
+        width: 100px;
+        padding: 0px 15px;
+        opacity: 0;
+        -moz-transition: all 0.6s ease-in;
+        -o-transition: all 0.6s ease-in;
+        -webkit-transition: all 0.6s ease-in;
+        transition: all 0.6s ease-in;
+        line-height: 110px;
+        font-size: 20px;
+    }
+
+    div.social-btn div:hover i {
+        opacity: 0;
+    }
+
+    div.social-btn div:hover span {
+        opacity: 1;
+    }
+
+    div.face {
+        background: #3A5795;
+        -moz-box-shadow: 0px 4px 0px #1e469d;
+        -webkit-box-shadow: 0px 4px 0px #1e469d;
+        box-shadow: 0px 4px 0px #3e6d8d;
+        position: relative;
+    }
+
+    div.twi {
+        background: #5EA9DD;
+        -moz-box-shadow: 0px 4px 0px #186ba4;
+        -webkit-box-shadow: 0px 4px 0px #186ba4;
+        box-shadow: 0px 4px 0px #2b95df;
+        position: relative;
+    }
+
+    div.in {
+        background: #0177B5;
+        -moz-box-shadow: 0px 4px 0px #035e8e;
+        -webkit-box-shadow: 0px 4px 0px #035e8e;
+        box-shadow: 0px 4px 0px #035e8e;
+        position: relative;
+    }
+
+    div.pin {
+        background: #cf2095;
+        -webkit-box-shadow: 0px 4px 0px #f521c7;
+        -moz-box-shadow: 0px 4px 0px #df276d;
+        box-shadow: 0px 4px 0px #e2b12b;
+        position: relative;
+    }
+
+    div.git {
+        background: #BBBBBB;
+        -webkit-box-shadow: 0px 4px 0px #b51c19;
+        -moz-box-shadow: 0px 4px 0px #b51c19;
+        box-shadow: 0px 4px 0px #9a9a9a;
+        position: relative;
+    }
+
+    div.git i {
+        text-shadow: none;
+    }
+
+    #informacion {
+        padding: 80px;
+
+    }
+
+    .container {
+        max-width: 1170px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 1.5em;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .logo {
+        text-align: center;
+        font-size: 3em;
+    }
+
+    .logo span {
+        color: #0e87b7;
+    }
+
+    .contact-wrapper {
+        box-shadow: 0 0 20px 0 rgba(255, 255, 255, .3);
+    }
+
+    .contact-wrapper>* {
+        padding: 1em;
+    }
+
+    .contact-form {
+        background: #ffffff;
+    }
+
+    .contact-form form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-form form label {
+        display: block;
+    }
+
+    .contact-form form p {
+        margin: 0;
+        padding: 1em;
+    }
+
+    .contact-form form .block {
+        grid-column: 1 / 3;
+    }
+
+    .contact-form form button,
+    .contact-form form input,
+    .contact-form form textarea {
+        width: 100%;
+        padding: .7em;
+        border: none;
+        background: none;
+        outline: 0;
+        color: #fff;
+        border-bottom: 1px solid #30d0d6;
+    }
+
+    .contact-form form button {
+        background: #0e49b7;
+        border: 0;
+        text-transform: uppercase;
+        padding: 1em;
+    }
+
+    .contact-form form button:hover,
+    .contact-form form button:focus {
+        background: #30d6d6;
+        color: #fff;
+        transition: background-color 1s ease-out;
+        outline: 0;
+    }
+
+
+    .contact-info {
+        background: #13c9e9;
+    }
+
+    .contact-info h4,
+    .contact-info ul,
+    .contact-info p {
+        text-align: center;
+        margin: 0 0 1rem 0;
+    }
+    .contact-wrapper {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+    .contact-wrapper > * {
+        padding: 2em;
+    }
+    .contact-info h4,
+    .contact-info ul,
+    .contact-info p {
+        text-align: left;
+    }
+    #titulo5 {
+
+        font-family: cursive;
+        font-size: 40px;
+
+        color: rgb(116, 199, 255);
+        font-family: cursive;
+
+        -webkit-text-stroke: 2px rgb(23, 60, 160);
+
+    }
+
+    img.derecha {
+        float: right;
+        width: 300px;
+        height: 200px;
+    }
+
+    iframe.derecha {
+        float: right;
+        width: 500px;
+        height: 350px;
+    }
+
+    #imagen {
+        width: 400px;
+        height: 300px;
+    }
+
+    #titulo2 {
+
+        color: rgb(113, 168, 250);
+        font-family: cursive;
+        font-size: 30px;
+    }
+
+    #titulo1 {
+        size: 50px;
+        color: rgb(255, 116, 181);
+        font-family: cursive;
+        font-size: 50px;
+        -webkit-text-stroke: 2px rgb(255, 2, 150);
+
+    }
+
+    #texto {
+        font-size: 20px;
+        text-align: center;
+        color: #000;
+        padding-right: 10px;
+        ;
+    }
+
+    #producto {
+        width: 400px;
+        height: 300px;
+        padding: 20px;
+    }
+
+    table {
+        font-size: 20px;
+        text-align: center;
+        color: #000;
+        padding-right: 10px;
+        align-content: center;
+    }
+
+    #tituloproductos {
+        background-color: #fd96e3;
+        border-radius: 20px;
+        color: #0f9fff;
+        height: 30px;
+        width: 200px;
+        text-align: center;
+        -webkit-text-stroke: 2px rgb(0, 0, 0);
+        size: 30px;
+
+    }
+
+    #informacionproducto {
+        background-color: #82e4e7;
+        border-radius: 10px;
+        color: #ffffff;
+        height: 130px;
+        text-align: center;
+
+    }
+    #redsocial {
+   height: 300px;
+
+    }
+
+</style>
+<h5 id="titulo1">Ubicacion</h5>
+<div id="informacion">
+    <p><iframe class="derecha"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14892.607934861177!2d-101.5589111!3d21.06659115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b97cdc38db9a7%3A0x5d6e9cdfbb374ab!2sHacienda%20Vi%C3%B1edos!5e0!3m2!1ses-419!2smx!4v1681962635819!5m2!1ses-419!2smx"
+            width="500" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div id="encuadre">
+        <br>
+
+        <h6 id="titulo5">
+            Contamos con una tienda fisica donde podras recoger tus pedidos ubicada
+            <br>
+            Hacienda Viñedos
+            Blvd. Náhuatl 502, Héroes de León, Gto.
+        </h6>
+    </div>
+    </p>
+</div>
+<br>
+<h5 id="titulo1">Redes sociales </h5>
+<div id="informacion">
+    <p>
+        <img id="redsocial" src="../static/img/redes1.png" >
+        <br><br>
+    <div id="encuadre">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link href='https://fonts.googleapis.com/css?family=Raleway:100,400' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/font-awesome.css">
+        <link rel="stylesheet" href="css/style.css">
+        </head>
+
+        <body>
+
+            <div class="social-btn">
+                <a href="https://facebook.com/anampartho" target="_blank">
+                    <div class="social face"><i class="fa fa-facebook fa-2x"></i><span>Facebook</span></div>
+                </a>
+                <a href="#" target="_blank">
+                    <div class="social twi"><i class="fa fa-twitter fa-2x"></i><span>Twitter</span></div>
+                </a>
+                <a href="#" target="_blank">
+                    <div class="social in"><i class="fa fa-linkedin  fa-2x"></i><span>LinkedIn</span></div>
+                </a>
+                <a href="#" target="_blank">
+                    <div class="social pin"><i class="fa fa-instagram fa-2x"></i><span>Instagram</span></div>
+                </a>
+                <a href="#" target="_blank">
+                    <div class="social git"><i class="fa fa-github fa-2x"></i><span>Github</span></div>
+                </a>
+            </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h5 id="titulo1">CONTACTO</h5>
+    <br>
+    <br>
+    <div class="content">
+        <div class="contact-wrapper animated bounceInUp">
+            <div class="contact-form">
+                
+                <form action="">
+                    <p>
+                        <label>Nombre</label>
+                        <input type="text" name="fullname">
+                    </p>
+                    <p>
+                        <label>Correo Electronico</label>
+                        <input type="email" name="email">
+                    </p>
+                    <p>
+                        <label>Telefono</label>
+                        <input type="tel" name="phone">
+                    </p>
+                    <p>
+                        <label>asunto</label>
+                        <input type="text" name="affair">
+                    </p>
+                    <p class="block">
+                        <label>Mensaje</label>
+                        <textarea name="message" rows="3"></textarea>
+                    </p>
+                    <p class="block">
+                        <button>
+                            Enviar
+                        </button>
+                    </p>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h4>MAS INFORMACION</h4>
+                <ul>
+                    <li><i class="fas fa-phone"></i> (52) 476 144 9674</li>
+                    <li><i class="fas fa-envelope-open-text"></i> Sushicat@website.com</li>
+                </ul>
+                <p>Cualquier duda, aclaracion, queja o sugerencia no dude en comnicarse con nosostros le responderemos lo mas pronto posible</p>
+                <p>SUSHICAT.com</p>
+            </div>
+        </div>
+
+    </div>
+    {% endblock %}

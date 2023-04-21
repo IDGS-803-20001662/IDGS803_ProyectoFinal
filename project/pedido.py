@@ -53,11 +53,17 @@ def detallescliente():
         id =  request.args.get('id')
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
         detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+        fecha_val= pedido.fecha + timedelta(minutes=10)
+        print(fecha_val)
+        mostrar = 0
+        if fecha_val > fecha_actual:
+            mostrar = 1
 
     if request.method == 'POST':
         return redirect(url_for("pedido.pedidoscliente"))
     
-    return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles)
+    return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 
 
 
@@ -92,7 +98,7 @@ def detallesprov():
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
         detalles = DetallePedido.query.filter_by(pedido_id=id).all()
         fecha_actual = datetime.now()
-        fecha_val= pedido.fecha + timedelta(minutes=30)
+        fecha_val= pedido.fecha + timedelta(minutes=10)
         print(fecha_val)
         mostrar = 0
         if fecha_val > fecha_actual:
@@ -128,7 +134,7 @@ def registrardetalleprov():
 
             det = DetallePedido(pedido_id = ultimo_pedido.id,
                                 materia_prima_id = materia.id,
-                                medida = request.form.get('medida_nueva'),
+                                medida = materia.medida,
                                 cantidad = cantidad,
                                 subtotal = materia.precio)
             db.session.add(det)
@@ -165,14 +171,14 @@ def modificardetalleprov():
 
             det = DetallePedido(pedido_id = id_pedido,
                                 materia_prima_id = materia.id,
-                                medida = request.form.get('medida_nueva'),
+                                medida = materia.medida,
                                 cantidad = cantidad,
                                 subtotal = materia.precio)
             db.session.add(det)
             db.session.commit()
 
             # MODIFICACIÓN DEL TOTAL
-            pedido.total = materia.precio
+            pedido.total = pedido.total + materia.precio
             db.session.add(pedido)
             db.session.commit()
             
@@ -190,8 +196,16 @@ def eliminardetalleprov(id):
     if request.method == "GET":
         detalle = db.session.query(DetallePedido).filter(DetallePedido.id == id).first()
         id_pedido = detalle.pedido_id
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+
+        # MODIFICACIÓN DEL TOTAL
+        pedido.total = pedido.total - detalle.materia_prima.precio
+        db.session.add(pedido)
+        db.session.commit()
+
         db.session.delete(detalle)
         db.session.commit()
+
     return redirect(url_for('pedido.modificarpedidoprov', id=id_pedido))
 
 
@@ -227,7 +241,7 @@ def hacerpedido():
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
         detalles = DetallePedido.query.filter_by(pedido_id=id).all()
         fecha_actual = datetime.now()
-        fecha_val= pedido.fecha + timedelta(minutes=30)
+        fecha_val= pedido.fecha + timedelta(minutes=10)
         print(fecha_val)
         mostrar = 0
         if fecha_val > fecha_actual:
@@ -246,7 +260,7 @@ def entregarpedido():
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
         detalles = DetallePedido.query.filter_by(pedido_id=id).all()
         fecha_actual = datetime.now()
-        fecha_val= pedido.fecha + timedelta(minutes=30)
+        fecha_val= pedido.fecha + timedelta(minutes=10)
         print(fecha_val)
         mostrar = 0
         if fecha_val > fecha_actual:
@@ -281,7 +295,7 @@ def cancelarpedido():
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
         detalles = DetallePedido.query.filter_by(pedido_id=id).all()
         fecha_actual = datetime.now()
-        fecha_val= pedido.fecha + timedelta(minutes=30)
+        fecha_val= pedido.fecha + timedelta(minutes=10)
         print(fecha_val)
         mostrar = 0
         if fecha_val > fecha_actual:
