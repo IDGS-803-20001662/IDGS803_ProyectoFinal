@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="{{ url_for('finanzas.vercostos') }}">Finanzas</a></li>
+    <li class="is-active"><a href="#" aria-current="Registrar nuevo gasto">Registrar nuevo gasto</a></li>
+  </ul>
+</nav>
+<div class="column is-6 is-offset-3">
+  <br>
+  <h3 class="title">Registrar de Gasto</h3>
+  <div class="box">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+      {{ messages[0] }}.
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/finanzas/registrogasto">
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="text" name="descripcion" placeholder="Descripción" autofocus="" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="number" name="costo" placeholder="Costo mensual" autofocus="" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <input class="input is-medium is-info" type="date" name="fecha" placeholder="DD/MM/AAAA" autofocus="" min="2020-01-01" max="{{ fecha_actual }}" required>
+        </div>
+      </div>
+
+      <button class="button is-block is-info is-medium is-fullwidth">Registrar Gasto</button>
+      <br>
+      <a class="button is-block is-danger is-medium is-fullwidth" href="{{ url_for('finanzas.vercostos') }}">Cancelar</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="{{ url_for('finanzas.vercostos') }}">Finanzas</a></li>
+      <li class="is-active"><a href="#" aria-current="Gastos encontrados">Gastos encontrados</a></li>
+    </ul>
+</nav>
+<h3 class="title">Gastos Encontrados</h3><br>
+<div class="buttons">
+    {% if current_user.has_role("ADMINISTRADOR") %}
+    <a href="{{ url_for('finanzas.registrogasto') }}" class="button is-success is-right">Agregar un nuevo gasto</a></td>
+    {%endif%}
+    <a href="{{ url_for('finanzas.vercostos') }}" class="button is-info is-right">Ver todos los gastos</a></td>
+</div>
+<br>
+<div class="columns is-mobile is-centered">
+    <table class="table table is-striped">
+    <thead>
+         <tr>
+            <th>ID</th>
+            <th>Descripción</th>
+            <th>Costo mensual</th>
+            <th>Fecha de pago</th>
+            {% if current_user.has_role("ADMINISTRADOR") %}
+            <th>Eliminar</th>
+            <th>Modificar</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in gastos%}
+        <tr>
+            <td class="is-vcentered">{{row.id}}</td>
+            <td class="is-vcentered">{{row.descripcion}}</td>
+            <td class="is-vcentered">{{row.costo}}</td>
+            <td class="is-vcentered">{{row.fecha}}</td>
+            {% if row.status == 1 and current_user.has_role("ADMINISTRADOR") %}
+            <td class="is-vcentered"><a href="eliminargasto?id={{row.id}}" class="button is-danger">Eliminar</a></td>
+            <td class="is-vcentered"><a href="modificargasto?id={{row.id}}" class="button is-info"></i>Modificar</a></td>
+            {% endif %}
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -54,7 +54,7 @@ def create_app():
     from .venta import venta as venta_blueprint
     app.register_blueprint(venta_blueprint)
 
-    #from .finanzas import finanzas as finanzas_blueprint
-    #app.register_blueprint(finanzas_blueprint)
+    from .finanzas import finanzas as finanzas_blueprint
+    app.register_blueprint(finanzas_blueprint)
 
     return app
