@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+    <ul>
+        <li><a href="{{ url_for('pedido.pedidoscliente') }}">Pedidos</a></li>
+        <li class="is-active"><a href="#" aria-current="Pedidos por entrega">Pedidos por entrega</a></li>
+    </ul>
+</nav>
 <h3 class="title">Pedidos de Clientes por Entrega</h3><br>
 <div class="buttons">
     <a href="{{ url_for('pedido.pedidoscliente') }}" class="button is-info is-right">Ver todos los pedidos</a></td>

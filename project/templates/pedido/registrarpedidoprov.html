@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+    <ul>
+        <li><a href="{{ url_for('pedido.pedidosprov') }}">Pedidos</a></li>
+        <li class="is-active"><a href="#" aria-current="Registrar nuevo pedido">Registrar nuevo pedido</a></li>
+    </ul>
+</nav>
 <h3 class="title">Nuevo Pedido</h3><br>
 <div class="columns">
     <div class="column is-centered is-4 is-offset-4">
@@ -19,7 +25,7 @@
                         <div class="select is-rounded">
                             <select name="materia_nueva" id="materia_nueva">
                                 {%for row in materias%}
-                                <option value="{{row.id}}">{{row.nombre}}</option>
+                                <option value="{{row.id}}">{{row.nombre}} ({{row.medida}})</option>
                                 {%endfor%}
                             </select>
                         </div>
@@ -28,7 +34,7 @@
                 <div class="field">
                     <label class="label">Cantidad:</label>
                     <div class="control">
-                        <input class="input is-info" type="number" name="cant_nueva" min="1" max="1000" step="1">
+                        <input class="input is-info" type="number" name="cant_nueva" min="1" max="1000" step="any">
                     </div>
                 </div>
                 <br>

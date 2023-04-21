@@ -3,13 +3,13 @@
 {% block content %}
 <nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
     <ul>
-        <li><a href="{{ url_for('compra.compras') }}">Compras</a></li>
-        <li class="is-active"><a href="#" aria-current="Compras encontradas">Compras encontradas</a></li>
+        <li><a href="{{ url_for('venta.ventas') }}">Ventas</a></li>
+        <li class="is-active"><a href="#" aria-current="Ventas encontradas">Ventas encontradas</a></li>
     </ul>
 </nav>
-<h3 class="title">Compras Encontradas</h3><br>
+<h3 class="title">Ventas Encontradas</h3><br>
 <div class="buttons">
-    <a href="{{ url_for('compra.compras') }}" class="button is-info is-right">Ver todos las compras </a></td>
+    <a href="{{ url_for('venta.ventas') }}" class="button is-info is-right">Ver todos las ventas </a></td>
 </div>
 
 <br>
@@ -20,13 +20,13 @@
             <th>ID</th>
             <th>Fecha</th>
             <th>ID Pedido</th>
-            <th>Almacenista</th>
+            <th>Vendedor</th>
             <th>Total</th>
             <th>Detalles</th>
         </tr>
     </thead>
     <tbody>
-        {%for row in compras%}
+        {%for row in ventas%}
         <tr>
             <td class="is-vcentered">{{row.id}}</td>
             <td class="is-vcentered">{{row.fecha}}</td>

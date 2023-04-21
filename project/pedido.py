@@ -3,7 +3,7 @@ from flask_security import login_required, current_user
 from flask_security.decorators import roles_required, roles_accepted
 from flask_security import login_required
 from flask_security.utils import login_user, logout_user, hash_password, encrypt_password
-from .models import MateriaPrima, Producto, Receta, Pedido, User, DetallePedido, Compra
+from .models import MateriaPrima, Producto, Receta, Pedido, User, DetallePedido, Compra, Venta
 from sqlalchemy import or_
 from . import db
 from werkzeug.utils import secure_filename
@@ -57,7 +57,7 @@ def detallescliente():
         fecha_val= pedido.fecha + timedelta(minutes=10)
         print(fecha_val)
         mostrar = 0
-        if fecha_val > fecha_actual:
+        if fecha_actual > fecha_val:
             mostrar = 1
 
     if request.method == 'POST':
@@ -65,11 +65,68 @@ def detallescliente():
     
     return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 
+@pedido.route("/prepararpedidocliente", methods = ['GET', 'POST'])
+@login_required
+@roles_required("VENDEDOR")
+def prepararpedidocliente():
+    if request.method == "GET":
+        id=request.args.get("id")
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+        fecha_val= pedido.fecha + timedelta(minutes=10)
+        print(fecha_val)
+        mostrar = 0
+        if fecha_actual > fecha_val:
+            mostrar = 1
+        pedido.status = "2"
+        db.session.add(pedido)
+        db.session.commit()
+        return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 
+@pedido.route("/entregarpedidocliente", methods = ['GET', 'POST'])
+@login_required
+@roles_required("VENDEDOR")
+def entregarpedidocliente():
+    if request.method == "GET":
+        id=request.args.get("id")
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+        fecha_val = pedido.fecha + timedelta(minutes=10)
+        print(fecha_val)
+        mostrar = 0
+        if fecha_actual > fecha_val:
+            mostrar = 1
+
+        pedido.status = "3"
+        db.session.add(pedido)
+        db.session.commit()
+
+        # MODIFICAR STOCK
+        for detalle in detalles:
+            prod = db.session.query(Producto).filter(Producto.id == detalle.producto.id).first()
+            recetas = Receta.query.filter_by(producto_id=prod.id).all()
+
+            for receta in recetas:
+                materia = db.session.query(MateriaPrima).filter(MateriaPrima.id == receta.materia_prima.id).first()
+                materia.stock = materia.stock - (receta.cantidad * detalle.cantidad)
+                db.session.add(materia)
+                db.session.commit()
+        
+        # AGREGAR VENTA EFECTUADA
+        venta = Venta(pedido_id=pedido.id,
+                        user_id= current_user.id,
+                        total=pedido.total)
+        db.session.add(venta)
+        db.session.commit()
+
+        return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 
 
 
 # ADMINISTRACION GENERAL DE DETALLES DE PEDIDOS A PROVEEDORES
+
 @pedido.route("/pedidosprov")
 @login_required
 @roles_accepted('ADMINISTRADOR','ALMACENISTA')
@@ -232,10 +289,10 @@ def registrarpedidoprov():
     
     return render_template("/pedido/registrarpedidoprov.html", materias=materias)
 
-@pedido.route("/hacerpedido", methods = ['GET', 'POST'])
+@pedido.route("/hacerpedidoprov", methods = ['GET', 'POST'])
 @login_required
 @roles_required("ALMACENISTA")
-def hacerpedido():
+def hacerpedidoprov():
     if request.method == "GET":
         id=request.args.get("id")
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
@@ -251,10 +308,10 @@ def hacerpedido():
         db.session.commit()
         return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
     
-@pedido.route("/entregarpedido", methods = ['GET', 'POST'])
+@pedido.route("/entregarpedidoprov", methods = ['GET', 'POST'])
 @login_required
 @roles_required("ALMACENISTA")
-def entregarpedido():
+def entregarpedidoprov():
     if request.method == "GET":
         id=request.args.get("id")
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
@@ -286,10 +343,10 @@ def entregarpedido():
 
         return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
     
-@pedido.route("/cancelarpedido", methods = ['GET', 'POST'])
+@pedido.route("/cancelarpedidoprov", methods = ['GET', 'POST'])
 @login_required
 @roles_required("ALMACENISTA")
-def cancelarpedido():
+def cancelarpedidoprov():
     if request.method == "GET":
         id=request.args.get("id")
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()

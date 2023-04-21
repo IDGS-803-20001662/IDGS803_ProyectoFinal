@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-8NtWZpzhAD3j3Scn/35RW8r/IRyPumFyMn+XhtFmCIQxhT1lQRkJmTfIHsHs8Jwaf18yN0zYXTJ+9Ib/QCH/gw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/>
+        <link rel="shortcut icon" type="image/x-icon" href="http://localhost:5000/static/favicon.ico">
         <title>Sushicat | Un toque felino en cada bocado de sushi</title>
         <style>
           body{
@@ -23,8 +24,12 @@
             height: 100px;
           }
           #logo {
-            height: 300px;
-            width: 400px;
+            height: 40px;
+            width: 130px;
+          }
+          #logoadmin {
+            height: 30px;
+            width: 120px;
           }
           #navbarMenuHeroA {
             height: 100px;
@@ -46,7 +51,11 @@
                 <div id="navbarMenuHeroA" class="navbar-menu">
                   <div class="navbar-start">
                     <a href="{{ url_for('main.index') }}" class="navbar-item">
-                      <img id="logo" src="../static/img/NOMBRE1.png " />
+                      {% if current_user.is_authenticated and current_user.has_role("ADMINISTRADOR") %}
+                        <img id="logoadmin" src="../static/img/NOMBRE1.png " />
+                      {% else %}
+                        <img id="logo" src="../static/img/NOMBRE1.png " />
+                      {% endif %}
                     </a>
                   </div>
                   <div class="navbar-end">
@@ -75,7 +84,7 @@
                       <b>Clientes</b>
                     </a>
                     <a href="{{ url_for('producto.productos') }}" class="navbar-item">
-                      <b>Productos</b>
+                      <b>Platillos</b>
                     </a>
                     <a href="{{ url_for('materia.materias') }}" class="navbar-item">
                       <b>Insumos</b>
@@ -84,10 +93,16 @@
                       <b>Proveedores</b>
                     </a>
                     <a href="{{ url_for('pedido.pedidosprov') }}" class="navbar-item">
-                      <b>Pedidos a Proveedor</b>
+                      <b>Pedidos</b>
                     </a>
                     <a href="{{ url_for('compra.compras') }}" class="navbar-item">
                       <b>Compras</b>
+                    </a>
+                    <a href="{{ url_for('venta.ventas') }}" class="navbar-item">
+                      <b>Ventas</b>
+                    </a>
+                    <a href="{{ url_for('venta.ventas') }}" class="navbar-item">
+                      <b>Finanzas</b>
                     </a>
                     {% endif %}
                     {% if current_user.has_role("ALMACENISTA") and current_user.is_authenticated %}
@@ -105,11 +120,14 @@
                     </a>
                     {% endif %}
                     {% if current_user.has_role("VENDEDOR") and current_user.is_authenticated %}
+                    <a href="{{ url_for('producto.productos') }}" class="navbar-item">
+                      <b>Platillos</b>
+                    </a>
                     <a href="{{ url_for('pedido.pedidoscliente') }}" class="navbar-item">
                       <b>Pedidos de Clientes</b>
                     </a>
-                    <a href="{{ url_for('producto.productos') }}" class="navbar-item">
-                      <b>Platillos</b>
+                    <a href="{{ url_for('venta.ventas') }}" class="navbar-item">
+                      <b>Ventas</b>
                     </a>
                     {% endif %}
                     {% if not current_user.is_authenticated %}

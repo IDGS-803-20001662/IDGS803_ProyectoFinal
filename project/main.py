@@ -16,3 +16,11 @@ def contacto():
 @main.route('/conocenos')
 def conocenos():
     return render_template('conocenos.html')
+
+@main.route('/terminosycondiciones')
+def terminosycondiciones():
+    return render_template('terminos.html')
+
+@main.route('/avisolegal')
+def avisolegal():
+    return render_template('aviso.html')

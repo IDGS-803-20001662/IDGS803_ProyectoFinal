@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+    <ul>
+        <li><a href="{{ url_for('auth.registro') }}">Registro</a></li>
+        <li class="is-active"><a href="#" aria-current="Términos y condiciones">Términos y condiciones</a></li>
+    </ul>
+</nav>
+<style>
+
+    #titulo1 {
+        size: 50px;
+        color: rgb(255, 116, 181);
+        font-family: cursive;
+        font-size: 50px;
+        -webkit-text-stroke: 2px rgb(255, 2, 150);
+
+    }
+
+</style>
+<h5 id="titulo1" >Términos y Condiciones</h5>
+<div class="column is-6 is-offset-3">
+    <iframe src="https://docs.google.com/viewer?srcid=1ypXK3TzS-Z1_xZdWl4VRigONJA8QjX-u&pid=explorer&efh=false&a=v&chrome=false&embedded=true" width="100%" height="700px"></iframe>
+</div>
+
+
+
+
+{% endblock %}

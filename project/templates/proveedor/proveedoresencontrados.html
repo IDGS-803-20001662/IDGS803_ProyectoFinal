@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+    <ul>
+        <li><a href="{{ url_for('proveedor.verproveedores') }}">Proveedores</a></li>
+        <li class="is-active"><a href="#" aria-current="Proveedores encontrados">Proveedores encontrados</a></li>
+    </ul>
+</nav>
 <h3 class="title">Proveedores Encontrados</h3><br>
 <div class="buttons">
     {% if current_user.has_role("ADMINISTRADOR") %}

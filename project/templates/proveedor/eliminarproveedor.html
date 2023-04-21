@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<nav class="breadcrumb has-arrow-separator is-right" aria-label="breadcrumbs">
+  <ul>
+      <li><a href="{{ url_for('proveedor.verproveedores') }}">Proveedores</a></li>
+      <li class="is-active"><a href="#" aria-current="Eliminar proveedor">Eliminar proveedor</a></li>
+  </ul>
+</nav>
 <div class="column is-6 is-offset-3">
   <br>
   <h3 class="title">Eliminar Proveedor</h3>
