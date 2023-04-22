@@ -2,6 +2,7 @@ import os
 from flask import Flask
 from flask_security import Security, SQLAlchemyUserDatastore
 from flask_sqlalchemy import SQLAlchemy
+from .logg import Logger
 
 db = SQLAlchemy()
 from .models import User, Role
@@ -17,6 +18,7 @@ def create_app():
     app.config['SECURITY_PASSWORD_SALT'] = 'thisissecretsalt'
     app.config['UPLOAD_FOLDER'] = 'static/img/' #FOLDER PARA GUARDAR IMAGENES
     app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+    log = Logger('app')
 
     db.init_app(app)
     @app.before_first_request
@@ -25,6 +27,7 @@ def create_app():
     
     #Conectar modelos al SQLALCHEMY
     security = Security(app, userDataStore)
+    log.info('Servidor iniciado')
 
     #Registramos las rutas para auth, main y admin
     from .auth import auth as auth_blueprint

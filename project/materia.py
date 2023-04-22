@@ -6,8 +6,10 @@ from flask_security.utils import login_user, logout_user, hash_password, encrypt
 from .models import MateriaPrima, Proveedor
 from sqlalchemy import or_
 from . import db
+from .logg import Logger
 
 materia = Blueprint('materia', __name__, url_prefix='/materia')
+log = Logger('materia')
 
 @materia.route("/materias")
 @login_required
@@ -15,6 +17,8 @@ materia = Blueprint('materia', __name__, url_prefix='/materia')
 def materias():
     materias = MateriaPrima.query.filter_by(status='1').all()
     proveedores = Proveedor.query.filter_by(status='1').all()
+    if not materias or proveedores:
+        log.critical('El módulo de Materias no ha cargado la información de las materias o proveedores')
     return render_template('/materia/materias.html', materias=materias, proveedores=proveedores)
 
 @materia.route("/materiasinactivas")
@@ -23,6 +27,8 @@ def materias():
 def materiasinactivas():
     materias = MateriaPrima.query.filter_by(status='0').all()
     proveedores = Proveedor.query.filter_by(status='1').all()
+    if not materias or proveedores:
+        log.critical('El módulo de Materias no ha cargado la información de las materias inactivas o proveedores')
     return render_template('/materia/materiasinactivas.html', materias=materias, proveedores=proveedores)
 
 @materia.route("/buscarmateria", methods = ['GET', 'POST'])
@@ -43,6 +49,10 @@ def buscarmateria():
             MateriaPrima.precio.ilike(f'%{parametro}%')
         )).all()
         proveedores = Proveedor.query.filter_by(status='1').all()
+        
+        if not materias or proveedores:
+            log.critical('El módulo de Materias no ha cargado la información de las materias coincidentes o proveedores')
+
     return render_template('/materia/materiasencontradas.html', materias=materias, proveedores=proveedores)
 
 @materia.route("/registrarmateria", methods = ['GET', 'POST'])
@@ -58,6 +68,7 @@ def registrarmateria():
         cant_max = request.form.get('cant_max')
         if int(stock) > int(cant_max) or int(stock) < int(cant_min) or int(cant_max) < int(cant_min):
             flash("Stock invalido")
+            log.error('Error al registrar la materia {} por el usuario {}, el stock es inválido'.format(request.form.get('nombre').upper(), current_user.email))
             return render_template('/materia/registrarmateria.html', proveedores=proveedores)
         else:
             mat = MateriaPrima(nombre = request.form.get('nombre').upper(),
@@ -71,6 +82,7 @@ def registrarmateria():
                             proveedor_id = request.form.get('proveedor'))
             db.session.add(mat)
             db.session.commit()
+            log.debug('Se registró la materia {} por el usuario {}'.format(request.form.get('nombre').upper(), current_user.email))
         return redirect(url_for("materia.materias"))
     
     return render_template('/materia/registrarmateria.html', proveedores=proveedores)
@@ -94,6 +106,7 @@ def modificarmateria():
 
         if int(stock) > int(cant_max) or int(stock) < int(cant_min) or int(cant_max) < int(cant_min):
             flash("Stock invalido")
+            log.error('Error al modificar la materia {} por el usuario {}, el stock es inválido'.format(request.form.get('nombre').upper(), current_user.email))
             return redirect(url_for("materia.materias"))
 
         else:
@@ -109,6 +122,7 @@ def modificarmateria():
             mat.proveedor_id = request.form.get('proveedor')
             db.session.add(mat)
             db.session.commit()
+            log.warning('Se modificó la materia {} por el usuario {}'.format(request.form.get('nombre').upper(), current_user.email))
             return redirect(url_for("materia.materias"))
     
     return render_template("/materia/modificarmateria.html", id=mat.id, nombre=mat.nombre, descripcion=mat.descripcion,
@@ -140,6 +154,7 @@ def eliminarmateria():
         mat.status = False
         db.session.add(mat)
         db.session.commit()
+        log.warning('Se eliminó la materia {} por el usuario {}'.format(request.form.get('nombre').upper(), current_user.email))
         return redirect(url_for("materia.materias"))
 
     return render_template("/materia/eliminarmateria.html", id=mat.id, nombre=mat.nombre, descripcion=mat.descripcion,

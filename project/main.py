@@ -6,8 +6,7 @@ main = Blueprint('main',__name__)
 
 @main.route('/')
 def index():
-    productos = Producto.query.filter_by(status='1').all()
-    return render_template('index.html', productos=productos)
+    return render_template('index.html')
 
 @main.route('/contacto')
 def contacto():

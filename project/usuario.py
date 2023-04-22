@@ -7,8 +7,11 @@ from flask_security.utils import login_user, logout_user, hash_password, encrypt
 from .models import User, Role
 from sqlalchemy import or_, and_
 from . import db, userDataStore
+from datetime import datetime
+from .logg import Logger
 
 usuario = Blueprint('usuario',  __name__, url_prefix='/usuario')
+log = Logger("usuario")
 
 #MOSTRAR ROL
 @usuario.route("/usuarios")
@@ -16,6 +19,8 @@ usuario = Blueprint('usuario',  __name__, url_prefix='/usuario')
 @roles_required('ADMINISTRADOR')
 def usuarios():
     usuarios = User.query.filter(User.status=='1', User.rfc != "").all()
+    if not usuarios:
+        log.critical('El módulo de Usuarios no ha cargado la información de los usuarios')
     return render_template('/usuario/usuarios.html', usuarios = usuarios)
 
 #MOSTRAR ROL
@@ -24,6 +29,8 @@ def usuarios():
 @roles_required('ADMINISTRADOR')
 def usuariosinactivos():
     usuarios = User.query.filter(User.status=='0', User.rfc != "").all()
+    if not usuarios:
+        log.critical('El módulo de Usuarios no ha cargado la información de los usuarios inactivos')
     return render_template('/usuario/usuariosinactivos.html', usuarios = usuarios)
 
 @usuario.route("/clientes")
@@ -31,6 +38,8 @@ def usuariosinactivos():
 @roles_required('ADMINISTRADOR')
 def clientes():
     usuarios = User.query.filter(User.status=='1', User.rfc == "").all()
+    if not usuarios:
+        log.critical('El módulo de Usuarios no ha cargado la información de los clientes')
     return render_template('/usuario/clientes.html', usuarios = usuarios)
 
 #MOSTRAR ROL
@@ -52,6 +61,9 @@ def buscarusuario():
             User.telefono.ilike(f'%{parametro}%'),
             User.email.ilike(f'%{parametro}%')
         )).all()
+
+        if not usuarios:
+            log.exception('El módulo de Usuarios no ha cargado la información de los usuarios coincidentes')
 
     return render_template('/usuario/usuariosencontrados.html', usuarios = usuarios)
 
@@ -76,6 +88,7 @@ def registrousuario():
         user = User.query.filter_by(email=email).first()
         if user:
             flash('El correo electrónico ya existe')
+            log.error("El correo {} ya existe, el usuario no puede ser registrado".format(email))
             return redirect(url_for('usuario.registrousuario'))
         
         userDataStore.create_user(nombre=nombre, apellido_paterno=apellido_paterno, email=email,apellido_materno=apellido_materno,
@@ -88,10 +101,11 @@ def registrousuario():
         rol = Role.query.filter_by(id=roles).first()
         ultimo_usuario.roles.append(rol)
         db.session.commit()
+        log.debug('El usuario {} fue registrado por el usuario {}'.format(email, current_user.email))
 
         return redirect(url_for("usuario.usuarios"))
     
-    return render_template('/usuario/registrousuario.html')
+    return render_template('/usuario/registrousuario.html', fecha_actual=datetime.now())
 
 #AGREGAR ROL
 @usuario.route("/modificarusuario", methods = ['GET', 'POST'])
@@ -122,6 +136,7 @@ def modificarusuario():
 
         db.session.add(usuario)
         db.session.commit()
+        log.warning('El usuario {} fue modificado por el usuario {}'.format(usuario.email, current_user.email))
 
         roles_ = rol_n
         rol_n = Role.query.filter_by(id=roles_).first()
@@ -135,7 +150,7 @@ def modificarusuario():
     
     return render_template("/usuario/modificarusuario.html", id=usuario.id, nombre=usuario.nombre, apellido_paterno=usuario.apellido_paterno,
         apellido_materno=usuario.apellido_materno, domicilio=usuario.domicilio, rfc=usuario.rfc, fecha_nacimiento=usuario.fecha_nacimiento,
-        telefono=usuario.telefono, correo=usuario.email, rol=rol, rol_id=rol_pasado)
+        telefono=usuario.telefono, correo=usuario.email, rol=rol, rol_id=rol_pasado, fecha_actual=datetime.now())
 
 @usuario.route("/eliminarusuario", methods = ['GET', 'POST'])
 @login_required
@@ -163,6 +178,7 @@ def eliminarusuario():
 
         db.session.add(usuario)
         db.session.commit()
+        log.warning('El usuario {} fue eliminado por el usuario {}'.format(usuario.email, current_user.email))
         return redirect(url_for("usuario.usuarios"))
     
     return render_template("/usuario/eliminarusuario.html", id=usuario.id, nombre=usuario.nombre, apellido_paterno=usuario.apellido_paterno,
@@ -192,11 +208,12 @@ def modificarperfil():
 
         db.session.add(usuario)
         db.session.commit()
+        log.warning('El usuario {} modificó su perfil'.format(current_user.email))
         return redirect(url_for("main.index")) # revisar direccion
     
     return render_template("/usuario/modificarperfil.html", nombre=usuario.nombre, apellido_paterno=usuario.apellido_paterno,
         apellido_materno=usuario.apellido_materno, domicilio=usuario.domicilio, rfc=usuario.rfc, fecha_nacimiento=usuario.fecha_nacimiento,
-        telefono=usuario.telefono, correo=usuario.email)
+        telefono=usuario.telefono, correo=usuario.email, fecha_actual=datetime.now())
 
 @usuario.route("/cambiarcontrasennia", methods = ['GET', 'POST'])
 @login_required
@@ -216,6 +233,7 @@ def cambiarcontraseña():
 
         db.session.add(usuario)
         db.session.commit()
+        log.warning('El usuario {} cambió la contraseña del usuario {}'.format(usuario.email, current_user.email))
         return redirect(url_for("usuario.usuarios"))
     
     return render_template("/usuario/cambiarcontrasennia.html", correo=usuario.email, id=usuario.id)

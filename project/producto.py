@@ -9,14 +9,18 @@ from . import db
 from werkzeug.utils import secure_filename
 import os
 import base64
+from .logg import Logger
 
 producto = Blueprint('producto', __name__, url_prefix='/producto')
+log = Logger("producto")
 
 @producto.route("/productos")
 @login_required
 @roles_accepted('ADMINISTRADOR','VENDEDOR')
 def productos():
     productos = Producto.query.filter_by(status='1').all()
+    if not productos:
+        log.critical('El módulo de Productos no ha cargado la información de los productos')
     return render_template('/producto/productos.html', productos=productos)
 
 @producto.route("/productosinactivos")
@@ -24,6 +28,8 @@ def productos():
 @roles_accepted('ADMINISTRADOR','VENDEDOR')
 def productosinactivos():
     productos = Producto.query.filter_by(status='0').all()
+    if not productos:
+        log.critical('El módulo de Productos no ha cargado la información de los productos inactivos')
     return render_template('/producto/productosinactivos.html', productos=productos)
 
 @producto.route("/buscarproducto", methods = ['GET', 'POST'])
@@ -42,6 +48,9 @@ def buscarproducto():
             Producto.preparacion.ilike(f'%{parametro}%'),
             Producto.url.ilike(f'%{parametro}%')
         )).all()
+
+        if not productos:
+            log.warning('El módulo de Productos no ha cargado la información de los productos coincidentes')
 
     return render_template('/producto/productosencontrados.html', productos=productos)
 
@@ -63,6 +72,7 @@ def registrarproducto():
                         precio = request.form.get('precio'))
         db.session.add(prod)
         db.session.commit()
+        log.debug('Se registró el producto {} por el usuario {}'.format(request.form.get('nombre').upper(), current_user.email))
 
         return redirect(url_for("producto.productos"))
     
@@ -99,6 +109,7 @@ def registraringrediente():
                         medida=materia.medida)
         db.session.add(receta)
         db.session.commit()
+        log.debug('Se registró un nuevo ingrediente en el producto {} por el usuario {}'.format(request.form.get('producto_id_nuevo'), current_user.email))
 
         producto = db.session.query(Producto).filter(Producto.id == id).first()
         materias = MateriaPrima.query.filter_by(status='1').all()
@@ -118,6 +129,8 @@ def eliminaringrediente():
         id_prod = receta.producto_id
         db.session.delete(receta)
         db.session.commit()
+        log.warning('Se eliminó un ingrediente en el producto {} por el usuario {}'.format(id_prod, current_user.email))
+
         producto = db.session.query(Producto).filter(Producto.id == id_prod).first()
         materias = MateriaPrima.query.filter_by(status='1').all()
         recetas = Receta.query.filter_by(producto_id=id_prod).all()
@@ -149,6 +162,9 @@ def modificarproducto():
         prod.precio = request.form.get('precio')
         db.session.add(prod)
         db.session.commit()
+
+        log.warning('Se modificó el producto {} por el usuario {}'.format(request.form.get('nombre').upper(), current_user.email))
+
         return redirect(url_for("producto.productos"))
     
     return render_template("/producto/modificarproducto.html", id=prod.id, nombre=prod.nombre, descripcion=prod.descripcion,
@@ -175,6 +191,7 @@ def eliminarproducto():
         prod.status = False
         db.session.add(prod)
         db.session.commit()
+        log.warning('Se eliminó el producto {} por el usuario {}'.format(request.form.get('nombre').upper(), current_user.email))
         
         recetas = Receta.query.filter_by(producto_id=id).all()
         for receta in recetas:
@@ -190,4 +207,6 @@ def eliminarproducto():
 @roles_required('CLIENTE')
 def catalogo():
     productos = Producto.query.filter_by(status='1').all()
+    if not productos:
+        log.critical('El módulo de Productos no ha cargado la información de los productos')
     return render_template('/producto/catalogo.html', nombre=current_user.nombre, productos=productos)

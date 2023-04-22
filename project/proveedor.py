@@ -6,14 +6,18 @@ from flask_security.utils import login_user, logout_user, hash_password, encrypt
 from .models import Proveedor
 from sqlalchemy import or_
 from . import db
+from .logg import Logger
 
 proveedor = Blueprint('proveedor', __name__, url_prefix='/proveedor')
+log = Logger("proveedor")
 
 @proveedor.route("/proveedores")
 @login_required
 @roles_accepted('ADMINISTRADOR','ALMACENISTA')
 def verproveedores():
     proveedores = Proveedor.query.filter_by(status='1').all()
+    if not proveedores:
+        log.critical('El módulo de Proveedores no ha cargado la información de los proveedores')
     return render_template('/proveedor/proveedores.html', proveedores = proveedores)
 
 @proveedor.route("/proveedoresinactivos")
@@ -21,6 +25,8 @@ def verproveedores():
 @roles_accepted('ADMINISTRADOR','ALMACENISTA')
 def verproveedoresinactivos():
     proveedores = Proveedor.query.filter_by(status='0').all()
+    if not proveedores:
+        log.critical('El módulo de Proveedores no ha cargado la información de los proveedores inactivos')
     return render_template('/proveedor/proveedoresinactivos.html', proveedores = proveedores)
 
 @proveedor.route("/buscarproveedor", methods = ['GET', 'POST'])
@@ -43,6 +49,8 @@ def buscarproveedor():
             Proveedor.telefono.ilike(f'%{parametro}%'),
             Proveedor.correo.ilike(f'%{parametro}%')
         )).all()
+        if not proveedores:
+            log.exception('El módulo de Proveedores no ha cargado la información de los proveedores coincidentes')
 
     return render_template('/proveedor/proveedoresencontrados.html', proveedores = proveedores)
 
@@ -61,6 +69,7 @@ def registroproveedor():
                        correo = request.form.get('correo'))
         db.session.add(prov)
         db.session.commit()
+        log.debug('Se registró el proveedor {} por el usuario {}'.format(request.form.get('empresa').upper(), current_user.email))
         return redirect(url_for("proveedor.verproveedores"))
     
     return render_template('/proveedor/registroproveedor.html')
@@ -87,6 +96,7 @@ def modificarproveedor():
         prov.correo = request.form.get('correo')
         db.session.add(prov)
         db.session.commit()
+        log.warning('Se modificó el proveedor {} por el usuario {}'.format(request.form.get('empresa').upper(), current_user.email))
         return redirect(url_for("proveedor.verproveedores"))
     
     return render_template("/proveedor/modificarproveedor.html", id=prov.id, nombre=prov.nombre, apellido_paterno=prov.apellido_paterno,
@@ -116,6 +126,7 @@ def eliminarproveedor():
         prov.status = False
         db.session.add(prov)
         db.session.commit()
+        log.warning('Se eliminó el proveedor {} por el usuario {}'.format(request.form.get('empresa').upper(), current_user.email))
         return redirect(url_for("proveedor.verproveedores"))
     
     return render_template("/proveedor/eliminarproveedor.html", id=prov.id, nombre=prov.nombre, apellido_paterno=prov.apellido_paterno,
