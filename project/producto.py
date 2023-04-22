@@ -228,14 +228,12 @@ def agregar_producto_carrito():
              if carritoTiene:
                   carritoTiene.cantidad += form.cantidad.data
                   db.session.commit()
-                  flash('Producto agregado al carrito', 'success')
              else:
                   carritoProducto = Carrito_Producto(id_carrito = carrito.id,
                                                     id_producto = form.id_producto.data,
                                                     cantidad = form.cantidad.data)
                   db.session.add(carritoProducto)
                   db.session.commit()
-                  flash('Producto agregado al carrito', 'success')
         else:
             carrito = Carrito(id_user=current_user.id)
             db.session.add(carrito)
@@ -245,32 +243,35 @@ def agregar_producto_carrito():
                                             cantidad = form.cantidad.data)
             db.session.add(carritoProducto)
             db.session.commit()
-            flash('Producto agregado al carrito', 'success')
-    else:
-        flash('Catidad invalida. Debe ser mayor a 0', 'danger')
     return redirect(url_for('producto.catalogo'))
 
 
 @producto.route("/productos")
+@login_required
+@roles_required('CLIENTE')
 def lista_productos():
-	productos = Producto.query.all()
+	productos = Producto.query.filter_by(status='1').all()
 	return render_template('catalogo.html',productos = productos)
 
 @producto.route("/productos/<id_producto>")
+@login_required
+@roles_required('CLIENTE')
 def desc_producto(id_producto):
 	producto = Producto.query.get(id_producto)
 	form = AgregarForm()
 	return render_template('desc_producto.html',producto = producto, form = form)
 
 @producto.route("/agregar/<id_producto>", methods=['GET', 'POST'])
+@login_required
+@roles_required('CLIENTE')
 def agregar(id_producto):
 	form = AgregarForm()
 	if form.validate_on_submit():
 		sumatotal = 0
 
 		productos = session['productos']
-		producto_nombre = Producto.query.get(id_producto)
-		producto = [id_producto, producto_nombre.nombre, form.cantidad.data, producto_nombre.precio, form.cantidad.data*producto_nombre.precio, sumatotal]
+		producto_nombre = db.session.query(Producto).filter(Producto.id == id).first()
+		producto = [id_producto, producto_nombre.nombre, form.cantidad.data, producto_nombre.precio, form.cantidad.data*producto_nombre.precio, sumatotal, producto_nombre.url]
 		productos.append(producto)
 		session['productos'] = productos
 		cantidad = form.cantidad.data

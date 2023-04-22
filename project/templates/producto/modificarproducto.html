@@ -30,21 +30,21 @@
         <div class="field">
         <label class="label">Nombre:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="nombre" style="text-transform: uppercase;" maxlength="20" value="{{nombre}}" pattern="[a-zA-Z]+" title="Solo se admiten letras" required autofocus>
+          <input class="input is-medium is-info" type="text" name="nombre" style="text-transform: uppercase;" maxlength="20" value="{{nombre}}" pattern="[a-zA-Z ]+" title="Solo se admiten letras" required autofocus>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Descripción:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="descripcion" style="text-transform: uppercase;" maxlength="100" value="{{descripcion}}" pattern="[A-Za-z0-9.]*" required>
+          <input class="input is-medium is-info" type="text" name="descripcion" style="text-transform: uppercase;" maxlength="100" value="{{descripcion}}" pattern="[A-Za-z0-9. ]*" required>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Preparacion:</label>
         <div class="control">
-          <textarea class="textarea is-info" name="preparacion" style="text-transform: uppercase;" pattern="[A-Za-z0-9.]*" required>{{preparacion}}</textarea>
+          <textarea class="textarea is-info" name="preparacion" style="text-transform: uppercase;" pattern="[A-Za-z0-9. ]*" required>{{preparacion}}</textarea>
         </div>
       </div>
 

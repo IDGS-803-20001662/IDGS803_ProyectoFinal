@@ -6,7 +6,7 @@
             <div class="col s12 m6 offset-m3">
                 <div class="card  large">
                     <div class="card-image">
-                        <img src="{{ url_for('static', filename='images/productos/' + producto.url) }}" />
+                        <img src="data:image/png;base64,{{producto.url}}" alt="{{producto.nombre}}" style="height: 90px;">
                         <span class="card-title">{{producto.nombre}}</span>
                     </div>
                     <div class="card-content">

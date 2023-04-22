@@ -60,12 +60,9 @@ def registro_post():
     apellido_paterno = request.form.get('apellido_paterno').upper()
     apellido_materno = request.form.get('apellido_materno').upper()
     domicilio = request.form.get('domicilio').upper()
-    dia = request.form.get('dia')
-    mes = request.form.get('mes')
-    annio = request.form.get('annio')
     telefono = request.form.get('telefono')
     rfc = ""
-    fecha_nacimiento = annio+"-"+mes+"-"+dia
+    fecha_nacimiento = request.form.get('fecha_nacimiento')
 
     #Consultamos si ya está registrado
     user = User.query.filter_by(email=email).first()

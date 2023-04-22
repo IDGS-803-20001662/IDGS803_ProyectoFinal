@@ -1,0 +1,5 @@
+2023-04-22 10:03:35,267 - finanzas - CRITICAL - El módulo de Finanzas no ha cargado la información de los gastos
+2023-04-22 10:03:36,795 - finanzas - CRITICAL - El módulo de Finanzas no ha cargado la información de los gastos inactivos
+2023-04-22 12:16:25,010 - finanzas - CRITICAL - El módulo de Finanzas no ha cargado la información de los gastos
+2023-04-22 12:16:47,697 - finanzas - DEBUG - Se registró el gasto LUZ por el usuario admin@sushicat.com
+2023-04-22 12:16:50,872 - finanzas - CRITICAL - El módulo de Finanzas no ha cargado la información de los gastos inactivos

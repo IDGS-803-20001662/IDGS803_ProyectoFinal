@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="title">Detalles de Pedido</h3><br>
+<div class="columns">
+    <div class="column is-centered is-offset-2 is-4">
+        <table class="table is-striped is-fullwidth is-narrow is-hoverable">
+            <thead>
+                <tr>
+                    <th colspan="2" class="has-text-info-dark">PEDIDO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="is-vcentered"><b>Fecha</b></td>
+                    <td class="is-vcentered">{{pedido.fecha}}</td>
+                </tr>
+                <tr>
+                    <td class="is-vcentered"><b>Domicilio</b></td>
+                    <td class="is-vcentered">{{pedido.domicilio_entrega}}</td>
+                </tr>
+                <tr>
+                    <td class="is-vcentered"><b>Entrega</b></td>
+                    {%if pedido.tipo_entrega == True%}
+                        <td class="is-vcentered">A Domicilio</td>
+                    {%endif%}
+                    {%if pedido.tipo_entrega == False%}
+                        <td class="is-vcentered">En Restaurante</td>
+                    {%endif%}
+                </tr>
+                <tr>
+                    <td class="is-vcentered"><b>Pago</b></td>
+                    {%if pedido.forma_pago == True%}
+                        <td class="is-vcentered">Efectivo</td>
+                    {%endif%}
+                    {%if pedido.forma_pago == False%}
+                        <td class="is-vcentered">Transferencia</td>
+                    {%endif%}
+                </tr>
+                <tr>
+                    <td class="is-vcentered"><b>Total</b></td>
+                    <td class="is-vcentered">{{pedido.total}}</td>
+                </tr>
+                <tr>
+                    <td class="is-vcentered"><b>Estatus</b></td>
+                    {%if pedido.status == 1%}
+                        <td class="is-vcentered has-text-primary-dark">Registrado</td>
+                    {%endif%}
+                    {%if pedido.status == 2%}
+                        <td class="is-vcentered has-text-warning-dark">En proceso</td>
+                    {%endif%}
+                    {%if pedido.status == 3%}
+                        <td class="is-vcentered has-text-info-dark">Entregado</td>
+                    {%endif%}
+                    {%if pedido.status == 0%}
+                        <td class="is-vcentered has-text-danger-dark">Cancelado</td>
+                    {%endif%}
+                </tr>
+                <tr>
+                    {% if pedido.status == 1 and mostrar == 1%}
+                        <td colspan="2" class="is-vcentered"><a href="cancelarmipedido?id={{pedido.id}}" class="button is-danger">Cancelar</a></td>
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="column is-centered">
+        <table class="table is-striped is-fullwidth is-narrow is-hoverable">
+            <thead>
+                <tr>
+                    <th colspan="3" class="has-text-info-dark">PLATILLOS PEDIDOS</th>
+                </tr>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for row in detalles%}
+                <tr>
+                    <td class="is-vcentered">{{row.producto.nombre}}</td>
+                    <td class="is-vcentered">{{row.cantidad}}</td>
+                    <td class="is-vcentered">{{row.subtotal}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
