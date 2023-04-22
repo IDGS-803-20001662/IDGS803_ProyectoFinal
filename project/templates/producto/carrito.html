@@ -2,6 +2,8 @@
 
 {% block content %}
 
+<a href="" class="button is-success is-right">Realizar Pedido</a></td> <br> <br>
+
 {% from '_macros.html' import render_field %}
 
 <div class="columns is-multiline">
@@ -19,8 +21,9 @@
           <label class="label">Cantidad a ordenar:</label>
           {{ producto['form'].cantidad(class="input is-medium is-info") }}
           {{ producto['form'].id_producto(class="btn btn-primary") }} <br> <br>
-          {{ producto['form'].save(class="button is-block is-info is-medium is-fullwidth") }}
+          {{ producto['form'].save(class="button is-block is-info is-medium is-fullwidth") }} <br>
         </form>
+        <a class="button is-block is-danger is-medium is-fullwidth" href="{{ url_for('pedido.eliminarProductoCarrito', id_producto=producto['id'])}}">Eliminar</a>
       </div>
       <br>
     </div>

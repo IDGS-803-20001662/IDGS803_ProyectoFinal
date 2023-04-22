@@ -3,7 +3,7 @@ from flask_security import login_required, current_user
 from flask_security.decorators import roles_required, roles_accepted
 from flask_security import login_required
 from flask_security.utils import login_user, logout_user, hash_password, encrypt_password
-from .models import MateriaPrima, Producto, Receta, Pedido, User, DetallePedido, Compra, Venta
+from .models import MateriaPrima, Producto, Receta, Pedido, User, DetallePedido, Compra, Venta, Carrito, AgregarForm
 from sqlalchemy import or_
 from . import db
 from werkzeug.utils import secure_filename
@@ -396,3 +396,60 @@ def cancelarpedidoprov():
         log.warning('El pedido {} cambió al estatus de cancelado por el usuario {}'.format(pedido.id, current_user.email))
         return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 
+
+
+#CARRITO DE COMPRAS
+
+@pedido.route("/carrito")
+@login_required
+@roles_required("CLIENTE")
+def verCarrito():
+    carrito = Carrito.query.filter_by(id_user = current_user.id).first()
+    productos = []
+    if carrito:
+        productos_rs = carrito.carrito_tiene.all()
+        for p in productos_rs:
+            producto = p.producto.__dict__
+            form = AgregarForm()
+            form.id_producto.data = p.producto.id
+            form.cantidad.data = p.cantidad
+            form.save.label.text = "Modificar"
+            producto['form'] = form
+            productos.append(producto)
+    return render_template('/producto/carrito.html', nombre=current_user.nombre, productos=productos)
+
+
+@pedido.route("/carrito", methods=['POST'])
+@login_required
+@roles_required("CLIENTE")
+def editarProductoCarrito():
+    form = AgregarForm(request.form)
+    if form.validate():
+        carrito = Carrito.query.filter_by(id_user = current_user.id).first()
+        if carrito:
+             carritoTiene = carrito.carrito_tiene.filter_by(id_producto=form.id_producto.data).first()
+             if carritoTiene:
+                  carritoTiene.cantidad = form.cantidad.data
+                  db.session.commit()
+                  flash('Cantidad modificada', 'success')
+    else:
+        flash('Cantidad invalida debe de ser mayor a 0', 'success')
+    return redirect(url_for('pedido.verCarrito'))
+
+
+@pedido.route("/carrito/eliminiar<int:id_producto>")
+@login_required
+@roles_required("CLIENTE")
+def eliminarProductoCarrito(id_producto):
+    carrito = Carrito.query.filter_by(id_user = current_user.id).first()
+    if carrito:
+        carritoTiene = carrito.carrito_tiene.filter_by(id_producto=id_producto).first()
+        if carritoTiene:
+            db.session.delete(carritoTiene)
+            db.session.commit()
+            flash('Producto eliminado del carrito', 'success')
+        else:
+            flash('El producto no se encuentra en el carrito', 'danger')
+    else:
+        flash('No se ha agregado ningún producto al carrito', 'danger')
+    return redirect(url_for('pedido.verCarrito'))

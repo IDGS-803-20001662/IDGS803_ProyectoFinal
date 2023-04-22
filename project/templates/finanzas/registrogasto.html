@@ -21,20 +21,23 @@
     <form method="POST" action="/finanzas/registrogasto">
 
       <div class="field">
+        <label class="label">Descripción:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="descripcion" placeholder="Descripción" autofocus="" required>
+          <input class="input is-medium is-info" type="text" name="descripcion" pattern="[a-zA-Z]+" title="Solo se admiten letras" required autofocus>
         </div>
       </div>
 
       <div class="field">
+        <label class="label">Costo Mensual:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="number" name="costo" placeholder="Costo mensual" autofocus="" required>
+          <input class="input is-medium is-info" type="number" name="costo" step="any" min=1 max=1000000 required pattern="[0-9\.]*" title="Solo se permiten números">
         </div>
       </div>
 
       <div class="field">
+        <label class="label">Fecha de pago:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="date" name="fecha" placeholder="DD/MM/AAAA" autofocus="" min="2020-01-01" max="{{ fecha_actual }}" required>
+          <input class="input is-medium is-info" type="date" name="fecha" min="2020-01-01" max="{{ fecha_actual }}" required>
         </div>
       </div>
 

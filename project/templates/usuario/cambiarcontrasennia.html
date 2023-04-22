@@ -21,21 +21,21 @@
       <div class="field">
         <label class="label">ID:</label>
         <div class="control">
-            <input class="input is-large is-info" type="text" name="id" value="{{id}}" autofocus="" readonly>
+            <input class="input is-large is-info" type="text" name="id" value="{{id}}" autofocus readonly>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Correo Electrónico:</label>
         <div class="control">
-          <input class="input is-large is-info" type="email" name="correo" value="{{correo}}" autofocus="" readonly>
+          <input class="input is-large is-info" type="email" name="correo" value="{{correo}}"  readonly>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Nueva contrasennia:</label>
         <div class="control">
-          <input class="input is-large is-info" type="password" name="contrasennia">
+          <input class="input is-large is-info" type="password" name="contrasennia" pattern="^[a-zA-Z0-9]+$" title="Solo se admiten letras y números" required>
         </div>
       </div>
       <button class="button is-block is-danger is-medium is-fullwidth">Cambiar</button>

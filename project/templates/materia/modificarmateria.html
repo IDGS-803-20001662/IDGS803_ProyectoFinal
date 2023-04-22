@@ -30,14 +30,14 @@
       <div class="field">
         <label class="label">Nombre:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="nombre" style="text-transform: uppercase;" maxlength="20" value="{{nombre}}">
+          <input class="input is-medium is-info" type="text" name="nombre" style="text-transform: uppercase;" maxlength="20" value="{{nombre}}" autofocus pattern="[a-zA-Z]+" title="Solo se admiten letras" required>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Descripción:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="descripcion" style="text-transform: uppercase;" maxlength="100" value="{{descripcion}}">
+          <input class="input is-medium is-info" type="text" name="descripcion" style="text-transform: uppercase;" maxlength="100" value="{{descripcion}}" pattern="[A-Za-z0-9.]*" required>
         </div>
       </div>
 
@@ -49,7 +49,7 @@
           </span>
         </p>
         <p class="control is-expanded">
-          <input class="input is-medium is-info" type="number" min="1" max="1000"  name="precio" step="any" value="{{precio}}">
+          <input class="input is-medium is-info" type="number" min="1" max="1000"  name="precio" step="any" value="{{precio}}" required pattern="[0-9\.]*" title="Solo se permiten números">
         </p>
       </div>
 
@@ -57,7 +57,7 @@
         <label class="label">Perecidad esperada:</label>
         <div class="control">
             <div class="select is-rounded">
-                <select name="perecidad" id="perecidad">
+                <select name="perecidad" id="perecidad" required>
                   <option value="{{perecidad}}" selected>{{perecidad}}</option>
                   <option value="DIARIA">Diaria</option>
                   <option value="TERCER DIA">Cada tercer día</option>
@@ -77,21 +77,21 @@
       <div class="field">
         <label class="label">Stock:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="number" name="cant_min" min="1" max="1000" step="1" value="{{stock}}">
+          <input class="input is-medium is-info" type="number" name="cant_min" min="1" max="1000" step="1" value="{{stock}}" pattern="\d+" title="Solo se admiten números" required>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Cantidad Mínima:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="number" name="cant_min" min="1" max="1000" step="1" value="{{cant_min}}">
+          <input class="input is-medium is-info" type="number" name="cant_min" min="1" max="1000" step="1" value="{{cant_min}}" pattern="\d+" title="Solo se admiten números" required>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Cantidad Máxima:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="number" name="cant_max" min="1" max="1000" step="1" value="{{cant_max}}">
+          <input class="input is-medium is-info" type="number" name="cant_max" min="1" max="1000" step="1" value="{{cant_max}}" pattern="\d+" title="Solo se admiten números" required>
         </div>
       </div>
 
@@ -99,7 +99,7 @@
         <label class="label">Unidad de medida:</label>
         <div class="control">
             <div class="select is-rounded">
-                <select name="medida" id="medida">
+                <select name="medida" id="medida" required>
                   <option value="{{medida}}" selected>{{medida}}</option>
                   <option value="KG">Kilogramos</option>
                   <option value="GR">Gramos</option>
@@ -117,7 +117,7 @@
         <label class="label">Proveedor:</label>
         <div class="control">
             <div class="select is-rounded">
-                <select name="proveedor" id="proveedor">
+                <select name="proveedor" id="proveedor" required>
                     <option value="{{proveedor_id}}" selected>{{proveedor_empresa}}</option>
                     {%for row in proveedores%}
                     <option value="{{row.id}}">{{row.empresa}}</option>
