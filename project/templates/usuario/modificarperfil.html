@@ -22,28 +22,28 @@
       <div class="field">
         <label class="label">Nombre:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="nombre" value="{{nombre}}" style="text-transform: uppercase;" maxlength="20" minlength="2">
+          <input class="input is-medium is-info" type="text" name="nombre" value="{{nombre}}" style="text-transform: uppercase;" maxlength="20" minlength="2" pattern="[a-zA-Z ]+" title="Solo se admiten letras" required autofocus>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Apellido Paterno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_paterno" value="{{apellido_paterno}}" style="text-transform: uppercase;" maxlength="30" minlength="2">
+          <input class="input is-medium is-info" type="text" name="apellido_paterno" value="{{apellido_paterno}}" style="text-transform: uppercase;" maxlength="30" minlength="2" pattern="[a-zA-Z ]+" title="Solo se admiten letras" required>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Apellido Materno:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="apellido_materno" value="{{apellido_materno}}" style="text-transform: uppercase;" maxlength="30" minlength="2">
+          <input class="input is-medium is-info" type="text" name="apellido_materno" value="{{apellido_materno}}" style="text-transform: uppercase;" maxlength="30" minlength="2" pattern="[a-zA-Z ]+" title="Solo se admiten letras" required>
         </div>
       </div>
 
       <div class="field">
         <label class="label">Domicilio:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="domicilio" value="{{domicilio}}" style="text-transform: uppercase;" maxlength="150" minlength="2">
+          <input class="input is-medium is-info" type="text" name="domicilio" value="{{domicilio}}" style="text-transform: uppercase;" maxlength="150" minlength="2" pattern="[A-Za-z0-9.#\s\-]*" title="No se admiten símbolos ajenos al domicilio">
         </div>
       </div>
 
@@ -57,7 +57,7 @@
       <div class="field">
         <label class="label">Teléfono:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="telefono" value="{{telefono}}" autofocus="" maxlength="10" minlength="10">
+          <input class="input is-medium is-info" type="text" name="telefono" value="{{telefono}}" autofocus="" maxlength="10" pattern="\d+" title="Solo se admiten números">
         </div>
       </div>
 

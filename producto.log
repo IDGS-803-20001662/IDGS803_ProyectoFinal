@@ -1,0 +1,83 @@
+2023-04-22 09:51:42,893 - producto - DEBUG - Se registró el producto PRODUCTO por el usuario admin@sushicat.com
+2023-04-22 10:01:08,127 - producto - WARNING - Se eliminó el producto PRODUCTO1 por el usuario admin@sushicat.com
+2023-04-22 10:01:10,795 - producto - WARNING - Se eliminó el producto PLATILLO2 por el usuario admin@sushicat.com
+2023-04-22 10:01:13,410 - producto - WARNING - Se eliminó el producto PRODUCTO por el usuario admin@sushicat.com
+2023-04-22 10:01:13,418 - producto - CRITICAL - El módulo de Productos no ha cargado la información de los productos
+2023-04-22 10:03:13,178 - producto - CRITICAL - El módulo de Productos no ha cargado la información de los productos
+2023-04-22 10:31:55,225 - producto - CRITICAL - El módulo de Productos no ha cargado la información de los productos
+2023-04-22 10:39:17,688 - producto - DEBUG - Se registró el producto ZARPAS por el usuario admin@sushicat.com
+2023-04-22 10:40:39,968 - producto - DEBUG - Se registró el producto RUFINO por el usuario admin@sushicat.com
+2023-04-22 10:41:52,927 - producto - DEBUG - Se registró el producto VERDI por el usuario admin@sushicat.com
+2023-04-22 10:43:46,511 - producto - DEBUG - Se registró el producto CHILI por el usuario admin@sushicat.com
+2023-04-22 10:45:22,258 - producto - DEBUG - Se registró el producto MANCHAS por el usuario admin@sushicat.com
+2023-04-22 10:46:30,275 - producto - DEBUG - Se registró el producto  NEMO por el usuario admin@sushicat.com
+2023-04-22 10:47:30,380 - producto - DEBUG - Se registró el producto CUKI por el usuario admin@sushicat.com
+2023-04-22 10:48:43,044 - producto - DEBUG - Se registró el producto RIO por el usuario admin@sushicat.com
+2023-04-22 10:49:55,146 - producto - DEBUG - Se registró el producto MUSHU por el usuario admin@sushicat.com
+2023-04-22 10:50:51,967 - producto - DEBUG - Se registró el producto PELUSO por el usuario admin@sushicat.com
+2023-04-22 11:11:58,135 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:12:11,099 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:12:33,118 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:12:56,809 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:13:07,647 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:13:26,443 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:13:37,086 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:13:52,775 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:14:13,919 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:14:25,504 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 4 por el usuario admin@sushicat.com
+2023-04-22 11:15:13,067 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:15:48,400 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:16:06,322 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:16:20,444 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:16:32,638 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:16:45,752 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:17:03,366 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:17:15,544 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:17:28,069 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:17:41,353 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 5 por el usuario admin@sushicat.com
+2023-04-22 11:18:30,089 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 6 por el usuario admin@sushicat.com
+2023-04-22 11:18:39,329 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 6 por el usuario admin@sushicat.com
+2023-04-22 11:18:54,625 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 6 por el usuario admin@sushicat.com
+2023-04-22 11:19:05,989 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 6 por el usuario admin@sushicat.com
+2023-04-22 11:19:30,498 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 6 por el usuario admin@sushicat.com
+2023-04-22 11:20:15,036 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 6 por el usuario admin@sushicat.com
+2023-04-22 11:20:29,684 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 6 por el usuario admin@sushicat.com
+2023-04-22 11:20:47,023 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 6 por el usuario admin@sushicat.com
+2023-04-22 11:25:35,671 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 6 por el usuario admin@sushicat.com
+2023-04-22 11:26:01,356 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 7 por el usuario admin@sushicat.com
+2023-04-22 11:26:10,506 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 7 por el usuario admin@sushicat.com
+2023-04-22 11:26:21,708 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 7 por el usuario admin@sushicat.com
+2023-04-22 11:26:32,973 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 7 por el usuario admin@sushicat.com
+2023-04-22 11:26:47,389 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 7 por el usuario admin@sushicat.com
+2023-04-22 11:27:01,148 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 7 por el usuario admin@sushicat.com
+2023-04-22 11:27:22,887 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 7 por el usuario admin@sushicat.com
+2023-04-22 11:27:34,256 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 7 por el usuario admin@sushicat.com
+2023-04-22 11:27:53,282 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 7 por el usuario admin@sushicat.com
+2023-04-22 11:31:25,177 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:31:35,824 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:31:45,336 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:32:01,847 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:32:13,163 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:32:31,931 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:32:41,460 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:33:00,094 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:33:15,459 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:33:33,812 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:33:49,033 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:34:00,610 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:34:08,628 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 8 por el usuario admin@sushicat.com
+2023-04-22 11:36:47,250 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 9 por el usuario admin@sushicat.com
+2023-04-22 11:36:55,298 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 9 por el usuario admin@sushicat.com
+2023-04-22 11:37:02,163 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 9 por el usuario admin@sushicat.com
+2023-04-22 11:37:13,161 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 9 por el usuario admin@sushicat.com
+2023-04-22 11:37:24,717 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 9 por el usuario admin@sushicat.com
+2023-04-22 11:37:40,922 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 10 por el usuario admin@sushicat.com
+2023-04-22 11:37:58,380 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 11 por el usuario admin@sushicat.com
+2023-04-22 11:38:29,975 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 12 por el usuario admin@sushicat.com
+2023-04-22 11:38:45,823 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 13 por el usuario admin@sushicat.com
+2023-04-22 11:40:22,101 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 13 por el usuario admin@sushicat.com
+2023-04-22 11:40:24,645 - producto - WARNING - Se eliminó un ingrediente en el producto 13 por el usuario admin@sushicat.com
+2023-04-22 12:09:02,041 - producto - DEBUG - Se registró el producto TOSTADILLAS DE PULPO por el usuario admin@sushicat.com
+2023-04-22 12:11:49,068 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 14 por el usuario admin@sushicat.com
+2023-04-22 12:12:02,161 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 14 por el usuario admin@sushicat.com
+2023-04-22 12:12:13,528 - producto - DEBUG - Se registró un nuevo ingrediente en el producto 14 por el usuario admin@sushicat.com

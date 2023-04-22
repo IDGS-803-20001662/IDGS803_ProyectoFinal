@@ -10,7 +10,7 @@
     <form method="POST" action="/materia/buscarmateria">
         <div class="field has-addons">
             <div class="control">
-                <input class="input" type="text" name="parametro">
+                <input class="input" type="text" name="parametro" maxlength="100" pattern="^[a-zA-Z0-9]+$" title="Solo se admiten letras y números">
             </div>
             <div class="control">
                 <button class="button is-info">

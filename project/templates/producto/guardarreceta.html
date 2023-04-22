@@ -55,7 +55,7 @@
             <label class="label">Ingrediente:</label>
             <div class="control">
                 <div class="select is-rounded">
-                    <select name="materia_nueva" id="materia_nueva">
+                    <select name="materia_nueva" id="materia_nueva" required>
                         {%for row in materias%}
                         <option value="{{row.id}}">{{row.nombre}} ({{row.medida}})</option>
                         {%endfor%}
@@ -66,7 +66,7 @@
         <div class="field">
             <label class="label">Cantidad:</label>
             <div class="control">
-                <input class="input is-info" type="number" name="cant_nueva" min="1" max="1000" step="any">
+                <input class="input is-info" type="number" name="cant_nueva" min="1" max="1000" step="any" required pattern="[0-9\.]*" title="Solo se permiten números">
             </div>
         </div>
         <button class="button is-block is-info is-fullwidth">Guardar ingrediente</button>

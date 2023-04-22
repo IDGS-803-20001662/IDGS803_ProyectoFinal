@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
+from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app, session
 from flask_security import login_required, current_user
 from flask_security.decorators import roles_required, roles_accepted
 from flask_security import login_required
 from flask_security.utils import login_user, logout_user, hash_password, encrypt_password
-from .models import MateriaPrima, Producto, Receta
+from .models import MateriaPrima, Producto, Receta, AgregarForm, Carrito, Carrito_Producto
 from sqlalchemy import or_
 from . import db
 from werkzeug.utils import secure_filename
@@ -206,7 +206,77 @@ def eliminarproducto():
 @login_required
 @roles_required('CLIENTE')
 def catalogo():
-    productos = Producto.query.filter_by(status='1').all()
-    if not productos:
-        log.critical('El módulo de Productos no ha cargado la información de los productos')
+    productos_rs = Producto.query.filter_by(status='1').all()
+    productos = []
+    for p in productos_rs:
+         producto = p.__dict__
+         form = AgregarForm()
+         form.id_producto.data = p.id
+         producto['form'] = form
+         productos.append(producto)
     return render_template('/producto/catalogo.html', nombre=current_user.nombre, productos=productos)
+
+@producto.route('/catalogo', methods=['POST'])
+@login_required
+@roles_required('CLIENTE')
+def agregar_producto_carrito():
+    form = AgregarForm(request.form)
+    if form.validate():
+        carrito = Carrito.query.filter_by(id_user = current_user.id).first()
+        if carrito:
+             carritoTiene = carrito.carrito_tiene.filter_by(id_producto=form.id_producto.data).first()
+             if carritoTiene:
+                  carritoTiene.cantidad += form.cantidad.data
+                  db.session.commit()
+             else:
+                  carritoProducto = Carrito_Producto(id_carrito = carrito.id,
+                                                    id_producto = form.id_producto.data,
+                                                    cantidad = form.cantidad.data)
+                  db.session.add(carritoProducto)
+                  db.session.commit()
+        else:
+            carrito = Carrito(id_user=current_user.id)
+            db.session.add(carrito)
+            db.session.commit()
+            carritoProducto = Carrito_Producto(id_carrito = carrito.id,
+                                            id_producto = form.id_producto.data,
+                                            cantidad = form.cantidad.data)
+            db.session.add(carritoProducto)
+            db.session.commit()
+    return redirect(url_for('producto.catalogo'))
+
+
+@producto.route("/productos")
+@login_required
+@roles_required('CLIENTE')
+def lista_productos():
+	productos = Producto.query.filter_by(status='1').all()
+	return render_template('catalogo.html',productos = productos)
+
+@producto.route("/productos/<id_producto>")
+@login_required
+@roles_required('CLIENTE')
+def desc_producto(id_producto):
+	producto = Producto.query.get(id_producto)
+	form = AgregarForm()
+	return render_template('desc_producto.html',producto = producto, form = form)
+
+@producto.route("/agregar/<id_producto>", methods=['GET', 'POST'])
+@login_required
+@roles_required('CLIENTE')
+def agregar(id_producto):
+	form = AgregarForm()
+	if form.validate_on_submit():
+		sumatotal = 0
+
+		productos = session['productos']
+		producto_nombre = db.session.query(Producto).filter(Producto.id == id).first()
+		producto = [id_producto, producto_nombre.nombre, form.cantidad.data, producto_nombre.precio, form.cantidad.data*producto_nombre.precio, sumatotal, producto_nombre.url]
+		productos.append(producto)
+		session['productos'] = productos
+		cantidad = form.cantidad.data
+		producto = Producto.query.get(id_producto)
+		return render_template('carrito.html', productos = session['productos'])
+		productos = Producto.query.all()
+	return render_template('catalogo.html',productos = productos)
+

@@ -3,7 +3,7 @@ from flask_security import login_required, current_user
 from flask_security.decorators import roles_required, roles_accepted
 from flask_security import login_required
 from flask_security.utils import login_user, logout_user, hash_password, encrypt_password
-from .models import MateriaPrima, Producto, Receta, Pedido, User, DetallePedido, Compra, Venta
+from .models import MateriaPrima, Producto, Receta, Pedido, User, DetallePedido, Compra, Venta, Carrito, AgregarForm
 from sqlalchemy import or_
 from . import db
 from werkzeug.utils import secure_filename
@@ -396,3 +396,174 @@ def cancelarpedidoprov():
         log.warning('El pedido {} cambió al estatus de cancelado por el usuario {}'.format(pedido.id, current_user.email))
         return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 
+
+
+#CARRITO DE COMPRAS
+
+@pedido.route("/carrito")
+@login_required
+@roles_required("CLIENTE")
+def verCarrito():
+    carrito = Carrito.query.filter_by(id_user = current_user.id).first()
+    productos = []
+    if carrito:
+        productos_rs = carrito.carrito_tiene.all()
+        for p in productos_rs:
+            producto = p.producto.__dict__
+            form = AgregarForm()
+            form.id_producto.data = p.producto.id
+            form.cantidad.data = p.cantidad
+            form.save.label.text = "Modificar"
+            producto['form'] = form
+            productos.append(producto)
+    return render_template('/producto/carrito.html', nombre=current_user.nombre, productos=productos)
+
+
+@pedido.route("/carrito", methods=['POST'])
+@login_required
+@roles_required("CLIENTE")
+def editarProductoCarrito():
+    form = AgregarForm(request.form)
+    if form.validate():
+        carrito = Carrito.query.filter_by(id_user = current_user.id).first()
+        if carrito:
+             carritoTiene = carrito.carrito_tiene.filter_by(id_producto=form.id_producto.data).first()
+             if carritoTiene:
+                  carritoTiene.cantidad = form.cantidad.data
+                  db.session.commit()
+                  flash('Cantidad modificada', 'success')
+    return redirect(url_for('pedido.verCarrito'))
+
+
+@pedido.route("/carrito/eliminiar<int:id_producto>")
+@login_required
+@roles_required("CLIENTE")
+def eliminarProductoCarrito(id_producto):
+    carrito = Carrito.query.filter_by(id_user = current_user.id).first()
+    if carrito:
+        carritoTiene = carrito.carrito_tiene.filter_by(id_producto=id_producto).first()
+        if carritoTiene:
+            db.session.delete(carritoTiene)
+            db.session.commit()
+
+    return redirect(url_for('pedido.verCarrito'))
+
+@pedido.route("/realizarpedidocliente", methods=['POST'])
+@login_required
+@roles_required("CLIENTE")
+def realizarpedidocliente():
+    #Se obtiene el carrito del usuario actual
+    carrito = Carrito.query.filter_by(id_user = current_user.id).first()
+    # Se obtiene la lista de productos del carrito
+    # Carrito_Producto que está en models
+    productos = carrito.carrito_tiene.all()
+    # Si quieres acceder a los productos y su cantidad debes de 
+    # hacer esto
+
+    # COMPROBACIÓN DE STOCK 
+
+    pedido_realizable =  False
+    prod_impedimento = ""
+    for producto in productos:
+        producto_id =  producto.producto.id
+        cantidad_producto = producto.cantidad
+
+        prod = Producto.query.filter_by(id=producto_id).first()
+        recetas = Receta.query.filter_by(producto_id=prod.id).all()
+
+        for receta in recetas:
+            materia = db.session.query(MateriaPrima).filter(MateriaPrima.id == receta.materia_prima.id).first()
+            if int(materia.stock) < int(receta.cantidad * cantidad_producto):
+                pedido_realizable = False
+                log.debug('El pedido por el cliente {} no se puede realizar por el producto {}'.format(current_user.email, prod.nombre))
+            else:
+                pedido_realizable = True
+            
+    if pedido_realizable:
+        # CREACIÓN DEL PEDIDO
+        if request.form.get('tipo_entrega') == "1":
+            entrega = True
+        else:
+            entrega = False
+        pedido = Pedido(usuario_id=current_user.id,
+                        domicilio_entrega = request.form.get('domicilio_entrega').upper(),
+                        tipo_entrega = entrega,
+                        forma_pago = True,
+                        total=0,
+                        tipo_pedido=True)
+        db.session.add(pedido)
+        db.session.commit()
+        log.debug('Se registró un nuevo pedido por el usuario {}'.format(current_user.email))
+
+        ultimo_pedido = Pedido.query.order_by(Pedido.id.desc()).first()
+
+        #CREACION DE LOS DETALLES PEDIDO
+        sum = 0
+        for producto in productos:
+            det = DetallePedido(pedido_id = ultimo_pedido.id,
+                                producto_id = producto.producto.id,
+                                cantidad = producto.cantidad,
+                                subtotal = int(producto.producto.precio) * int(producto.cantidad))
+            db.session.add(det)
+            db.session.commit()
+            sum = sum + int(producto.producto.precio) * int(producto.cantidad)
+            log.debug('Se registró el detalle {} en el pedido {} por el usuario {}'.format(det.producto.nombre, ultimo_pedido.id, current_user.email))
+
+            # MODIFICACIÓN DEL TOTAL
+            ultimo_pedido.total = sum
+            db.session.add(ultimo_pedido)
+            db.session.commit()
+
+            pedido = db.session.query(Pedido).filter(Pedido.id == ultimo_pedido.id).first()
+
+    return redirect(url_for('main.index'))
+
+
+@pedido.route("/mispedidos")
+@login_required
+@roles_accepted('CLIENTE')
+def mispedidos():
+    pedidos = Pedido.query.filter_by(usuario_id = current_user.id).all()
+    if not pedidos:
+        log.critical('El módulo de Pedidos no ha cargado la información de los pedidos')
+    return render_template("/pedido/mispedidos.html", pedidos=pedidos)
+
+@pedido.route("/misdetalles", methods = ['GET', 'POST'])
+@login_required
+@roles_accepted('CLIENTE')
+def misdetalles():
+    if request.method == "GET":
+        id =  request.args.get('id')
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+        fecha_val= pedido.fecha + timedelta(minutes=10)
+        print(fecha_val)
+        mostrar = 0
+        if fecha_actual < fecha_val:
+            mostrar = 1
+        
+        if not detalles:
+            log.critical('El módulo de Pedidos no ha cargado los detalles de pedido')
+    
+    return render_template("/pedido/misdetalles.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
+
+@pedido.route("/cancelarmipedido", methods = ['GET', 'POST'])
+@login_required
+@roles_required("CLIENTE")
+def cancelarmipedido():
+    if request.method == "GET":
+        id=request.args.get("id")
+        pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
+        detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+        fecha_actual = datetime.now()
+        fecha_val= pedido.fecha + timedelta(minutes=10)
+        print(fecha_val)
+        mostrar = 0
+        if fecha_val > fecha_actual:
+            mostrar = 1
+        pedido.status = "0"
+        db.session.add(pedido)
+        db.session.commit()
+        log.warning('El pedido {} cambió al estatus de cancelado por el usuario {}'.format(pedido.id, current_user.email))
+        return render_template("/pedido/misdetalles.html", pedido=pedido, detalles=detalles, mostrar=mostrar)

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% from '_macros.html' import render_field %}
+
+{% if not productos %}
+<style>
+  h2{
+    color: black;
+    font-size: 2em;
+  }
+</style>
+<div class="has-text-centered">
+  <h2>No tienes productos en tu carrito, ¡ve nuestro menú y pídelos!</h2>
+</div>
+{% endif %}
+<div class="columns is-multiline">
+  {% for producto in productos %}
+  <div class="column is-one-third">
+    <div class="card">
+      <div class="card-image">
+        <div class="container pt-1">
+          <img src="data:image/png;base64,{{producto['url']}}" alt="{{producto['nombre']}}" style="height: 300px;">
+        </div>
+        <span class="card-title">{{producto['nombre']}}</span>
+      </div>
+      <div class="card-content">
+        <p><strong>Descripción:</strong> {{producto['descripcion']}}</p>
+        <p><strong>Precio:</strong> {{producto['precio']}}</p>
+        <form method="post" action="">
+          {{ producto['form'].hidden_tag() }}
+          <label class="label">Cantidad a ordenar:</label>
+          {{ producto['form'].cantidad(class="input is-medium is-info") }}
+          {{ producto['form'].id_producto(class="btn btn-primary") }} <br> <br>
+          {{ producto['form'].save(class="button is-block is-info is-medium is-fullwidth") }} <br>
+        </form>
+        <a class="button is-block is-danger is-medium is-fullwidth" href="{{ url_for('pedido.eliminarProductoCarrito', id_producto=producto['id'])}}">Eliminar</a>
+      </div>
+      <br>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% if productos %}
+<form method="POST" action="/pedido/realizarpedidocliente">
+  <div class="field">
+    <label class="label">Domicilio de entrega:</label>
+    <div class="control">
+      <input class="input is-medium is-info" type="text" name="domicilio_entrega" style="text-transform: uppercase;" maxlength="150" pattern="^[A-Za-z0-9\-#\.]+$" title="No se admiten símbolos ajenos al domicilio">
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Tipo de entrega:</label>
+    <div class="control">
+        <div class="select is-rounded">
+            <select name="tipo_entrega" required>
+              <option value=1>Domicilio</option>
+              <option value=0>Recoger en restaurante</option>
+            </select>
+        </div>
+    </div>
+  </div>
+  <button class="button is-success is-large">Realizar pedido</button>
+</form>
+
+{% endif %}
+
+{% endblock %}

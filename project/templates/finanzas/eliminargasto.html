@@ -21,26 +21,30 @@
     <form method="POST" action="/finanzas/eliminargasto">
 
       <div class="field">
+        <label class="label">ID:</label>
         <div class="control">
-            <input class="input is-medium is-info" type="text" name="id" placeholder="ID" value="{{id}}" autofocus="" readonly>
+            <input class="input is-medium is-info" type="text" name="id" value="{{id}}" autofocus readonly>
         </div>
       </div>
 
       <div class="field">
+        <label class="label">Descripción:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="text" name="descripcion" placeholder="Descripción" value="{{descripcion}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="text" name="descripcion" value="{{descripcion}}" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label class="label">Costo Mensual:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="number" name="costo" placeholder="Costo" value="{{costo}}" autofocus="" readonly>
+          <input class="input is-medium is-info" type="number" name="costo" value="{{costo}}" readonly>
         </div>
       </div>
 
       <div class="field">
+        <label class="label">Fecha de realización pago:</label>
         <div class="control">
-          <input class="input is-medium is-info" type="date" name="fecha" placeholder="DD/MM/AAAA" value="{{fecha}}" autofocus="" min="2020-01-01" max="{{ fecha_actual }}" required readonly>
+          <input class="input is-medium is-info" type="date" name="fecha" value="{{fecha}}" min="2020-01-01" max="{{ fecha_actual }}" required readonly>
         </div>
       </div>
 

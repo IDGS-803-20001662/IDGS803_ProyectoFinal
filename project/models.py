@@ -1,7 +1,10 @@
 from . import db
+from flask_wtf import FlaskForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import UserMixin, RoleMixin
 import datetime
+from wtforms import StringField, PasswordField, BooleanField, IntegerField, HiddenField, SubmitField
+from wtforms.validators import DataRequired, NumberRange
 
 roles_users = db.Table('roles_users',
         db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
@@ -89,6 +92,10 @@ class Producto(db.Model):
     create_date = db.Column(db.DateTime, default = datetime.datetime.now)
     receta = db.relationship("Receta", back_populates="producto")
     detalle_pedido = db.relationship("DetallePedido", back_populates="producto")
+    producto_en = db.relationship('Carrito_Producto', backref='Producto', lazy='dynamic')
+    def __repr__(self):
+	
+      return '<Producto %r>' % (self.nombre)
 
 class Gasto(db.Model):
     __tablename__ = 'gasto'
@@ -147,4 +154,30 @@ class DetallePedido(db.Model):
     producto = db.relationship("Producto", back_populates="detalle_pedido")
     materia_prima = db.relationship("MateriaPrima", back_populates="detalle_pedido")
 
+class Carrito(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	id_user = db.Column(db.Integer, db.ForeignKey('user.id'))
+	carrito_tiene = db.relationship('Carrito_Producto', backref='Carrito', lazy='dynamic')
 
+	# def __init__(self, id_user):
+	# 	self.id_user = id_user
+	# 	self.fecha = datetime.now()
+
+	def __repr__(self):
+		return '<Carrito %r>' % (self.id)
+
+class Carrito_Producto(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	id_carrito = db.Column(db.Integer, db.ForeignKey('carrito.id'))
+	id_producto = db.Column(db.Integer, db.ForeignKey('producto.id'))
+	cantidad = db.Column(db.Integer)
+	producto = db.relationship('Producto', lazy=True, uselist=False)
+
+	def __repr__(self):
+		return '<Carrito_Producto %r>' % (self.id)
+        
+class AgregarForm(FlaskForm):
+    cantidad = IntegerField("Cantidad", validators=[DataRequired("Se requiere la cantidad"),
+                                                     NumberRange(min=1, message="El valor debe de ser igual o mayor a 1")])
+    id_producto = HiddenField('id producto')
+    save = SubmitField('Agregar')

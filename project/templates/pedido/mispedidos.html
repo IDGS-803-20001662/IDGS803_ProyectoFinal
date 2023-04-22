@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="title">Mis Pedidos</h3><br>
+<br>
+<div class="columns is-mobile is-centered">
+    <table class="table is-striped is-fullwidth is-narrow is-hoverable">
+    <thead>
+         <tr>
+            <th>Fecha</th>
+            <th>Domicilio</th>
+            <th>Entrega</th>
+            <th>Pago</th>
+            <th>Total</th>
+            <th>Estatus</th>
+            <th>Detalles</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for row in pedidos%}
+        <tr>
+            <td class="is-vcentered">{{row.fecha}}</td>
+            <td class="is-vcentered">{{row.domicilio_entrega}}</td>
+            {%if row.tipo_entrega == True%}
+            <td class="is-vcentered">A Domicilio</td>
+            {%endif%}
+            {%if row.tipo_entrega == False%}
+            <td class="is-vcentered">En Restaurante</td>
+            {%endif%}
+            {%if row.forma_pago == True%}
+            <td class="is-vcentered">Efectivo</td>
+            {%endif%}
+            {%if row.forma_pago == False%}
+            <td class="is-vcentered">Transferencia</td>
+            {%endif%}
+            <td class="is-vcentered">${{row.total}}</td>
+            {%if row.status == 1%}
+            <td class="is-vcentered has-text-primary-dark">Registrado</td>
+            {%endif%}
+            {%if row.status == 2%}
+            <td class="is-vcentered has-text-warning-dark">En proceso</td>
+            {%endif%}
+            {%if row.status == 3%}
+            <td class="is-vcentered has-text-info-dark">Entregado</td>
+            {%endif%}
+            {%if row.status == 0%}
+            <td class="is-vcentered has-text-danger-dark">Cancelado</td>
+            {%endif%}
+            <td class="is-vcentered"><a href="misdetalles?id={{row.id}}" class="button is-primary">Detalles</a></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+</div>
+
+{% endblock %}

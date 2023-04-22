@@ -142,15 +142,6 @@ def eliminarmateria():
     if request.method == 'POST':
         id = request.form.get('id')
         mat = db.session.query(MateriaPrima).filter(MateriaPrima.id == id).first()
-        mat.nombre = request.form.get('nombre').upper()
-        mat.descripcion = request.form.get('descripcion').upper()
-        mat.perecidad = request.form.get('perecidad').upper()
-        mat.stock = request.form.get('stock')
-        mat.cant_min = request.form.get('cant_min')
-        mat.cant_max = request.form.get('cant_max')
-        mat.medida = request.form.get('medida').upper()
-        mat.precio = request.form.get('precio')
-        mat.proveedor_id = request.form.get('proveedor')
         mat.status = False
         db.session.add(mat)
         db.session.commit()

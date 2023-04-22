@@ -1,0 +1,59 @@
+2023-04-22 08:39:53,292 - pedido - DEBUG - Se registró un nuevo pedido por el usuario citla_med@hotmail
+2023-04-22 08:42:14,634 - pedido - DEBUG - Se registró un nuevo pedido por el usuario citla_med@hotmail
+2023-04-22 08:42:58,257 - pedido - DEBUG - Se registró un nuevo pedido por el usuario citla_med@hotmail
+2023-04-22 08:42:58,290 - pedido - DEBUG - Se registró el detalle PRODUCTO1 en el pedido 11 por el usuario citla_med@hotmail
+2023-04-22 08:42:58,315 - pedido - DEBUG - Se registró el detalle PLATILLO2 en el pedido 11 por el usuario citla_med@hotmail
+2023-04-22 08:45:30,996 - pedido - DEBUG - Se registró un nuevo pedido por el usuario citla_med@hotmail
+2023-04-22 08:45:31,026 - pedido - DEBUG - Se registró el detalle PRODUCTO1 en el pedido 12 por el usuario citla_med@hotmail
+2023-04-22 08:45:31,046 - pedido - DEBUG - Se registró el detalle PLATILLO2 en el pedido 12 por el usuario citla_med@hotmail
+2023-04-22 09:01:49,431 - pedido - DEBUG - Se registró un nuevo pedido por el usuario citla_med@hotmail
+2023-04-22 09:01:49,464 - pedido - DEBUG - Se registró el detalle PRODUCTO1 en el pedido 13 por el usuario citla_med@hotmail
+2023-04-22 09:01:49,482 - pedido - DEBUG - Se registró el detalle PLATILLO2 en el pedido 13 por el usuario citla_med@hotmail
+2023-04-22 09:06:26,205 - pedido - DEBUG - Se registró un nuevo pedido por el usuario citla_med@hotmail
+2023-04-22 09:06:26,229 - pedido - DEBUG - Se registró el detalle PRODUCTO1 en el pedido 14 por el usuario citla_med@hotmail
+2023-04-22 09:06:26,253 - pedido - DEBUG - Se registró el detalle PLATILLO2 en el pedido 14 por el usuario citla_med@hotmail
+2023-04-22 09:13:05,390 - pedido - DEBUG - El pedido por el cliente citla_med@hotmail no se puede realizar por el producto PRODUCTO1
+2023-04-22 09:13:05,394 - pedido - DEBUG - El pedido por el cliente citla_med@hotmail no se puede realizar por el producto PLATILLO2
+2023-04-22 09:13:05,404 - pedido - DEBUG - El pedido por el cliente citla_med@hotmail no se puede realizar por el producto PLATILLO2
+2023-04-22 09:26:27,301 - pedido - CRITICAL - El módulo de Pedidos no ha cargado los detalles de pedido
+2023-04-22 09:32:10,080 - pedido - DEBUG - Se registró un nuevo pedido por el usuario citla_med@hotmail
+2023-04-22 09:32:10,154 - pedido - DEBUG - Se registró el detalle PRODUCTO1 en el pedido 15 por el usuario citla_med@hotmail
+2023-04-22 09:32:10,188 - pedido - DEBUG - Se registró el detalle PLATILLO2 en el pedido 15 por el usuario citla_med@hotmail
+2023-04-22 09:32:17,565 - pedido - WARNING - El pedido 15 cambió al estatus de cancelado por el usuario citla_med@hotmail
+2023-04-22 09:49:24,285 - pedido - DEBUG - Se registró un nuevo pedido por el usuario citla_med@hotmail
+2023-04-22 09:49:24,315 - pedido - DEBUG - Se registró el detalle PRODUCTO1 en el pedido 16 por el usuario citla_med@hotmail
+2023-04-22 09:49:24,347 - pedido - DEBUG - Se registró el detalle PLATILLO2 en el pedido 16 por el usuario citla_med@hotmail
+2023-04-22 09:49:55,230 - pedido - WARNING - El pedido 16 cambió al estatus de cancelado por el usuario citla_med@hotmail
+2023-04-22 09:50:14,572 - pedido - DEBUG - El pedido 12 cambió al estatus de preparación por el usuario citla@gmail.com
+2023-04-22 10:05:02,455 - pedido - CRITICAL - El módulo de Pedidos no ha cargado la información de los pedidos
+2023-04-22 11:59:13,390 - pedido - DEBUG - Se registró un nuevo pedido por el usuario cardiel@usuario.com
+2023-04-22 11:59:13,446 - pedido - DEBUG - Se registró el detalle ZARPAS en el pedido 17 por el usuario cardiel@usuario.com
+2023-04-22 11:59:13,469 - pedido - DEBUG - Se registró el detalle RUFINO en el pedido 17 por el usuario cardiel@usuario.com
+2023-04-22 12:01:42,082 - pedido - CRITICAL - El módulo de Pedidos no ha cargado la información de los pedidos
+2023-04-22 12:02:09,518 - pedido - CRITICAL - El módulo de Pedidos no ha cargado la información de los pedidos
+2023-04-22 12:13:05,574 - pedido - DEBUG - El pedido 17 cambió al estatus de preparación por el usuario citla@gmail.com
+2023-04-22 12:13:30,714 - pedido - DEBUG - El pedido 17 cambió al estatus de entregado por el usuario citla@gmail.com
+2023-04-22 12:13:30,725 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,735 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,744 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,756 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,765 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,773 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,785 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,793 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,805 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,815 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,828 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,839 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,846 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,852 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,859 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,865 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,871 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,877 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,884 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,891 - pedido - DEBUG - Se modificó el stock en insumos por la entrega del pedido 17
+2023-04-22 12:13:30,897 - pedido - DEBUG - Se registró la venta del pedido 17 por el usuario citla@gmail.com
+2023-04-22 12:22:37,164 - pedido - CRITICAL - El módulo de Pedidos no ha cargado la información de los pedidos
+2023-04-22 12:22:46,616 - pedido - DEBUG - Se registró el pedido 18 por el usuario alex@gmail.com
+2023-04-22 12:22:46,625 - pedido - DEBUG - Se registró el detalle PEPINO en el pedido 18 por el usuario alex@gmail.com

@@ -1,1 +1,11 @@
 2023-04-22 00:01:34,210 - proveedor - DEBUG - Se registró el proveedor PROVEEDOR3 por el usuario admin@sushicat.com
+2023-04-22 10:03:22,054 - proveedor - WARNING - Se eliminó el proveedor PROVEDOR1 por el usuario admin@sushicat.com
+2023-04-22 10:03:24,448 - proveedor - WARNING - Se eliminó el proveedor PROVEDOR2 por el usuario admin@sushicat.com
+2023-04-22 10:03:27,237 - proveedor - WARNING - Se eliminó el proveedor PROVEEDOR3 por el usuario admin@sushicat.com
+2023-04-22 10:03:27,250 - proveedor - CRITICAL - El módulo de Proveedores no ha cargado la información de los proveedores
+2023-04-22 10:03:41,128 - proveedor - CRITICAL - El módulo de Proveedores no ha cargado la información de los proveedores
+2023-04-22 10:05:47,937 - proveedor - CRITICAL - El módulo de Proveedores no ha cargado la información de los proveedores
+2023-04-22 10:24:27,685 - proveedor - DEBUG - Se registró el proveedor TOYO FOOTS por el usuario admin@sushicat.com
+2023-04-22 10:26:30,695 - proveedor - DEBUG - Se registró el proveedor ASIAN STORE por el usuario admin@sushicat.com
+2023-04-22 10:28:04,408 - proveedor - DEBUG - Se registró el proveedor MARISQUERIA SALMON por el usuario admin@sushicat.com
+2023-04-22 10:29:29,317 - proveedor - DEBUG - Se registró el proveedor VERDULERIA MARQUEZ por el usuario admin@sushicat.com

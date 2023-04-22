@@ -1,0 +1,77 @@
+2023-04-22 10:01:14,661 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:02:25,971 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:02:59,711 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:03:01,623 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:03:04,357 - materia - WARNING - Se eliminó la materia INSUMO1 por el usuario admin@sushicat.com
+2023-04-22 10:03:04,371 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:03:06,727 - materia - WARNING - Se eliminó la materia INSUMO2 por el usuario admin@sushicat.com
+2023-04-22 10:03:06,741 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:03:40,702 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:51:37,363 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:54:01,892 - materia - DEBUG - Se registró la materia ARROZ SUSHI por el usuario admin@sushicat.com
+2023-04-22 10:54:01,907 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:55:07,146 - materia - DEBUG - Se registró la materia VINAGRE DE ARROZ por el usuario admin@sushicat.com
+2023-04-22 10:55:07,162 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:55:58,729 - materia - DEBUG - Se registró la materia AZUCAR por el usuario admin@sushicat.com
+2023-04-22 10:55:58,737 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:56:34,759 - materia - DEBUG - Se registró la materia SAL por el usuario admin@sushicat.com
+2023-04-22 10:56:34,775 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:57:25,495 - materia - DEBUG - Se registró la materia ALGAS  por el usuario admin@sushicat.com
+2023-04-22 10:57:25,509 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:58:30,912 - materia - DEBUG - Se registró la materia LOMO DE ATUN por el usuario admin@sushicat.com
+2023-04-22 10:58:30,926 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 10:59:24,600 - materia - DEBUG - Se registró la materia CEBOLLETA por el usuario admin@sushicat.com
+2023-04-22 10:59:24,615 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:00:27,944 - materia - DEBUG - Se registró la materia PEPINO por el usuario admin@sushicat.com
+2023-04-22 11:00:27,958 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:01:46,146 - materia - DEBUG - Se registró la materia RAYU por el usuario admin@sushicat.com
+2023-04-22 11:01:46,159 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:02:28,920 - materia - DEBUG - Se registró la materia MAYONESSA por el usuario admin@sushicat.com
+2023-04-22 11:02:28,936 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:04:13,237 - materia - DEBUG - Se registró la materia FILETE DE POLLO  por el usuario admin@sushicat.com
+2023-04-22 11:04:13,251 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:05:18,460 - materia - DEBUG - Se registró la materia TORTILLA TAMAGOYAKI por el usuario admin@sushicat.com
+2023-04-22 11:05:18,475 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:06:19,912 - materia - DEBUG - Se registró la materia SALSA TERIYAKI por el usuario admin@sushicat.com
+2023-04-22 11:06:19,929 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:10:10,024 - materia - DEBUG - Se registró la materia AGUACATE por el usuario admin@sushicat.com
+2023-04-22 11:10:10,037 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:10:57,592 - materia - DEBUG - Se registró la materia NABO por el usuario admin@sushicat.com
+2023-04-22 11:10:57,607 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:20:54,943 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:21:47,814 - materia - DEBUG - Se registró la materia MANGO por el usuario admin@sushicat.com
+2023-04-22 11:21:47,829 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:22:30,704 - materia - DEBUG - Se registró la materia SALSA SIRACHA por el usuario admin@sushicat.com
+2023-04-22 11:22:30,720 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:23:46,915 - materia - ERROR - Error al registrar la materia SEMILLAS DE SESAMO por el usuario admin@sushicat.com, el stock es inválido
+2023-04-22 11:24:29,191 - materia - DEBUG - Se registró la materia SEMILLAS DE SESAMO por el usuario admin@sushicat.com
+2023-04-22 11:24:29,204 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:25:10,634 - materia - DEBUG - Se registró la materia SURIMI por el usuario admin@sushicat.com
+2023-04-22 11:25:10,648 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:27:58,387 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:28:44,329 - materia - DEBUG - Se registró la materia LECHUGA por el usuario admin@sushicat.com
+2023-04-22 11:28:44,343 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:29:27,204 - materia - DEBUG - Se registró la materia WASABI por el usuario admin@sushicat.com
+2023-04-22 11:29:27,218 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:30:15,598 - materia - DEBUG - Se registró la materia JENGIBRE por el usuario admin@sushicat.com
+2023-04-22 11:30:15,615 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:34:24,737 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:35:41,694 - materia - DEBUG - Se registró la materia SALMO por el usuario admin@sushicat.com
+2023-04-22 11:35:41,704 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:36:24,458 - materia - DEBUG - Se registró la materia CAMARON por el usuario admin@sushicat.com
+2023-04-22 11:36:24,474 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 11:40:27,425 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:05:24,098 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:06:20,995 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:09:17,186 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:10:00,261 - materia - DEBUG - Se registró la materia TOSTADAS por el usuario admin@sushicat.com
+2023-04-22 12:10:00,269 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:11:25,808 - materia - DEBUG - Se registró la materia PULPO por el usuario admin@sushicat.com
+2023-04-22 12:11:25,815 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:12:26,218 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:14:16,657 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:15:56,194 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:16:10,681 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:22:35,702 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:23:07,933 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
+2023-04-22 12:23:12,708 - materia - CRITICAL - El módulo de Materias no ha cargado la información de las materias o proveedores
