@@ -1,0 +1,6 @@
+2023-04-21 21:55:53,644 - auth - ERROR - Usuario admin@sushicat.com no encontrado
+2023-04-21 22:46:25,991 - auth - DEBUG - Usuario admin@sushicat.com logueado como Administrador
+2023-04-21 22:46:44,979 - auth - DEBUG - Usuario admin@sushicat.com cerró su sesión
+2023-04-21 22:47:07,948 - auth - DEBUG - Usuario admin@sushicat.com logueado como Administrador
+2023-04-21 22:47:11,296 - auth - DEBUG - Usuario admin@sushicat.com cerró su sesión
+2023-04-22 00:01:08,321 - auth - DEBUG - Usuario admin@sushicat.com logueado como Administrador

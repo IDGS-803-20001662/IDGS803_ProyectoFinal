@@ -7,8 +7,11 @@ from .models import Gasto
 from sqlalchemy import or_, create_engine, text
 import datetime
 from . import db
+from .logg import Logger
 
 finanzas = Blueprint('finanzas', __name__, url_prefix='/finanzas')
+log = Logger("finanzas")
+             
 fecha_actual = datetime.datetime.now().strftime('%Y-%m-%d')
 annio_actual = datetime.datetime.now().year
 
@@ -19,6 +22,8 @@ engine = create_engine('mysql+mysqldb://gestor_sushicat:sushicatadmin@localhost/
 @roles_accepted('ADMINISTRADOR')
 def vercostos():
     gastos = Gasto.query.filter_by(status='1').all()
+    if not gastos:
+        log.critical('El módulo de Finanzas no ha cargado la información de los gastos')
     return render_template('/finanzas/gastos.html', gastos = gastos, annio_actual = annio_actual)
 
 @finanzas.route("/gastosinactivos")
@@ -26,6 +31,8 @@ def vercostos():
 @roles_accepted('ADMINISTRADOR')
 def vercostosinactivos():
     gastos = Gasto.query.filter_by(status='0').all()
+    if not gastos:
+        log.critical('El módulo de Finanzas no ha cargado la información de los gastos inactivos')
     return render_template('/finanzas/gastosinactivos.html', gastos = gastos)
 
 @finanzas.route("/buscargasto", methods=["GET", "POST"])
@@ -44,6 +51,9 @@ def buscargasto():
             Gasto.fecha.ilike(f'%{parametro}%'),
         )).all()
 
+        if not gastos:
+            log.exception('El módulo de Finanzas no ha cargado la información de los gastos coincidentes')
+
     return render_template('/finanzas/gastosencontrados.html', gastos = gastos)
 
 @finanzas.route('/registrogasto', methods = ['GET', 'POST'])
@@ -51,11 +61,12 @@ def buscargasto():
 @roles_required('ADMINISTRADOR')
 def registrogasto():
     if request.method == 'POST':
-        gasto1 = Gasto(descripcion = request.form.get('descripcion'),
+        gasto1 = Gasto(descripcion = request.form.get('descripcion').upper(),
                        costo = request.form.get('costo'),
                        fecha = request.form.get('fecha'))
         db.session.add(gasto1)
         db.session.commit()
+        log.debug('Se registró el gasto {} por el usuario {}'.format(request.form.get('descripcion'), current_user.email))
         return redirect(url_for("finanzas.vercostos"))
     
     return render_template('/finanzas/registrogasto.html', fecha_actual = fecha_actual)
@@ -72,11 +83,12 @@ def modificargasto():
     if request.method == 'POST':
         id = request.form.get('id')
         gasto1 = db.session.query(Gasto).filter(Gasto.id == id).first()
-        gasto1.descripcion = request.form.get('descripcion')
+        gasto1.descripcion = request.form.get('descripcion').upper()
         gasto1.costo = request.form.get('costo')
         gasto1.fecha = request.form.get('fecha')
         db.session.add(gasto1)
         db.session.commit()
+        log.warning('Se modificó el gasto {} por el usuario {}'.format(request.form.get('descripcion'), current_user.email))
         return redirect(url_for("finanzas.vercostos"))
     
     return render_template("/finanzas/modificargasto.html", id=gasto1.id, descripcion=gasto1.descripcion, costo=gasto1.costo,
@@ -95,11 +107,12 @@ def eliminar():
         id = request.form.get('id')
         gasto1 = db.session.query(Gasto).filter(Gasto.id == id).first()
         gasto1.descripcion = request.form.get('descripcion')
-        gasto1.costo = request.form.get('costo')
+        gasto1.costo = request.form.get('costo').upper()
         gasto1.fecha = request.form.get('fecha')
         gasto1.status = False
         db.session.add(gasto1)
         db.session.commit()
+        log.warning('Se eliminó el gasto {} por el usuario {}'.format(request.form.get('descripcion'), current_user.email))
         return redirect(url_for("finanzas.vercostos"))
     
     return render_template("/finanzas/eliminargasto.html", id=gasto1.id, descripcion=gasto1.descripcion, costo=gasto1.costo,
@@ -120,4 +133,7 @@ def ganancias():
             connection.commit()
         finally:
             connection.close()
+        
+        if not reporte:
+            log.exception('El módulo de Finanzas no ha cargado la información del reporte correspondiente')
     return render_template("/finanzas/ganancias.html", reporte = reporte, annio = annio)

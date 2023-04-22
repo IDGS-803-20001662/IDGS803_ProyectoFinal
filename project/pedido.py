@@ -10,8 +10,10 @@ from werkzeug.utils import secure_filename
 import os
 import base64
 from datetime import datetime, timedelta
+from .logg import Logger
 
 pedido = Blueprint('pedido', __name__, url_prefix='/pedido')
+log = Logger("pedido")
 
 # ADMINISTRACION GENERAL DE PEDIDOS DE CLIENTES
 @pedido.route("/pedidoscliente")
@@ -19,6 +21,8 @@ pedido = Blueprint('pedido', __name__, url_prefix='/pedido')
 @roles_accepted('ADMINISTRADOR','VENDEDOR')
 def pedidoscliente():
     pedidos = Pedido.query.filter_by(tipo_pedido = "1").all()
+    if not pedidos:
+        log.critical('El módulo de Pedidos no ha cargado la información de los pedidos')
     return render_template("/pedido/pedidoscliente.html", pedidos=pedidos)
 
 #Buscar por estatus
@@ -30,6 +34,8 @@ def pedidosestatuscliente():
         parametro =  request.form['parametro']
         print(parametro)
         pedidos = Pedido.query.filter_by(tipo_pedido = "1", status=parametro).all()
+        if not pedidos:
+            log.critical('El módulo de Pedidos no ha cargado la información de los pedidos por estatus de {}'.format(parametro))
 
         return render_template("/pedido/pedidosestatuscliente.html", pedidos=pedidos)
 
@@ -42,6 +48,8 @@ def pedidosentregacliente():
         parametro =  request.form['parametro']
         print(parametro)
         pedidos = Pedido.query.filter_by(tipo_pedido = "1",tipo_entrega=parametro).all()
+        if not pedidos:
+            log.critical('El módulo de Pedidos no ha cargado la información de los pedidos por entrega de {}'.format(parametro))
 
         return render_template("/pedido/pedidosentregacliente.html", pedidos=pedidos)
 
@@ -59,6 +67,9 @@ def detallescliente():
         mostrar = 0
         if fecha_actual > fecha_val:
             mostrar = 1
+        
+        if not detalles:
+            log.critical('El módulo de Pedidos no ha cargado los detalles de pedido')
 
     if request.method == 'POST':
         return redirect(url_for("pedido.pedidoscliente"))
@@ -82,6 +93,7 @@ def prepararpedidocliente():
         pedido.status = "2"
         db.session.add(pedido)
         db.session.commit()
+        log.debug('El pedido {} cambió al estatus de preparación por el usuario {}'.format(pedido.id, current_user.email))
         return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 
 @pedido.route("/entregarpedidocliente", methods = ['GET', 'POST'])
@@ -102,6 +114,7 @@ def entregarpedidocliente():
         pedido.status = "3"
         db.session.add(pedido)
         db.session.commit()
+        log.debug('El pedido {} cambió al estatus de entregado por el usuario {}'.format(pedido.id, current_user.email))
 
         # MODIFICAR STOCK
         for detalle in detalles:
@@ -113,6 +126,7 @@ def entregarpedidocliente():
                 materia.stock = materia.stock - (receta.cantidad * detalle.cantidad)
                 db.session.add(materia)
                 db.session.commit()
+                log.debug('Se modificó el stock en insumos por la entrega del pedido {}'.format(pedido.id))
         
         # AGREGAR VENTA EFECTUADA
         venta = Venta(pedido_id=pedido.id,
@@ -120,6 +134,7 @@ def entregarpedidocliente():
                         total=pedido.total)
         db.session.add(venta)
         db.session.commit()
+        log.debug('Se registró la venta del pedido {} por el usuario {}'.format(pedido.id, current_user.email))
 
         return render_template("/pedido/detallescliente.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 
@@ -132,6 +147,8 @@ def entregarpedidocliente():
 @roles_accepted('ADMINISTRADOR','ALMACENISTA')
 def pedidosprov():
     pedidos = Pedido.query.filter_by(tipo_pedido = "0").all()
+    if not pedidos:
+        log.critical('El módulo de Pedidos no ha cargado la información de los pedidos')
     return render_template("/pedido/pedidosprov.html", pedidos=pedidos)
 
 #Buscar por estatus
@@ -143,6 +160,9 @@ def pedidosestatusprov():
         parametro =  request.form['parametro']
         print(parametro)
         pedidos = Pedido.query.filter_by(tipo_pedido = "0", status=parametro).all()
+
+        if not pedidos:
+            log.critical('El módulo de Pedidos no ha cargado la información de los pedidos por estatus de {}'.format(parametro))
 
         return render_template("/pedido/pedidosestatusprov.html", pedidos=pedidos)
 
@@ -161,6 +181,8 @@ def detallesprov():
         if fecha_val > fecha_actual:
             mostrar = 1
 
+        if not detalles:
+            log.critical('El módulo de Pedidos no ha cargado los detalles de pedido')
 
     if request.method == 'POST':
         return redirect(url_for("pedido.pedidosprov"))
@@ -185,6 +207,7 @@ def registrardetalleprov():
                         tipo_pedido=False)
             db.session.add(ped)
             db.session.commit()
+            log.debug('Se registró el pedido {} por el usuario {}'.format(ped.id, current_user.email))
 
             # REGISTRO DE PRIMER DETALLE DE PEDIDO
             ultimo_pedido = Pedido.query.order_by(Pedido.id.desc()).first()
@@ -196,6 +219,7 @@ def registrardetalleprov():
                                 subtotal = materia.precio)
             db.session.add(det)
             db.session.commit()
+            log.debug('Se registró el detalle {} en el pedido {} por el usuario {}'.format(det.materia_prima.nombre, ultimo_pedido.id, current_user.email))
 
             # MODIFICACIÓN DEL TOTAL
             ultimo_pedido.total = materia.precio
@@ -208,6 +232,7 @@ def registrardetalleprov():
 
         else:
             flash("La cantidad solicitada sobrepasará el stock máximo del insumo")
+            log.error('El detalle de pedido excede el stock por lo que no se puede registrar')
             return redirect(url_for("/pedido/registrarpedidoprov"), materias=materias)
         
 @pedido.route("/modificardetalleprov", methods = ['GET', 'POST'])
@@ -234,6 +259,8 @@ def modificardetalleprov():
             db.session.add(det)
             db.session.commit()
 
+            log.debug('Se registró el detalle {} en el pedido {} por el usuario {}'.format(det.materia_prima.nombre, pedido.id, current_user.email))
+
             # MODIFICACIÓN DEL TOTAL
             pedido.total = pedido.total + materia.precio
             db.session.add(pedido)
@@ -244,6 +271,7 @@ def modificardetalleprov():
 
         else:
             flash("La cantidad solicitada sobrepasará el stock máximo del insumo")
+            log.error('El detalle de pedido excede el stock por lo que no se puede registrar')
             return redirect(url_for('pedido.modificarpedidoprov', id=id_pedido))
         
 @pedido.route("/eliminardetalleprov/<int:id>", methods = ["GET"])
@@ -260,6 +288,7 @@ def eliminardetalleprov(id):
         db.session.add(pedido)
         db.session.commit()
 
+        log.warning('Se eliminó el detalle {} en el pedido {} por el usuario {}'.format(detalle.materia_prima.nombre, pedido.id, current_user.email))
         db.session.delete(detalle)
         db.session.commit()
 
@@ -306,6 +335,7 @@ def hacerpedidoprov():
         pedido.status = "2"
         db.session.add(pedido)
         db.session.commit()
+        log.debug('El pedido {} cambió al estatus de realizar por el usuario {}'.format(pedido.id, current_user.email))
         return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
     
 @pedido.route("/entregarpedidoprov", methods = ['GET', 'POST'])
@@ -326,6 +356,7 @@ def entregarpedidoprov():
         pedido.status = "3"
         db.session.add(pedido)
         db.session.commit()
+        log.debug('El pedido {} cambió al estatus de entregado por el usuario {}'.format(pedido.id, current_user.email))
 
         # MODIFICAR STOCK
         for detalle in detalles:
@@ -333,6 +364,7 @@ def entregarpedidoprov():
             mat.stock = detalle.cantidad + mat.stock
             db.session.add(mat)
             db.session.commit()
+            log.warning('Se modificó el stock de los insumos por el usuario {}'.format(current_user.email))
         
         # AGREGAR COMPRA EFECTUADA
         compra = Compra(pedido_id=pedido.id,
@@ -340,6 +372,7 @@ def entregarpedidoprov():
                         total=pedido.total)
         db.session.add(compra)
         db.session.commit()
+        log.debug('El pedido {} se registró como una compra por el usuario {}'.format(pedido.id, current_user.email))
 
         return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
     
@@ -360,5 +393,6 @@ def cancelarpedidoprov():
         pedido.status = "0"
         db.session.add(pedido)
         db.session.commit()
+        log.warning('El pedido {} cambió al estatus de cancelado por el usuario {}'.format(pedido.id, current_user.email))
         return render_template("/pedido/detallesprov.html", pedido=pedido, detalles=detalles, mostrar=mostrar)
 

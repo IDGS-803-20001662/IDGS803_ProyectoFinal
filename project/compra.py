@@ -6,14 +6,18 @@ from flask_security.utils import login_user, logout_user, hash_password, encrypt
 from .models import Compra, Pedido, DetallePedido
 from sqlalchemy import or_
 from . import db
+from .logg import Logger
 
 compra = Blueprint("compra", __name__, url_prefix='/compra')
+log = Logger('compra')
 
 @compra.route("/compras")
 @login_required
 @roles_accepted('ADMINISTRADOR','ALMACENISTA')
 def compras():
     compras = Compra.query.all()
+    if not compras:
+        log.critical('El módulo de Compras no ha cargado la información de compras')
     return render_template("/compra/compras.html", compras=compras)
 
 @compra.route("/buscarcompra", methods = ['GET', 'POST'])
@@ -32,6 +36,9 @@ def buscarcompra():
             Compra.user_id.ilike(f'%{parametro}%'),
             Compra.total.ilike(f'%{parametro}%')
         )).all()
+
+        if not compras:
+            log.exception('El módulo de Compras no ha cargado la información de compras encontradas por no coincidentes')
     return render_template("compra/comprasencontradas.html", compras=compras)
 
 @compra.route("/verdetalles", methods = ['GET'])
@@ -42,5 +49,8 @@ def verdetalles():
         id=request.args.get("id")
         pedido = db.session.query(Pedido).filter(Pedido.id == id).first()
         detalles = DetallePedido.query.filter_by(pedido_id=id).all()
+
+        if not detalles:
+            log.critical('El módulo de Compras no ha cargado los detalles de pedido')
 
     return render_template("/compra/verdetalles.html", pedido=pedido, detalles=detalles)
